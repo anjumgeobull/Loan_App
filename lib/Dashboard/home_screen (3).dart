@@ -6,6 +6,7 @@ import '../../../Helper/SizedConfig.dart';
 import '../Helper/globle style.dart';
 import '../Profile/my_profile.dart';
 import '../Splash_Screen/car_assistants.dart';
+import '../VehicleSearch/VehicleSearch.dart';
 import 'Car_details_page.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Item(name: 'Latest Car', imageUrl: 'assets/images/latestcar.png'),
     Item(name: 'RBI Repo Rate', imageUrl: 'assets/images/reporate.png'),
     Item(name: 'RTO Address', imageUrl: 'assets/images/rtoaddress.png'),
-    Item(name: 'Used Car loan', imageUrl: 'assets/images/carloan.png'),
+    Item(name: 'Used Car loan', imageUrl: 'assets/images/car_loan.png'),
     Item(name: 'CIBIL', imageUrl: 'assets/images/cibil.png'),
   ];
   late String name = "loading",
@@ -156,45 +157,52 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
-              const Padding(
-                padding: EdgeInsets.only(left: 10.0),
-                child: Text(
-                  "Best Offer For You :",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: TextColor,
-                      fontSize: 15,
-                      fontFamily: 'InterRegular'),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Center(
-                  child: CarouselSlider(
-                    items: [
-                      Image.asset('assets/images/img_13.png'),
-                      Image.asset('assets/images/img_14.png'),
-                      Image.asset('assets/images/img_15.png'),
-                    ],
-                    options: CarouselOptions(
-                      height: 200,
-                      enableInfiniteScroll: true,
-                      autoPlay: true,
-                      enlargeCenterPage: true,
+              // SizedBox(height: 15),
+              // const Padding(
+              //   padding: EdgeInsets.only(left: 10.0),
+              //   child: Text(
+              //     "Best Offer For You :",
+              //     style: TextStyle(
+              //         fontWeight: FontWeight.w600,
+              //         color: TextColor,
+              //         fontSize: 15,
+              //         fontFamily: 'InterRegular'),
+              //   ),
+              // ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                child: Container(
+                  // width: double.infinity,
+                  //  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Center(
+                    child: CarouselSlider(
+
+                      items: [
+                        Image.asset('assets/images/carbanner.jpg'),
+                        Image.asset('assets/images/carbanner2.jpg'),
+
+                      ],
+                      // options: CarouselOptions(
+                      //   height: 200,
+                      //   enableInfiniteScroll: true,
+                      //   autoPlay: true,
+                      //   enlargeCenterPage: true,
+                      // ),
+                      options: CarouselOptions(  autoPlay: true,
+                        viewportFraction: 1,
+                        enlargeCenterPage: true,
+                      ),
                     ),
                   ),
                 ),
               ),
 
 
-
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Container(
                   child:
                   Row(
@@ -210,7 +218,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           elevation: 4.0,
                           child: Padding(
                             padding: EdgeInsets.all(16.0),
-                            child: Row(
+                            child:
+                            Row(
                               children: [
                                 Image.asset(
                                   'assets/images/img_18.png',
@@ -272,136 +281,259 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.only(left: 8.0,right: 8.0),
             child: Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child:
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Check Your Eligibility Criteria:",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: TextColor,
-                            fontSize: 15,
-                            fontFamily: 'InterRegular',
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                              builder: (context) => CheckCriteriaWithBot(),
-                            ));
-                          },
-                          icon: AvatarGlow(
-                            glowColor:themeColor,
-                            endRadius: 120,
-                            duration: Duration(milliseconds: 2000),
-                            repeat: true,
-                            showTwoGlows: true,
-                            curve: Curves.easeOutQuad,
-                            child: Container(
-                              padding: EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.question_mark,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-              GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  childAspectRatio: 1,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      switch (index) {
-                        case 1:
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) => EMICalculatorUI()));
-                          break;
-                        case 0:
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (BuildContext context) => CarAssistant()));
-                          break;
-                      }
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Image.asset(
-                          items[index].imageUrl,
-                          width: 35.0,
-                          height: 35.0,
-                          fit: BoxFit.cover,
-                        ),
-                        SizedBox(height: 6.0),
-                        Text(
-                          items[index].name,
-                          style: TextStyle(fontSize: 15.0),
-                            textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                  );
-                },
-                itemCount: items.length,
-              ),
-
               Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            'assets/images/call.gif',
-                            width: 120,
-                            height: 150,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Text(
-                              "Our Team will call you soon...",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: themeColor,
-                              ),
-                            ),
-                          ),
-                          // SizedBox(
-                          //   height: 5,
-                          // ),
-                        ],
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Check Your Eligibility Criteria:",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: TextColor,
+                        fontSize: 15,
+                        fontFamily: 'InterRegular',
                       ),
                     ),
-                  ),
-                ],
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => CheckCriteriaWithBot(),
+                        ));
+                      },
+                      icon: AvatarGlow(
+                        glowColor:themeColor,
+                        endRadius: 120,
+                        duration: Duration(milliseconds: 2000),
+                        repeat: true,
+                        showTwoGlows: true,
+                        curve: Curves.easeOutQuad,
+                        child: Container(
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.question_mark,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
+
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child:
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                      ),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          childAspectRatio: 1,
+                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              switch (index) {
+                                case 1:
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) => EMICalculatorUI()));
+                                  break;
+                                case 0:
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) => VehicleSearchScreen()));
+                                  break;
+                                case 2:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                                case 3:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                                case 4:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                                case 5:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+
+                                  );
+                                  break;
+                                case 6:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                                case 7:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+
+                              }
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Image.asset(
+                                  items[index].imageUrl,
+                                  width: 35.0,
+                                  height: 35.0,
+                                  fit: BoxFit.cover,
+                                ),
+                                SizedBox(height: 6.0),
+                                Text(
+                                  items[index].name,
+                                  style: TextStyle(fontSize: 15.0),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        itemCount: items.length,
+                      ),
+
+                      // Padding(
+                      //   padding: const EdgeInsets.all(10.0),
+                      //   child: Card(
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(15.0),
+                      //     ),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.start,
+                      //       children: [
+                      //         Image.asset(
+                      //           'assets/images/call.gif',
+                      //           width: 120,
+                      //           height: 150,
+                      //         ),
+                      //         SizedBox(
+                      //           width: 10,
+                      //         ),
+                      //         Expanded(
+                      //           child: Text(
+                      //             "Our Team will call you soon...",
+                      //             style: TextStyle(
+                      //               fontSize: 20,
+                      //               fontWeight: FontWeight.bold,
+                      //               color: themeColor,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //         // SizedBox(
+                      //         //   height: 5,
+                      //         // ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/images/call.gif',
+                        width: 120,
+                        height: 150,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Text(
+                          "Our Team will call you soon...",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: themeColor,
+                          ),
+                        ),
+                      ),
+                      // SizedBox(
+                      //   height: 5,
+                      // ),
+                    ],
+                  ),
+                ),
+              ),
           ],
           ),
         ),
