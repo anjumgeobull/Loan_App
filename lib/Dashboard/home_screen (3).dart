@@ -1,10 +1,16 @@
+import 'dart:async';
+import 'dart:developer';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:core';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../../Helper/SizedConfig.dart';
+import '../Controller/VehicleDetailedController.dart';
 import '../Helper/globle style.dart';
+import '../Helper/sign_In_dailog.dart';
 import '../Profile/my_profile.dart';
+import 'package:get/get.dart';
 import '../Splash_Screen/car_assistants.dart';
 import '../VehicleSearch/VehicleSearch.dart';
 import 'Car_details_page.dart';
@@ -89,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Item(name: 'Used Car loan', imageUrl: 'assets/images/car_loan.png'),
     Item(name: 'CIBIL', imageUrl: 'assets/images/cibil.png'),
   ];
-  late String name = "loading",
+  late String vehicleNo = "MH12TY5476",
       emailid = "loading",
       mobile_no = "loading",
       dob = "";
@@ -97,14 +103,19 @@ class _HomeScreenState extends State<HomeScreen> {
   String image = "assets/images/img_10.png";
   late File icon_img;
   late File pickedImageFile;
+
   TextEditingController car_number = TextEditingController();
+
   FocusNode userNameFocus = FocusNode();
   bool isIconSelected = false;
+  final vehicleScreenController = Get.find<VehicleDetailedController>();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+   // vehicleScreenController.getVehicleDetailsSearchData(vehicletxt.text);
+
   }
 
   @override
@@ -193,8 +204,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     children: [
                       Expanded(
+
                         child: TextField(
                           controller: car_number,
+
                           decoration: InputDecoration(
                             hintText: 'Enter vehicle number',
                             filled: true,
@@ -207,8 +220,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.search,
-                          onSubmitted: (value) {
-                            // Perform search action here
+                          onChanged: (value) {
+                            setState(() {
+                              vehicleNo=vehicletxt.text;
+                              log("$vehicleNo");
+                            });
                           },
                         ),
                       ),
@@ -219,13 +235,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //     builder: (context) => CarDetailScreen()));
-                          Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => CarDetailScreen()));
-                          // Perform search action here
-                        },
+
+                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => CarDetailScreen()));
+                         // vehicleScreenController.getVehicleDetailsSearchData(vehicleNo);
+                          showDialog(context: context,
+                              builder: (context) {
+                            return SignInConfirmationDialog();
+                          }
+                          );
+                         AddtoMycar(context);
+                          },
+
                       ),
+
                     ],
                   ),
                 ),
@@ -477,7 +499,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,bottom: 10),
+                child: Text(
+                  "Services",
+                  style:TextStyle(color: Colors.black54,fontSize: 15,fontWeight: FontWeight.bold),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Card(
@@ -487,9 +515,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   child:
                   Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                      ),
                       GridView.builder(
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -685,4 +710,207 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+
+  // void _showaccoutCraeteDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: const Text("Create account",style: TextStyle(
+  //           color: themeColor,
+  //           fontSize: 20,
+  //           fontWeight: FontWeight.bold
+  //         ),),
+  //         content: const Text("Do want to create account?",style: TextStyle(
+  //             color: themeColor,
+  //             fontSize: 18,
+  //             fontWeight: FontWeight.bold
+  //         ),),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             onPressed: () => Navigator.of(context).pop(),
+  //             child: const Text("Yes",style: TextStyle(
+  //                 color: themeColor,
+  //                 fontSize: 15,
+  //                 fontWeight: FontWeight.bold
+  //             ),),
+  //           ),
+  //           TextButton(
+  //             onPressed: () {
+  //
+  //               Navigator.of(context).pop();
+  //             },
+  //             child: const Text("No",style: TextStyle(
+  //                 color: themeColor,
+  //                 fontSize: 15,
+  //                 fontWeight: FontWeight.bold
+  //             ),),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  //
+  // }
+
+  void AddtoMycar(context) {
+    Future.delayed(Duration(seconds: 5)).then((value) => showModalBottomSheet<void>(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+      backgroundColor: Colors.white,
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(builder: (context, state) {
+          int selectedRadio = 0;
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topRight,
+                  child:
+
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.cancel_outlined,
+                      size: 30,
+                    ),
+                  ),
+                ),
+                Divider(color: Colors.grey.shade300),
+                Center(
+                  child: Image.asset(
+                    "assets/images/car.png",
+                    width: 100,
+                    height: 100,
+                  ),
+                ),
+                SizedBox(height: 15
+                  ,),
+                Center(
+                  child: const Text('Mark this as your car',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold)),
+                ),
+                SizedBox(height: 15
+                  ,),
+
+                const Text(
+                  'Get important remainders like insurance '
+                      'and pollution expiry, upload your '
+                      'vehicle documents securly and get exclusive offers ',
+                  style:
+                  TextStyle(fontSize: 14, color:Colors.grey,
+                      fontWeight: FontWeight.normal),
+                ),
+
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 200,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                topLeft: Radius.circular(20),
+                              ),
+                              color: Colors.grey[200],
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 0.7,
+                              ),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                "Not My Vehicle",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Fluttertoast.showToast(msg: 'Added in to my vehicle'
+                                , backgroundColor: Colors.grey,);
+
+
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 200,
+                            decoration:  BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                topLeft: Radius.circular(20),
+
+                              ),
+                              color: Colors.grey[200],
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 0.7,
+                              ),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                "My Vehicle",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+
+                ),
+
+
+              ],
+            ),
+          );
+        });
+      },
+    ));
+
+
+  }
+
+
+
 }

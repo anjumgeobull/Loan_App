@@ -6,6 +6,7 @@ import '../../Helper/SizedConfig.dart';
 import '../../Helper/globle style.dart';
 
 import '../Dashboard/home_screen (3).dart';
+import '../Dashboard/otpScreen.dart';
 import '../Helper/commen_textField.dart';
 import '../HomePage.dart';
 
@@ -31,7 +32,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   FocusNode userNameFocus = FocusNode();
   FocusNode passwordFocus = FocusNode();
   bool agreeToTerms = false;
-
+  bool isVerified = false;
+  // bool isVerified = false;
 
 
   @override
@@ -87,10 +89,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
                   Padding(
-                    padding: const EdgeInsets.all( 10.0),
+                    padding: const EdgeInsets.only(left: 2.0,top: 30),
                     child: Text(
                       "Enter Your Name",
+                      style: KH6_SemiBold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  TextFiledBorderWidget(
+                    controller: emailId,
+                    isEnabled: true,
+                    label: 'Enter your name',
+                    validator: (String) {},
+                    width: SizeConfig.screenWidth,
+                    inputType: TextInputType.text,
+                    focusNode: userNameFocus,
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 2.0),
+                    child: Text(
+                      "Enter Mobile number",
                       style: KH6_SemiBold,
                     ),
                   ),
@@ -110,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: TextFiledBorderWidget(
                             controller: mobile,
                             isEnabled: true,
-                            label: 'Enter Your Name',
+                            label: 'Enter mobile number',
                             validator: (String) {},
                             width: SizeConfig.screenWidth,
                             inputType: TextInputType.text,
@@ -118,84 +143,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                           ),
                         ),
+                                Visibility(
+                                  visible:isVerified == false ? true : false,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      _showOtpScreen(context);
+                                      setState(() {
+                                        isVerified = true;
+                                      });
+                                    },
+                                    child:
 
-                      ],
+                                    Container(
+                                      padding: EdgeInsets.symmetric(horizontal:  SizeConfig.screenWidth * 0.024,),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: kPrimaryColor)
+                                      ),
+                                      alignment: Alignment.centerRight,
+                                      child:
+                                      Text("Send OTP",
+                                          textAlign:TextAlign.right,
+                                          style:
+                                          KH7_SemiBold.copyWith(color: KWHITE_COLOR)),
+
+
+                                    ),
+
+
+                                  ),
+                                ),
+                        Visibility(
+                          visible:isVerified == true ? true : false,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal:  SizeConfig.screenWidth * 0.024,),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: kPrimaryColor)
+                            ),
+                            alignment: Alignment.centerRight,
+                            child:
+                            Text("Verified",
+                                textAlign:TextAlign.right,
+                                style:
+                                KH7_SemiBold.copyWith(color: KWHITE_COLOR)),
+
+
+                          ),
+                        ),
+                              ]
                     ),
-                  ),
 
-                  SizedBox(
-                    height: 15,
-                  ),
 
-                  Padding(
-                    padding: const EdgeInsets.only(left: 2.0),
-                    child: Text(
-                      "Enter email id",
-                      style: KH6_SemiBold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  TextFiledBorderWidget(
-                    controller: emailId,
-                    isEnabled: true,
-                    label: 'Enter email id',
-                    validator: (String) {},
-                    width: SizeConfig.screenWidth,
-                    inputType: TextInputType.text,
-                    focusNode: userNameFocus,
-                  ),
 
-                  SizedBox(
-                    height: 15,
                   ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(left: 2.0),
-                    child: Text(
-                      "Enter Mobile number",
-                      style: KH6_SemiBold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  TextFiledBorderWidget(
-                    controller: name,
-                    isEnabled: true,
-                    // isEnabled: icContactVerified,
-                    label: 'Enter Mobile number',
-                    validator: (String) {},
-                    width: SizeConfig.screenWidth,
-                    inputType: TextInputType.text,
-                    focusNode: passwordFocus,
-                  ),
-
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 2.0),
-                    child: Text(
-                      "Enter Address",
-                      style: KH6_SemiBold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  TextFiledBorderWidget(
-                    controller: password,
-                    // isEnabled: icContactVerified,
-                    isEnabled: true,
-                    label: 'Enter Address',
-                    validator: (String) {},
-                    width: SizeConfig.screenWidth,
-                    inputType: TextInputType.text,
-                    focusNode: passwordFocus,
-                  ),
-
                   SizedBox(
                     height: 10,
                   ),
@@ -222,6 +221,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ],
                     ),
+
                   ),
 
                   SizedBox(
@@ -255,11 +255,122 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   )
 
                 ],
+
+                    ),
+                  ),
+
+
+
+                ],
               ),
             )
-          ],
+
+        );
+  }
+  void _showOtpScreen(BuildContext context) async {
+    await showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            String otp = "";
+
+            return Container(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+                top: 20,
+              ),
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Enter OTP",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: themeColor,
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _otpBox(0, otp, setState),
+                        _otpBox(1, otp, setState),
+                        _otpBox(2, otp, setState),
+                        _otpBox(3, otp, setState),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    MaterialButton(
+                      color: themeColor,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+
+                      },
+                      child: Text(
+                        "Verify",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    TextButton(
+                      onPressed: () {
+                        // Resend OTP
+                      },
+                      child: Text(
+                        "Resend OTP",
+                        style: TextStyle(
+                          color: themeColor,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Widget _otpBox(int position, String otp, StateSetter setState) {
+    return SizedBox(
+      width: 50,
+      height: 50,
+      child: TextField(
+        maxLength: 1,
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 24),
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          counter: Offstage(),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey, width: 2),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue, width: 2),
+            borderRadius: BorderRadius.circular(5),
+          ),
         ),
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            otp = otp.replaceRange(position, position + 1, value);
+            if (position < 3) {
+              FocusScope.of(context).nextFocus();
+            } else {
+              FocusScope.of(context).unfocus();
+            }
+            setState(() {});
+          }
+        },
       ),
     );
   }
+
 }
