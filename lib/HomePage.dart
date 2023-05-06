@@ -15,10 +15,8 @@ class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
   List screens = <Widget>[
      HomeScreen(),
-    My_Vehicle_ListScreen(),
+      My_Vehicle_ListScreen(),
      HomeScreen(),
-
-
   ];
 
   void _onItemTapped(int index) {
