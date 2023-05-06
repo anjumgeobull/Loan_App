@@ -2,18 +2,20 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'BotProvider.dart';
+import 'package:get/get.dart';
+import 'Controller/VehicleDetailedController.dart';
 import 'Dashboard/Car_details_page.dart';
 import 'Helper/globle style.dart';
 import 'Splash_Screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-
+  Get.put(VehicleDetailedController());
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(MyApp()));
 }
 
+RxBool appStartLoader = false.obs;
 class MyApp extends  StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
@@ -29,7 +31,7 @@ class MyApp extends  StatelessWidget {
         ),
       ],
       child:
-      MaterialApp(
+      GetMaterialApp(
           debugShowCheckedModeBanner: false,
           scrollBehavior: MaterialScrollBehavior().copyWith(dragDevices: {
             PointerDeviceKind.mouse,

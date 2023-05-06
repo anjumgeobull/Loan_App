@@ -2028,4 +2028,40 @@
 //   }
 // }
 
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+//
+// class VehicleDetailController extends GetxController {
+//   var owner = "".obs;
+//
+//   void fetchData() async {
+//     // Fetch owner name from API
+//     // Assign it to owner variable
+//     owner.value = await fetchOwnerName();
+//   }
+// }
+//
+// class VehicleDetailPage extends StatelessWidget {
+//   final vehicleDetaController = Get.put(VehicleDetailController());
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Vehicle Details'),
+//       ),
+//       body: Center(
+//         child:
+//         Obx(() => Text(
+//           "${vehicleDetaController.owner}",
+//           style: TextStyle(
+//             fontSize: 20,
+//             fontWeight: FontWeight.bold,
+//             color: Colors.black,
+//           ),
+//         )),
+//       ),
+//     );
+//   }
+// }
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/types/gf_loader_type.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +15,8 @@ import '../Helper/globle style.dart';
 import '../Helper/globle style.dart';
 import '../Helper/send_button_component.dart';
 import 'Emi_calculator.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CheckCriteriaWithBot extends StatefulWidget {
   const CheckCriteriaWithBot({Key? key}) : super(key: key);
@@ -27,6 +31,14 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
   RangeValues _loanRangeValues = RangeValues(0.0, 10.0);
   late AssetsAudioPlayer audioPlayer;
   String ActiveDeactive = 'Salaride';
+
+  //upload Image
+  bool isIconSelected=false;
+  final ImagePicker _picker = ImagePicker();
+  late String profile_pic='';
+  late File icon_img;
+  late XFile pickedImageFile;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -322,6 +334,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                 ActiveDeactive = newValue!;
                                                 print("isActive==");
                                                 print(ActiveDeactive);
+                                                botProvider.employementtypeButtonVisible = true;
+                                                botProvider.employementTextVisible = false;
                                               });
                                             },
                                             items: <String>['Salaride', 'Buisnessman'].map<DropdownMenuItem<String>>((String value) {
@@ -448,8 +462,199 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                               setState(() {
                                                 sendSound();
                                                 botProvider.monthalybottonVisible = false;
-                                                botProvider.existingloanWidgetVisible = true;
+                                                botProvider.photoWidgetVisible = true;
                                                // botProvider.visibleExpericeneWidget(true);
+                                                receiveSound();
+                                              });
+                                            },
+                                            child: SendButtonComponent())),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          SlideFadeTransition(
+                            delayStart: Duration(milliseconds: 300),
+                            animationDuration: Duration(milliseconds: 1200),
+                            // curve: Curves.elasticOut,
+                            // offset: -2.5,
+
+                            child: Visibility(
+                              visible: botProvider.photoWidgetVisible ? true : false,
+                              child: Container(
+                                width: SizeConfig.screenWidth,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+
+
+
+                                    Text(
+                                      "Ok!!!...",
+                                      style: KH7_SemiBold.copyWith(height: 1.5),
+                                    ),
+                                    Text( "Please Upload Your Photo"),
+
+                                    SizedBox(
+                                      height: 7,
+                                    ),
+                                    Container(
+                                      width: botProvider.photoIconVisible
+                                          ? SizeConfig.screenWidth * 0.9
+                                          : SizeConfig.screenWidth * 0.7,
+                                      child: Column(
+                                        children: <Widget>[
+                                          isIconSelected ?
+                                          ClipRRect(
+                                            child: Image.file(File(icon_img.path), height: 100,
+                                              width: 100,),
+                                          ):
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            child:
+                                            profile_pic.isEmpty?
+                                            GestureDetector(
+                                              onTap: () {
+                                                showImageDialog();
+                                                setState(() {
+
+                                                }); //
+                                              },
+                                              child: Container(
+                                                height: 50,
+                                                width: 200,
+                                                child: Image.asset('assets/images/uploading.png'),
+                                              ),
+                                            ) :
+
+                                            CachedNetworkImage(
+                                              height: 50,
+                                              width: 200,
+                                              imageUrl: profile_pic,
+                                              placeholder: (context, url) =>
+                                                  Container(decoration: BoxDecoration(
+                                                    color: Colors.grey[400],
+                                                  )),
+                                              errorWidget: (context, url, error) => Icon(Icons.error),
+                                            ),
+                                          ),
+                                          SizedBox(height: 15,),
+
+                                        ],
+                                      )
+
+
+                                    ),
+
+
+                                    Visibility(
+                                        visible:
+                                        botProvider.photoButtonVisible ? true : false,
+                                        child: InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                sendSound();
+                                                botProvider.photoButtonVisible = false;
+                                                botProvider.existingloanWidgetVisible = true;
+                                                // botProvider.visibleExpericeneWidget(true);
+                                                receiveSound();
+                                              });
+                                            },
+                                            child: SendButtonComponent())),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          SlideFadeTransition(
+                            delayStart: Duration(milliseconds: 300),
+                            animationDuration: Duration(milliseconds: 1200),
+                            // curve: Curves.elasticOut,
+                            // offset: -2.5,
+
+                            child: Visibility(
+                              visible: botProvider.photoWidgetVisible ? true : false,
+                              child: Container(
+                                width: SizeConfig.screenWidth,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+
+
+
+                                    Text(
+                                      "Ok!!!...",
+                                      style: KH7_SemiBold.copyWith(height: 1.5),
+                                    ),
+                                    Text( "Please Upload Your Pan Card Photo"),
+
+                                    SizedBox(
+                                      height: 7,
+                                    ),
+                                    Container(
+                                        width: botProvider.photoIconVisible
+                                            ? SizeConfig.screenWidth * 0.9
+                                            : SizeConfig.screenWidth * 0.7,
+                                        child: Column(
+                                          children: <Widget>[
+                                            isIconSelected ?
+                                            ClipRRect(
+                                              child: Image.file(File(icon_img.path), height: 100,
+                                                width: 100,),
+                                            ):
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.circular(10.0),
+                                              child:
+                                              profile_pic.isEmpty?
+                                              GestureDetector(
+                                                onTap: () {
+                                                  showImageDialog();
+                                                },
+                                                child: Container(
+                                                  height: 50,
+                                                  width: 200,
+                                                  child: Image.asset('assets/images/uploading.png'),
+                                                ),
+                                              ) :
+
+                                              CachedNetworkImage(
+                                                height: 50,
+                                                width: 200,
+                                                imageUrl: profile_pic,
+                                                placeholder: (context, url) =>
+                                                    Container(decoration: BoxDecoration(
+                                                      color: Colors.grey[400],
+                                                    )),
+                                                errorWidget: (context, url, error) => Icon(Icons.error),
+                                              ),
+                                            ),
+                                            SizedBox(height: 15,),
+
+                                          ],
+                                        )
+
+
+                                    ),
+
+
+                                    Visibility(
+                                        visible:
+                                        botProvider.photoButtonVisible ? true : false,
+                                        child: InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                sendSound();
+                                                botProvider.photoButtonVisible = false;
+                                                botProvider.existingloanWidgetVisible = true;
+                                                // botProvider.visibleExpericeneWidget(true);
                                                 receiveSound();
                                               });
                                             },
@@ -650,4 +855,114 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
       ),
     );
   }
+
+  showImageDialog() async{
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+          backgroundColor: Colors.white,
+          content: Container(
+            height: 110,
+            child: Column(
+              children: <Widget>[
+                Text("Choose Profile Photo",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                  ),),
+                SizedBox(
+                  height: 20,
+
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,children:<Widget> [
+                  TextButton.icon(
+                      onPressed:(){
+                        getCameraImage();
+
+                      },
+                      icon: Icon(Icons.camera,
+                        color: Colors.black54,
+                        size: 20,),
+                      label: Text("Camera",
+                          style: TextStyle(color: Colors.black54,fontSize: 20))
+                  ),
+                  TextButton.icon(
+                      onPressed:(){
+                        getGalleryImage();
+
+                      },
+                      icon: Icon(Icons.image,
+                        color: Colors.black54,
+                        size: 20,),
+                      label: Text("Gallery",
+                          style: TextStyle(color: Colors.black54,fontSize: 20))
+                  ),
+
+                ],)
+              ],
+            ),
+
+          )
+      ),
+    ) ;
+  }
+
+  Future getCameraImage() async {
+    Navigator.of(context).pop(false);
+    var pickedFile  = await _picker.pickImage(source: ImageSource.camera);
+
+    if(pickedFile!=null){
+      pickedImageFile=pickedFile;
+
+      File selectedImg = File(pickedImageFile.path);
+
+      cropImage(selectedImg);
+    }
+  }
+
+  Future getGalleryImage() async {
+    Navigator.of(context).pop(false);
+    var pickedFile  = await _picker.pickImage(source: ImageSource.gallery);
+
+    if(pickedFile!=null){
+      pickedImageFile=pickedFile;
+
+      File selectedImg = File(pickedImageFile.path);
+
+      cropImage(selectedImg);
+    }
+  }
+
+  cropImage (File icon) async {
+
+    CroppedFile? croppedFile = (await ImageCropper().cropImage(
+        sourcePath: icon.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9
+        ],
+        uiSettings:[
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+        ]
+    ));
+
+    if(croppedFile!=null){
+      setState(() {
+        icon_img = File(croppedFile.path);
+        isIconSelected=true;
+      });
+    }
+  }
+
 }
