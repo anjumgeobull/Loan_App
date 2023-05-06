@@ -17,6 +17,7 @@ const kPrimaryColor = Colors.red;
 //const kPrimaryColor2 = Color(0xffa10d0d);
 const themeColor = Color(0xffa10d0d);
 const themelightColor = Color(0xffcf7267);
+const secondaryColor = Color(0xffF4DEB0);
 const kPrimaryColor2 = Color(0xEA2D657F);
 const kSecondaryColor = Color(0xBA2D657F);
 const klightSecondaryColor = Color(0xAB2D657F);

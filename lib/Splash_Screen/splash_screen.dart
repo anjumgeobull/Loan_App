@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import '../Dashboard/home_screen (3).dart';
+import '../Dashboard/Dashboard.dart';
 import '../Helper/SizedConfig.dart';
-import '../login/login (1).dart';
-import 'car_assistants.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -41,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   redirect() async {
     await Future.delayed(Duration.zero);
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Dashboard()));
   }
 
 }
