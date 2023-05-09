@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Helper/api_constants.dart';
+import '../Helper/api_constant.dart';
 import '../Helper/http_handler/network_http.dart';
 import '../widget/common_snackbar.dart';
 import '../widget/loading_dialog.dart';

@@ -7,15 +7,6 @@ import 'package:flutter/material.dart';
 class BotProvider with ChangeNotifier{
 
 
-
-  TextEditingController districttxt = new TextEditingController();
-  TextEditingController cityTypeTxt = new TextEditingController();
-  TextEditingController dateofbirthTxt = new TextEditingController();
-  TextEditingController employementTxt = new TextEditingController();
-  TextEditingController monthlyicomtxt = new TextEditingController();
-
-
-
   FocusNode distictfocus = FocusNode();
   FocusNode cityfocus = FocusNode();
   FocusNode dobFocus = FocusNode();
@@ -80,6 +71,26 @@ class BotProvider with ChangeNotifier{
   bool panButtonVisible = false;
   bool panIconVisible = true;
   bool panWidgetVisible = false;
+
+  //uploade Adhar Card photo
+  bool adharButtonVisible = false;
+  bool adharIconVisible = true;
+  bool adharWidgetVisible = false;
+
+  //uploade Rc Card photo
+  bool rcButtonVisible = false;
+  bool rcIconVisible = true;
+  bool rcWidgetVisible = false;
+
+  //uploade insurance Card photo
+  bool insuButtonVisible = false;
+  bool insuIconVisible = true;
+  bool insuWidgetVisible = false;
+
+  //uploade Bank Statement File
+  bool bankButtonVisible = false;
+  bool bankIconVisible = true;
+  bool bankWidgetVisible = false;
 
   double _monthlyIncome = 0.0;
 
