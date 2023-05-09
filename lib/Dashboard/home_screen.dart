@@ -109,7 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isIconSelected = false;
   String? token='';
   final vehicleScreenController = Get.find<VehicleDetailedController>();
-
+  bool is_my_vehicle=false;
+  String my_vehicle="no";
   @override
   void initState() {
     // TODO: implement initState
@@ -572,6 +573,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+    ]
+          )
+        )
+      )
+
     );
   }
 
@@ -724,10 +730,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.all(10.0),
                         child: GestureDetector(
                           onTap: () {
-                            Fluttertoast.showToast(msg: 'Added in to my vehicle'
+                            setState(() {
+                              is_my_vehicle=true;
+                              if(is_my_vehicle==true){
+                                my_vehicle="yes";
+                              }
+                              Fluttertoast.showToast(msg: 'Added in to my vehicle'
                                 , backgroundColor: Colors.grey,);
-
-
+                              vehicleScreenController.addVehicleDetails(car_number.text,my_vehicle);
+                            });
                           },
                           child: Container(
                             height: 40,
