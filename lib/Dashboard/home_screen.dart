@@ -2,15 +2,18 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:core';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:loan_app/Dashboard/Car_details_page.dart';
 import '../../../Helper/SizedConfig.dart';
+import '../Helper/String_constant.dart';
 import '../Helper/globle style.dart';
-import '../Profile/my_profile.dart';
+import '../Helper/shared_preferances.dart';
 import '../Splash_Screen/car_assistants.dart';
-import 'Car_details_page.dart';
 import 'package:avatar_glow/avatar_glow.dart';
-
+import '../login/login_screen.dart';
 import 'CheckCriteriaWithBot.dart';
 import 'Emi_calculator.dart';
+import 'package:get/get.dart';
+
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
 
@@ -38,7 +41,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       child: SafeArea(
         child: Row(
-          children: [
+          children: const [
             Expanded(
               child: Center(
                 child: Text(
@@ -51,21 +54,22 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(new MaterialPageRoute(
-                    builder: (context) => new CoustmerDetailScreen()));
-                //Profile
-              },
-              child: const Padding(
-                padding: EdgeInsets.only(right: 10.0),
-                child: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                  size: 25,
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     // Get.to(CoustmerDetailScreen());
+            //     // Navigator.of(context).push(new MaterialPageRoute(
+            //     //     builder: (context) => new CoustmerDetailScreen()));
+            //     //Profile
+            //   },
+            //   child: const Padding(
+            //     padding: EdgeInsets.only(right: 10.0),
+            //     child: Icon(
+            //       Icons.person,
+            //       color: Colors.white,
+            //       size: 25,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -99,11 +103,19 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController car_number = TextEditingController();
   FocusNode userNameFocus = FocusNode();
   bool isIconSelected = false;
+  String? token='';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    get_token();
+  }
+
+  get_token()
+  async {
+    token = await SPManager.instance.getUser(LOGIN_KEY);
+    print("token "+token.toString());
   }
 
   @override
@@ -173,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     bottomRight: Radius.circular(30),
                   ),
                   //color: themeColor,
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [themeColor, themelightColor],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -201,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 12.0),
                           ),
                           keyboardType: TextInputType.text,
@@ -212,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.search,
                           size: 40,
                           color: Colors.white,
@@ -220,8 +232,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () {
                           // Navigator.of(context).push(MaterialPageRoute(
                           //     builder: (context) => CarDetailScreen()));
-                          Navigator.of(context).push(MaterialPageRoute(
+                          if (token != null) {
+                            if(token==""){
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
+                            }
+                            else {
+                              Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => CarDetailScreen()));
+                            }
+                          }else {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                          }
                           // Perform search action here
                         },
                       ),
@@ -293,8 +316,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   width: 30.0,
                                   height: 30.0,
                                 ),
-                                SizedBox(width: 16.0),
-                                Expanded(
+                                const SizedBox(width: 16.0),
+                                const Expanded(
                                   child: Text(
                                     'NO HIDDEN CHARGE',
                                     style: TextStyle(
@@ -321,8 +344,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   width: 30.0,
                                   height: 30.0,
                                 ),
-                                SizedBox(width: 16.0),
-                                Expanded(
+                                const SizedBox(width: 16.0),
+                                const Expanded(
                                   child: Text(
                                     'OFFER FOR CUSTOMER',
                                     style: TextStyle(
@@ -369,24 +392,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             IconButton(
                               onPressed: () {
-                                Navigator.of(context)
-                                    .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => CheckCriteriaWithBot(),
-                                ));
+                                Get.to(CheckCriteriaWithBot());
                               },
-                              icon: AvatarGlow(
+                              icon:
+                              AvatarGlow(
                                 glowColor: themeColor,
                                 endRadius: 120,
-                                duration: Duration(milliseconds: 2000),
+                                duration: Duration(milliseconds: 1500),
                                 repeat: true,
                                 showTwoGlows: true,
                                 curve: Curves.easeOutQuad,
-                                child: Container(
-                                  padding: EdgeInsets.all(4),
-                                  decoration: BoxDecoration(
+                                child:
+                                Container(
+                                  padding: const EdgeInsets.all(4),
+                                  decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
                                   ),
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.question_mark,
                                     color: Colors.white,
                                   ),
@@ -421,7 +443,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       GridView.builder(
                         shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4,
                           childAspectRatio: 1,
                         ),
@@ -474,10 +496,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               Image.asset(
                                 'assets/images/call.gif',
                                 width: 120,
-                                height: 150,
+                                height: 100,
                               ),
                               SizedBox(
-                                width: 10,
+                                width: 5,
                               ),
                               Expanded(
                                 child: Text(

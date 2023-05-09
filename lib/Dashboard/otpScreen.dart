@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:loan_app/widget/common_snackbar.dart';
 
+import '../Helper/String_constant.dart';
 import '../Helper/globle style.dart';
-import '../Register/register_screen (1).dart';
+import '../Helper/shared_preferances.dart';
+import '../Register/register_screen.dart';
+import 'Dashboard.dart';
+import 'DashboardController.dart';
+import 'package:get/get.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+
 
 class MyHomePage extends StatelessWidget {
   @override
@@ -13,10 +21,10 @@ class MyHomePage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              builder: (BuildContext context) => OtpScreen(),
-            );
+            // showModalBottomSheet(
+            //   context: context,
+            //   builder: (BuildContext context) => OtpScreen(),
+            // );
           },
           child: Text("Open OTP Screen"),
         ),
@@ -26,13 +34,21 @@ class MyHomePage extends StatelessWidget {
 }
 
 class OtpScreen extends StatefulWidget {
+  String mobile;
+  OtpScreen(this.mobile);
   @override
   _OtpScreenState createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreen> {
   String otp = "";
+  final dashboardController = Get.find<DashboardController>();
 
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,17 +66,44 @@ class _OtpScreenState extends State<OtpScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                otpBox(0),
-                otpBox(1),
-                otpBox(2),
-                otpBox(3),
+                // otpBox(0),
+                // otpBox(1),
+                // otpBox(2),
+                // otpBox(3),
+                OtpTextField(
+                  numberOfFields: 4,
+                  borderColor: themeColor,
+                  autoFocus: true,
+                  //set to true to show as box or false to show as dash
+                  showFieldAsBox: true,
+                  //runs when a code is typed in
+                  onCodeChanged: (String code) {
+                    otp=code;
+                  },
+                  //runs when every textfield is filled
+                  onSubmit: (String verificationCode){
+                    otp=verificationCode;
+                  }, // end onSubmit
+                ),
               ],
             ),
             SizedBox(height: 30),
             MaterialButton(
               color: themeColor,
               onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => RegisterScreen()));
+                if(otp!="") {
+                  dashboardController.verify_otp(contact: widget.mobile,otp:otp);
+                  // if (dashboardController.isOtpVerified == true) {
+                  //   Navigator.of(context).pushReplacement(
+                  //       MaterialPageRoute(builder: (context) => Dashboard()));
+                  //   SPManager.instance.setUser(LOGIN_KEY, widget.mobile);
+                  // }
+                  // else {
+                  //   showSnackbar(title: "", message: "please enter otp");
+                  // }
+                } else {
+                  showSnackbar(title: "", message: "please enter otp");
+                }
               },
               child: Text(
                 "Verify",
@@ -71,6 +114,8 @@ class _OtpScreenState extends State<OtpScreen> {
             TextButton(
               onPressed: () {
                 // Resend OTP
+                if(widget.mobile.isNotEmpty)
+                dashboardController.send_otp(contact: widget.mobile);
               },
               child: Text("Resend OTP",style: TextStyle(color:themeColor,fontSize: 15),),
             ),

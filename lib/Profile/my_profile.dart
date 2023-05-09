@@ -45,16 +45,16 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
               color: Colors.white,
             ),
           ),
-          leading: IconButton(
-            icon: Icon(
-              Icons.chevron_left,
-              size: 25.0,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
+          // leading: IconButton(
+          //   icon: Icon(
+          //     Icons.chevron_left,
+          //     size: 25.0,
+          //     color: Colors.white,
+          //   ),
+          //   onPressed: () {
+          //     Navigator.of(context).pop();
+          //   },
+          // ),
           elevation: 0,
         ),
         body: SingleChildScrollView(

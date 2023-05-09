@@ -7,11 +7,13 @@ import 'Helper/globle style.dart';
 import 'Splash_Screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  DashboardController bookmarkController = Get.put(DashboardController());
-
+  DashboardController dashboardController = Get.put(DashboardController());
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(MyApp()));
 }
@@ -31,7 +33,7 @@ class MyApp extends  StatelessWidget {
         ),
       ],
       child:
-      MaterialApp(
+      GetMaterialApp(
           debugShowCheckedModeBanner: false,
           scrollBehavior: MaterialScrollBehavior().copyWith(dragDevices: {
             PointerDeviceKind.mouse,
