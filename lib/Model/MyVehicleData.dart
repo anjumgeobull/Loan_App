@@ -1,30 +1,34 @@
-class VehicleDetailedModel {
-  VehicleDetailedModel({
+class MyVehicleModel {
+  MyVehicleModel({
     required this.status,
     required this.msg,
     required this.data,
   });
   late final int status;
   late final String msg;
-  late final VehicleData data;
+  late final List<MyVehicleData> data;
 
-  VehicleDetailedModel.fromJson(Map<String, dynamic> json){
+  MyVehicleModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     msg = json['msg'];
-    data = VehicleData.fromJson(json['data']);
+    data = List.from(json['data']).map((e)=>MyVehicleData.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['status'] = status;
     _data['msg'] = msg;
-    _data['data'] = data.toJson();
+    _data['data'] = data.map((e)=>e.toJson()).toList();
     return _data;
   }
 }
 
-class VehicleData {
-  VehicleData({
+class MyVehicleData {
+  MyVehicleData({
+    required this.id,
+    required this.userAutoId,
+    required this.vehicleNumber,
+    required this.isMyVehicle,
     required this.license,
     required this.fullChassis,
     required this.owner,
@@ -57,23 +61,18 @@ class VehicleData {
     required this.pucExpiry,
     required this.fitUpto,
     required this.taxUpto,
-    required this.gvw,
-    required this.unladenWeight,
-    required this.sleeperCap,
-    required this.standCap,
-    required this.wheelBase,
     required this.blacklistStatus,
     required this.nocDetails,
     required this.rcStatus,
     required this.rcStatusAsOn,
-    required this.permitNo,
-    required this.permitIssueDate,
-    required this.permitValidFrom,
-    required this.permitValidUpto,
-    required this.permitType,
     required this.bodyType,
-    required this.noCyl,
+    required this.updatedAt,
+    required this.createdAt,
   });
+  late final String id;
+  late final String userAutoId;
+  late final String vehicleNumber;
+  late final String isMyVehicle;
   late final String license;
   late final String fullChassis;
   late final String owner;
@@ -83,11 +82,11 @@ class VehicleData {
   late final String vehicleClass;
   late final String makerName;
   late final String makerModel;
-  late final int ownerCount;
+  late final String ownerCount;
   late final String insuranceDate;
   late final String pollution;
   late final String fitnessDt;
-  late final bool isBlacklisted;
+  late final String isBlacklisted;
   late final String model;
   late final String insurerName;
   late final String financierName;
@@ -106,25 +105,19 @@ class VehicleData {
   late final String pucExpiry;
   late final String fitUpto;
   late final String taxUpto;
-  late final String gvw;
-  late final String unladenWeight;
-  late final String sleeperCap;
-  late final String standCap;
-  late final String wheelBase;
   late final String blacklistStatus;
   late final String nocDetails;
   late final String rcStatus;
   late final String rcStatusAsOn;
-  late final String permitNo;
-  late final String permitIssueDate;
-  late final String permitValidFrom;
-  late final String permitValidUpto;
-  late final String permitType;
   late final String bodyType;
-  late final String noCyl;
-//addcondition
+  late final String updatedAt;
+  late final String createdAt;
 
-  VehicleData.fromJson(Map<String, dynamic> json){
+  MyVehicleData.fromJson(Map<String, dynamic> json){
+    id = json['_id'];
+    userAutoId = json['user_auto_id'];
+    vehicleNumber = json['vehicle_number'];
+    isMyVehicle = json['is_my_vehicle'];
     license = json['license'];
     fullChassis = json['full_chassis'];
     owner = json['owner'];
@@ -156,31 +149,22 @@ class VehicleData {
     seatingCapacity = json['seating_capacity'];
     pucExpiry = json['puc_expiry'];
     fitUpto = json['fit_upto'];
-    //custImage = json['cust_image']==null?"":json['cust_image'];
-    //taxUpto = null;
-    taxUpto = json['tax_upto']==null?"":json['tax_upto'];
-    gvw = json['gvw'];
-    unladenWeight = json['unladen_weight'];
-    sleeperCap = json['sleeper_cap'];
-    standCap = json['stand_cap'];
-    wheelBase = json['wheel_base'];
+    taxUpto = json['tax_upto'];
     blacklistStatus = json['blacklist_status'];
     nocDetails = json['noc_details'];
     rcStatus = json['rc_status'];
-    //custImage = json['cust_image']==null?"":json['cust_image'];
-   // rcStatusAsOn = null;
-    rcStatusAsOn = json['"rc_status_as_on": ']==null?"":json['rc_status_as_on'];
-    permitNo = json['permit_no'];
-    permitIssueDate = json['permit_issue_date'];
-    permitValidFrom = json['permit_valid_from'];
-    permitValidUpto = json['permit_valid_upto'];
-    permitType = json['permit_type'];
+    rcStatusAsOn = json['rc_status_as_on'];
     bodyType = json['body_type'];
-    noCyl = json['no_cyl'];
+    updatedAt = json['updated_at'];
+    createdAt = json['created_at'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
+    _data['_id'] = id;
+    _data['user_auto_id'] = userAutoId;
+    _data['vehicle_number'] = vehicleNumber;
+    _data['is_my_vehicle'] = isMyVehicle;
     _data['license'] = license;
     _data['full_chassis'] = fullChassis;
     _data['owner'] = owner;
@@ -213,22 +197,13 @@ class VehicleData {
     _data['puc_expiry'] = pucExpiry;
     _data['fit_upto'] = fitUpto;
     _data['tax_upto'] = taxUpto;
-    _data['gvw'] = gvw;
-    _data['unladen_weight'] = unladenWeight;
-    _data['sleeper_cap'] = sleeperCap;
-    _data['stand_cap'] = standCap;
-    _data['wheel_base'] = wheelBase;
     _data['blacklist_status'] = blacklistStatus;
     _data['noc_details'] = nocDetails;
     _data['rc_status'] = rcStatus;
     _data['rc_status_as_on'] = rcStatusAsOn;
-    _data['permit_no'] = permitNo;
-    _data['permit_issue_date'] = permitIssueDate;
-    _data['permit_valid_from'] = permitValidFrom;
-    _data['permit_valid_upto'] = permitValidUpto;
-    _data['permit_type'] = permitType;
     _data['body_type'] = bodyType;
-    _data['no_cyl'] = noCyl;
+    _data['updated_at'] = updatedAt;
+    _data['created_at'] = createdAt;
     return _data;
   }
 }

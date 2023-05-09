@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import '../../Helper/globle style.dart';
+import '../Model/MyVehicleData.dart';
 import 'VehicleDummyModel.dart';
 import 'my_Vehicle_view_details.dart';
 
@@ -8,7 +9,7 @@ import 'my_Vehicle_view_details.dart';
 
 
 class my_Vehicle_List extends StatefulWidget {
-  final VehicleDetails data;
+  final MyVehicleData data;
   final int index;
   my_Vehicle_List({Key? key,required this.data, required this.index}) : super(key: key);
 
@@ -41,7 +42,7 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                 children: [
                   Expanded(
                     child: Image.asset(
-                      widget.data.carImage,
+                      "assets/images/Vagnera.png",
                       width: 120,
                       height: 150,
                     ),
@@ -59,9 +60,9 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                         height: 5,
                       ),
                       Row(
-                        children: const [
+                        children:  [
                           Text(
-                            "MH12TY5476",
+                           widget.data.vehicleNumber,
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.normal,

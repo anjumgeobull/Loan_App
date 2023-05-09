@@ -84,7 +84,8 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Column(
+                      child:
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children:   [
                           Row(

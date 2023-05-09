@@ -6,6 +6,7 @@ import 'dart:core';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../../Helper/SizedConfig.dart';
+import '../Controller/UserProfileController.dart';
 import '../Controller/VehicleDetailedController.dart';
 import '../Helper/globle style.dart';
 import '../Helper/sign_In_dailog.dart';
@@ -33,6 +34,7 @@ class Item {
 }
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final profileDataController = Get.find<UserProfileController>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,7 +51,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  'Welcome John',
+                  "Welcome ${profileDataController.name}",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -109,13 +111,15 @@ class _HomeScreenState extends State<HomeScreen> {
   FocusNode userNameFocus = FocusNode();
   bool isIconSelected = false;
   final vehicleScreenController = Get.find<VehicleDetailedController>();
-
+  bool is_my_vehicle=false;
+  String my_vehicle="no";
+  final profileDataController = Get.find<UserProfileController>();
+  late String lice;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-   // vehicleScreenController.getVehicleDetailsSearchData(vehicletxt.text);
-
+    lice=vehicleScreenController.licNo;
   }
 
   @override
@@ -222,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           textInputAction: TextInputAction.search,
                           onChanged: (value) {
                             setState(() {
-                              vehicleNo=vehicletxt.text;
+                              vehicleNo=car_number.text;
                               log("$vehicleNo");
                             });
                           },
@@ -236,8 +240,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         onPressed: () {
 
-                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => CarDetailScreen()));
-                         // vehicleScreenController.getVehicleDetailsSearchData(vehicleNo);
+                       //Navigator.of(context).push(MaterialPageRoute(builder: (context) => CarDetailScreen()));
+                          vehicleScreenController.getVehicleDetailsSearchData(vehicleNo);
                           showDialog(context: context,
                               builder: (context) {
                             return SignInConfirmationDialog();
@@ -708,6 +712,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+    ]
+          )
+        )
+      )
+
     );
   }
 
@@ -860,10 +869,29 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.all(10.0),
                         child: GestureDetector(
                           onTap: () {
-                            Fluttertoast.showToast(msg: 'Added in to my vehicle'
+                            setState(() {
+                              is_my_vehicle=true;
+                              if(is_my_vehicle==true){
+                                my_vehicle="yes";
+                              }
+                              Fluttertoast.showToast(msg: 'Added in to my vehicle'
                                 , backgroundColor: Colors.grey,);
-
-
+                              vehicleScreenController.addVehicleDetails(car_number.text,
+                                  my_vehicle,vehicleScreenController.licNo,vehicleScreenController.full_chasis,
+                                  vehicleScreenController.owner,vehicleScreenController.registration_date,vehicleScreenController.fule_type
+                              ,vehicleScreenController.engine,vehicleScreenController.vehicle_class,vehicleScreenController.maker_name,
+                                vehicleScreenController.maker_model,vehicleScreenController.count,vehicleScreenController.insuranceDate
+                              ,vehicleScreenController.pollution,vehicleScreenController.fitnessDate,
+                                  vehicleScreenController.model,vehicleScreenController.insuerName,vehicleScreenController.financier_name,
+                                  vehicleScreenController.vehicle_color,vehicleScreenController.manufacturing_date,vehicleScreenController.norms_type,
+                                  vehicleScreenController.owner_father_name,vehicleScreenController.registration_authority,vehicleScreenController.insurance_policy_no,
+                                  vehicleScreenController.present_address,vehicleScreenController.permanent_address,vehicleScreenController.vehicle_cubic_capacity,
+                                  vehicleScreenController.pucc_no,vehicleScreenController.vehicle_weight,vehicleScreenController.seating_capacity,
+                                  vehicleScreenController.puc_expiry,vehicleScreenController.fitupto,vehicleScreenController.taxupto,
+                                  vehicleScreenController.blaclist,vehicleScreenController.nocdetails,vehicleScreenController.rc_staus
+                                  ,vehicleScreenController.rc_staus_ason,vehicleScreenController.body_type
+                              );
+                            });
                           },
                           child: Container(
                             height: 40,

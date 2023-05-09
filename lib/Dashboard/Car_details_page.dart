@@ -95,21 +95,21 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children:   [
-                              Obx(() => Text(
-                                "${vehicleScreenController.owner}",
-                                style: TextStyle(
+                               Text(
+                               "${vehicleScreenController.owner}",
+                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
                                 ),
-                              )),
+                              ),
                               SizedBox(
                                 height: 5,
                               ),
                               Row(
-                                children: const [
+                                children:  [
                                   Text(
-                                    "MH12TY5476",
+                                    "${vehicleScreenController.licNo}",
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.normal,
@@ -135,7 +135,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 height: 5,
                               ),
                               Text(
-                                "KUSHAQ AMBITION 1.0TSI AT ",
+                                "${vehicleScreenController.maker_model}",
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.normal,
@@ -148,7 +148,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               Padding(
                                 padding: EdgeInsets.only(left: 15.0),
                                 child: Text(
-                                  "PUC expired 27-Jan-2023",
+                                  "${vehicleScreenController.puc_expiry}",
                                   style: TextStyle(
                                     fontSize: 13,
                                     fontWeight: FontWeight.bold,
@@ -238,7 +238,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                     ),
                                     SizedBox(height: 10,),
                                     Text(
-                                      "John Smith",
+                                      "${vehicleScreenController.owner}",
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                   ],
@@ -253,7 +253,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       ),
                                       SizedBox(height: 10,),
                                       Text(
-                                        "First Owner",
+                                        "${vehicleScreenController.ownerCount}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                     ],
@@ -277,7 +277,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                     ),
                                     SizedBox(height: 10,),
                                     Text(
-                                      "28-Jan-2023",
+                                      "${vehicleScreenController.registration_date}",
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                   ],
@@ -292,7 +292,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       ),
                                       SizedBox(height: 10,),
                                       Text(
-                                        "ICICI BANK LTD",
+                                        "${vehicleScreenController.finaincerName}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                     ],
@@ -315,7 +315,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   ),
                                   SizedBox(height: 10,),
                                   Text(
-                                    "Pune, Maharashtra",
+                                    "${vehicleScreenController.registration_authority}",
                                     style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                 ],
@@ -349,7 +349,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   ),
                                   SizedBox(height: 10,),
                                   Text(
-                                    "SKODA AUTO VOLKSWAGEN INDIA PVT LTD, KUSHQ AMBITION 1.0 TSI AT",
+                                    "${vehicleScreenController.model}",
                                     style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                 ],
@@ -373,7 +373,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                     ),
                                     SizedBox(height: 10,),
                                     Text(
-                                      "Motor Car(LMV)",
+                                      "${vehicleScreenController.vehicle_class}",
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                   ],
@@ -388,7 +388,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       ),
                                       SizedBox(height: 10,),
                                       Text(
-                                        "PETROL",
+                                        "${vehicleScreenController.fule_type}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                     ],
@@ -412,7 +412,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                     ),
                                     SizedBox(height: 10,),
                                     Text(
-                                      "BHARAT STAGE VI",
+                                      "${vehicleScreenController.norms_type}",
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                   ],
@@ -427,7 +427,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       ),
                                       SizedBox(height: 10,),
                                       Text(
-                                        "DTB0XXXXX",
+                                        "${vehicleScreenController.engine}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                     ],
@@ -466,7 +466,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                     ),
                                     SizedBox(height: 10,),
                                     Text(
-                                      "27-Jan-2023",
+                                      "${vehicleScreenController.registration_date}",
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                   ],
@@ -502,12 +502,12 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 Column(
                                   children: [
                                     Text(
-                                      "Fitness uoto",
+                                      "Fitness upto",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     Text(
-                                      "27-Jan-2037",
+                                      "${vehicleScreenController.fitnessDate}",
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                   ],
@@ -522,7 +522,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       ),
                                       SizedBox(height: 10,),
                                       Text(
-                                        "27-Jan-2023",
+                                        "${vehicleScreenController.pollution}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                     ],
@@ -551,7 +551,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       ),
                                       SizedBox(height: 10,),
                                       Text(
-                                        "27-Jan-2037",
+                                        "${vehicleScreenController.insu_date}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                     ],
@@ -619,7 +619,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       ),
                                       SizedBox(height: 10,),
                                       Text(
-                                        "CANDY WHITE",
+                                        "${vehicleScreenController.vehicleColor}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                     ],
@@ -647,7 +647,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                     ),
                                     SizedBox(height: 10,),
                                     Text(
-                                      "1234",
+                                      "${vehicleScreenController.unladen_weight}",
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                   ],
@@ -662,7 +662,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       ),
                                       SizedBox(height: 10,),
                                       Text(
-                                        "ACTIVE",
+                                        "${vehicleScreenController.rc_staus}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                     ],
