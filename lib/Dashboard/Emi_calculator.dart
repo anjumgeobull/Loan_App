@@ -1,9 +1,9 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:loan_app/Dashboard/home_screen%20(3).dart';
-
+import '../EMIDetails.dart';
 import '../Helper/globle style.dart';
+import 'Emi_details.dart';
+import 'home_screen.dart';
 
 class EMICalculatorUI extends StatefulWidget {
   @override
@@ -17,7 +17,8 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
   RangeValues _loanRangeValues = RangeValues(0.0, 10.0);
   RangeValues _interestRangeValues = RangeValues(0.0, 10.0);
   RangeValues _ternurRangeValues = RangeValues(0.0, 10.0);
-  String _emiResult = '';
+  String _emiResult = '',_totalAmountPayable='',_totalInterest='';
+  List<EMIDetails> _emiDetailsList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,6 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                     child:
                     SizedBox(
                       height: 40,
-
                       child: TextField(
                         controller: _principalController,
                         decoration: InputDecoration(
@@ -63,8 +63,6 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                         keyboardType: TextInputType.numberWithOptions(decimal: true),
                       ),
                     ),
-
-
                   ),
                 ],
               ),
@@ -92,8 +90,6 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                   },
                   activeColor: themeColor, // Change the color to blue
                 )
-
-
               ),
               Text("40L"),
             ],
@@ -121,8 +117,6 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                         keyboardType: TextInputType.numberWithOptions(decimal: true),
                       ),
                     ),
-
-
                   ),
                 ],
               ),
@@ -150,7 +144,6 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                       },
                       activeColor: themeColor,
                     ),
-
                   ),
                   Text("84"),
                 ],
@@ -178,8 +171,6 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                         keyboardType: TextInputType.numberWithOptions(decimal: true),
                       ),
                     ),
-
-
                   ),
                 ],
               ),
@@ -207,7 +198,6 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                       },
                       activeColor: themeColor,
                     ),
-
                   ),
                   Text("25"),
                 ],
@@ -244,7 +234,6 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                         color: Colors.white,
                       ),
                       Row(
-
                         children:  [
                           Icon(Icons.circle,size: 10,color: Colors.white,),
                           SizedBox(width: 10,),
@@ -252,7 +241,7 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                               fontSize: 13,color: Colors.white
                           ),),
                           Spacer(),
-                          Text("₹ 20,000",style: TextStyle(
+                          Text(_totalInterest,style: TextStyle(
                               fontSize: 13,color: Colors.white
                           ),),
                         ],
@@ -266,8 +255,7 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                                 fontSize: 13,color: Colors.white
                             ),),
                           ),
-                          
-                          Text("₹ 20,000",style: TextStyle(
+                          Text(_totalAmountPayable,style: TextStyle(
                               fontSize: 13,color: Colors.white
                           ),),
                         ],
@@ -280,11 +268,10 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                         child:
                         GestureDetector(
                           onTap: () {
-
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Emi_details(_emiDetailsList)));
                           },
                           child: Text(
-                            "Apply Now",
+                            "View Details",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -292,14 +279,11 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                             ),
                           ),
                         )
-
                       ),
                     ],
                   ),
                 ),
               ),
-
-
             ],
           ),
         ),
@@ -311,18 +295,87 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
     final principal = double.tryParse(_principalController.text) ?? 0;
     final rate = double.tryParse(_rateController.text) ?? 0;
     final term = double.tryParse(_termController.text) ?? 0;
+    print(principal.toString()+" principal");
+    print(rate.toString()+" rate");
+    print(term.toString()+" term");
 
     final emi = _calculateEMIValue(principal, rate, term);
-
-    setState(() {
-      _emiResult = '₹ ${emi.toStringAsFixed(2)} / month';
-    });
+    // final emi1 = (principal * rate * pow(1 + rate, term)) / (pow(1 + rate ,term) - 1);
+    // double balance = principal;
+    // List<EMIDetails> emiDetailsList = [];
+    //
+    // for (int i = 1; i <= term; i++) {
+    //   final interest = balance * rate;
+    //   final principalPaid = emi - interest;
+    //   balance -= principalPaid;
+    //
+    //   EMIDetails emiDetails = EMIDetails(
+    //     month: i,
+    //     emi: emi1,
+    //     interest: interest,
+    //     principalPaid: principalPaid,
+    //     balance: balance,
+    //   );
+    //   emiDetailsList.add(emiDetails);
+    //
+    //   setState(() {
+    //     _emiResult = '₹ ${emi.toStringAsFixed(2)} / month';
+    //     _emiDetailsList = emiDetailsList;
+    //   });
+    // }
   }
 
   double _calculateEMIValue(double principal, double rate, double term) {
     final r = rate / 1200;
-    final n = term * 12;
+    final n = term;
     final emi = (principal * r * pow(1 + r, n)) / (pow(1 + r, n) - 1);
+    final totalAmountPayable = emi * n;
+    final totalInterest = totalAmountPayable - principal;
+    //double balance = principal;
+    List<EMIDetails> emiDetailsList = [];
+
+    // for (int i = 1; i <= term; i++) {
+    //   final interest = balance * rate;
+    //   final principalPaid = emi - interest;
+    //   balance -= principalPaid;
+    //
+    //   EMIDetails emiDetails = EMIDetails(
+    //     month: i,
+    //     emi: emi,
+    //     interest: interest,
+    //     principalPaid: principalPaid,
+    //     balance: balance,
+    //   );
+    //   emiDetailsList.add(emiDetails);
+    // }
+
+    double monthlyInterestRate = rate / 1200;
+    double monthlyPayment = principal * monthlyInterestRate /
+        (1 - pow(1 / (1 + monthlyInterestRate), n));
+
+    double balance = principal;
+
+    for (int i = 0; i < n; i++) {
+      double interestPaid = balance * monthlyInterestRate;
+      double principalPaid = monthlyPayment - interestPaid;
+      balance -= principalPaid;
+      emiDetailsList.add(EMIDetails(
+          month: i + 1,
+          emi: monthlyPayment,
+          principalPaid: principalPaid,
+          interest: interestPaid,
+          balance: balance));
+    }
+      // setState(() {
+      //   //_emiResult = '₹ ${emi.toStringAsFixed(2)} / month';
+      //   //_emiDetailsList = emiDetailsList;
+      // });
+    setState(() {
+      _emiResult = '₹ ${emi.toStringAsFixed(2)} / month';
+      _totalAmountPayable = ' ₹ ${totalAmountPayable.toStringAsFixed(2)}';
+      _totalInterest = ' ₹ ${totalInterest.toStringAsFixed(2)}';
+      _emiDetailsList = emiDetailsList;
+    });
     return emi;
   }
 }

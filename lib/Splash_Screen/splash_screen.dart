@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../Dashboard/Dashboard.dart';
 import '../Helper/SizedConfig.dart';
+import '../Helper/String_constant.dart';
+import '../Helper/shared_preferances.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -40,6 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   redirect() async {
     await Future.delayed(Duration.zero);
+
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Dashboard()));
   }
 

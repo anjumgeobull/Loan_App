@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../Dashboard/otpScreen.dart';
+import 'package:loan_app/widget/common_snackbar.dart';
+import '../Dashboard/DashboardController.dart';
 import '../Helper/SizedConfig.dart';
 import '../Helper/commen_textField.dart';
 import '../Helper/globle style.dart';
-import '../Register/register_screen (1).dart';
+import 'package:get/get.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final dashboardController = Get.find<DashboardController>();
   String image = "assets/images/img_2.png";
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -105,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         label: 'Enter mobile number',
                         validator: (String) {},
                         width: SizeConfig.screenWidth,
-                        inputType: TextInputType.text,
+                        inputType: TextInputType.phone,
                         focusNode: userNameFocus,
                       ),
                       SizedBox(
@@ -114,10 +117,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       Center(
                         child: GestureDetector(
                           onTap: () async {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (BuildContext context) => OtpScreen(),
-                            );
+                            if(userName.text!="" && userName.text.length==10) {
+                              dashboardController.send_otp(contact: userName.text,context: context);
+                            }else
+                              {
+                                showSnackbar(title: "Validation", message: "please enter valid mobile no.");
+                              }
                           },
                           child: Container(
                             height: 50,
@@ -138,7 +143,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       )
-
                       ],
                     ),
                   ),
@@ -213,9 +217,6 @@ class _LoginScreenState extends State<LoginScreen> {
   //     ),
   //   );
   // }
-
-
-
 
 }
 

@@ -14,7 +14,8 @@ import 'CheckCriteriaWithBot.dart';
 import 'Emi_calculator.dart';
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 
-import 'home_screen (3).dart';
+import 'home_screen.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class Dashboard extends StatefulWidget {
   Dashboard({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  final _pageController = PageController(initialPage: 1);
+  final _pageController = PageController(initialPage: 0);
   int maxCount = 4;
 
   final List<Widget> bottomBarPages = [
@@ -33,6 +34,8 @@ class _DashboardState extends State<Dashboard> {
     upload_documentDetailScreen(),
     CheckCriteriaWithBot(),
   ];
+  int _page = 0;
+  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
   @override
   void dispose() {
@@ -57,65 +60,29 @@ class _DashboardState extends State<Dashboard> {
       ),
       extendBody: true,
       bottomNavigationBar: (bottomBarPages.length <= maxCount)
-          ? AnimatedNotchBottomBar(
-        pageController: _pageController,
-        color: Colors.white,
-        showLabel: false,
-        notchColor: themeColor,
-        bottomBarItems: const [
-          BottomBarItem(
-            inActiveItem: Icon(
-              Icons.home_filled,
-              color: themeColor,
-            ),
-            activeItem: Icon(
-              Icons.home_filled,
-              color: Colors.white,
-            ),
-            itemLabel: 'Page 1',
-          ),
-          BottomBarItem(
-            inActiveItem: Icon(
-              Icons.person,
-              color: themeColor,
-            ),
-            activeItem: Icon(
-              Icons.person,
-              color: Colors.white,
-            ),
-            itemLabel: 'Page 2',
-          ),
-          BottomBarItem(
-            inActiveItem: Icon(
-              Icons.upload_file,
-              color: themeColor,
-            ),
-            activeItem: Icon(
-              Icons.upload_file,
-              color: Colors.white,
-            ),
-            itemLabel: 'Page 3',
-          ),
-          BottomBarItem(
-            inActiveItem: Icon(
-              Icons.currency_rupee,
-              color: themeColor,
-            ),
-            activeItem: Icon(
-              Icons.currency_rupee,
-              color: Colors.white,
-            ),
-            itemLabel: 'Page 4',
-          ),
+          ?
+       CurvedNavigationBar(
+        key: _bottomNavigationKey,
+        index: 0,
+        height: 50.0,
+        items: <Widget>[
+          Icon(Icons.home, size: 30,color: KWHITE_COLOR),
+          Icon(Icons.person, size: 30,color: KWHITE_COLOR,),
+          Icon(Icons.upload_file, size: 30,color: KWHITE_COLOR,),
+          Icon(Icons.currency_rupee, size: 30,color: KWHITE_COLOR,),
         ],
+        color: themeColor,
+        buttonBackgroundColor: themeColor,
+        backgroundColor: Colors.white,
+        animationCurve: Curves.easeInOut,
+        animationDuration: Duration(milliseconds: 600),
         onTap: (index) {
-          /// control your animation using page controller
-          _pageController.animateToPage(
-            index,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeIn,
-          );
+          setState(() {
+            _page = index;
+            _pageController.jumpToPage(_page.toInt());
+          });
         },
+        letIndexChange: (index) => true,
       )
           : null,
     );

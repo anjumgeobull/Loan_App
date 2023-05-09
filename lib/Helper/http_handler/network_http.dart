@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class HttpHandler {
-  static String baseURL = "https://grobiz.app/GRBCRM2022/JobPortals/api/";
+  static String baseURL = "https://grobiz.app/ClientProjects/VahanInfo/api/";
 
   static Future<Map<String, String>> _getHeaders() async {
 

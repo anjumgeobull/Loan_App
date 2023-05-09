@@ -16,16 +16,18 @@ import 'Helper/globle style.dart';
 import 'Splash_Screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  DashboardController dashboardController = Get.put(DashboardController());
+  await Firebase.initializeApp();
   Get.put(VehicleDetailedController());
   Get.put(AddEnquiryController());
   Get.put(DashboardController());
   Get.put(UserProfileController());
   Get.put(MyVehicleDetailedController());
-
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(MyApp()));

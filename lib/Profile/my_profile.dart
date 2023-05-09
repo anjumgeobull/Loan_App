@@ -77,6 +77,7 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                   Icons.edit,
                   size: 25.0,
                   color: Colors.white,
+
                 ),
                 onPressed: () {
                   Get.to(() => EditProfileScreen());
