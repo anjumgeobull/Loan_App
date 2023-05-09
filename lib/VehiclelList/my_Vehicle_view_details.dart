@@ -2,8 +2,11 @@
 import 'dart:core';
 import 'dart:io';
 import 'package:flutter/material.dart';
+
+import '../Model/MyVehicleData.dart';
 class my_Vehicle_DetailScreen extends StatefulWidget {
-  my_Vehicle_DetailScreen({Key? key}) : super(key: key);
+
+  my_Vehicle_DetailScreen({Key? key,}) : super(key: key);
 
   @override
   State<my_Vehicle_DetailScreen> createState() => _my_Vehicle_DetailScreenState();
