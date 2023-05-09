@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import 'BotProvider.dart';
 
 import 'package:get/get.dart';
+import 'Controller/AddEnquiryController.dart';
+import 'Controller/MyVehicleDetaileController.dart';
+import 'Controller/UserProfileController.dart';
 import 'Controller/VehicleDetailedController.dart';
 
 
@@ -18,8 +21,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   Get.put(VehicleDetailedController());
-
-  DashboardController bookmarkController = Get.put(DashboardController());
+  Get.put(AddEnquiryController());
+  Get.put(DashboardController());
+  Get.put(UserProfileController());
+  Get.put(MyVehicleDetailedController());
 
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
