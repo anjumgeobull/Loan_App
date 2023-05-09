@@ -63,6 +63,7 @@ class BotProvider with ChangeNotifier{
   bool existingloanWidgetVisible = false;
 
 
+
   bool homeLoanChecked = false;
   bool bikeLoanChecked = false;
   bool carLoanChecked = false;
@@ -70,6 +71,15 @@ class BotProvider with ChangeNotifier{
   bool otherLoanChecked = false;
   bool finishButtonVisible = false;
 
+  //uploade photo
+  bool photoButtonVisible = false;
+  bool photoIconVisible = true;
+  bool photoWidgetVisible = false;
+
+  //uploade Pan Card photo
+  bool panButtonVisible = false;
+  bool panIconVisible = true;
+  bool panWidgetVisible = false;
 
   double _monthlyIncome = 0.0;
 
@@ -85,10 +95,6 @@ class BotProvider with ChangeNotifier{
     existingloanWidgetVisible = visible;
     notifyListeners();
   }
-
-
-
-
 
 
 

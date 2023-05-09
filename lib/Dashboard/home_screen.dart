@@ -1,18 +1,20 @@
+import 'dart:async';
+import 'dart:developer';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:core';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:loan_app/Dashboard/Car_details_page.dart';
-import '../../../Helper/SizedConfig.dart';
 import '../Helper/String_constant.dart';
 import '../Helper/globle style.dart';
 import '../Helper/shared_preferances.dart';
-import '../Splash_Screen/car_assistants.dart';
-import 'package:avatar_glow/avatar_glow.dart';
+import '../Controller/VehicleDetailedController.dart';
+import 'package:get/get.dart';
+import '../VehicleSearch/VehicleSearch.dart';
 import '../login/login_screen.dart';
 import 'CheckCriteriaWithBot.dart';
 import 'Emi_calculator.dart';
-import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -92,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Item(name: 'Used Car loan', imageUrl: 'assets/images/car_loan.png'),
     Item(name: 'CIBIL', imageUrl: 'assets/images/cibil.png'),
   ];
-  late String name = "loading",
+  late String vehicleNo = "MH12TY5476",
       emailid = "loading",
       mobile_no = "loading",
       dob = "";
@@ -100,10 +102,13 @@ class _HomeScreenState extends State<HomeScreen> {
   String image = "assets/images/img_10.png";
   late File icon_img;
   late File pickedImageFile;
+
   TextEditingController car_number = TextEditingController();
+
   FocusNode userNameFocus = FocusNode();
   bool isIconSelected = false;
   String? token='';
+  final vehicleScreenController = Get.find<VehicleDetailedController>();
 
   @override
   void initState() {
@@ -115,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
   get_token()
   async {
     token = await SPManager.instance.getUser(LOGIN_KEY);
-    print("token "+token.toString());
+    print("token " + token.toString());
   }
 
   @override
@@ -204,8 +209,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     children: [
                       Expanded(
+
                         child: TextField(
                           controller: car_number,
+
                           decoration: InputDecoration(
                             hintText: 'Enter vehicle number',
                             filled: true,
@@ -218,8 +225,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.search,
-                          onSubmitted: (value) {
-                            // Perform search action here
+                          onChanged: (value) {
+                            setState(() {
+                              vehicleNo=car_number.text;
+                              log("$vehicleNo");
+                            });
                           },
                         ),
                       ),
@@ -240,6 +250,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             else {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => CarDetailScreen()));
+                                  // showDialog(context: context,
+                                  // builder: (context) {
+                                  // return SignInConfirmationDialog();
+                                  // }
+                                  // );
+                                  AddtoMycar(context);
                             }
                           }else {
                             Navigator.of(context).push(MaterialPageRoute(
@@ -252,6 +268,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
+
               SizedBox(height: 15),
               const Padding(
                 padding: EdgeInsets.only(left: 10.0),
@@ -292,158 +309,79 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
+
               Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        height: SizeConfig.screenHeight * 0.01,
+            padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child:
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Check Your Eligibility Criteria:",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: TextColor,
+                        fontSize: 15,
+                        fontFamily: 'InterRegular',
                       ),
-                      Expanded(
-                        child: Card(
-                          color: secondaryColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          elevation: 4.0,
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  'assets/images/img_18.png',
-                                  width: 30.0,
-                                  height: 30.0,
-                                ),
-                                const SizedBox(width: 16.0),
-                                const Expanded(
-                                  child: Text(
-                                    'NO HIDDEN CHARGE',
-                                    style: TextStyle(
-                                        fontSize: 15.0, color: themeColor),
-                                  ),
-                                ),
-                              ],
-                            ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => CheckCriteriaWithBot(),
+                        ));
+                      },
+                      icon: AvatarGlow(
+                        glowColor:themeColor,
+                        endRadius: 120,
+                        duration: Duration(milliseconds: 2000),
+                        repeat: true,
+                        showTwoGlows: true,
+                        curve: Curves.easeOutQuad,
+                        child: Container(
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.question_mark,
+                            color: Colors.white,
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: Card(
-                          color: secondaryColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          elevation: 4.0,
-                          child: Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  'assets/images/img_17.png',
-                                  width: 30.0,
-                                  height: 30.0,
-                                ),
-                                const SizedBox(width: 16.0),
-                                const Expanded(
-                                  child: Text(
-                                    'OFFER FOR CUSTOMER',
-                                    style: TextStyle(
-                                      color: themeColor,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      //Posted Job
-                      SizedBox(
-                        height: SizeConfig.screenHeight * 0.01,
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+            ),
+          ),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0,top: 10,bottom: 10),
+                child: Text(
+                  "Services",
+                  style:TextStyle(color: Colors.black54,fontSize: 15,fontWeight: FontWeight.bold),
+                ),
+              ),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  elevation: 5.0,
-                  child: Column(
+                  child:
+                  Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              "Eligibility Criteria:",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: TextColor,
-                                fontSize: 18,
-                                fontFamily: 'InterRegular',
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                Get.to(CheckCriteriaWithBot());
-                              },
-                              icon:
-                              AvatarGlow(
-                                glowColor: themeColor,
-                                endRadius: 120,
-                                duration: Duration(milliseconds: 1500),
-                                repeat: true,
-                                showTwoGlows: true,
-                                curve: Curves.easeOutQuad,
-                                child:
-                                Container(
-                                  padding: const EdgeInsets.all(4),
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Icon(
-                                    Icons.question_mark,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            // Expanded(
-                            //   child: Card(
-                            //     color: themeColor,
-                            //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                            //     elevation: 4.0,
-                            //     child: Padding(
-                            //       padding: EdgeInsets.all(12.0),
-                            //       child: Row(
-                            //         children: [
-                            //           Expanded(
-                            //             child: Text(
-                            //               'Check Here',
-                            //               style: TextStyle(
-                            //                 color: Colors.white,
-                            //                 fontSize: 15.0,
-                            //               ),
-                            //             ),
-                            //           ),
-                            //         ],
-                            //       ),
-                            //     ),
-                            //   ),
-                            // )
-                          ],
-                        ),
-                      ),
                       GridView.builder(
                         shrinkWrap: true,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 4,
                           childAspectRatio: 1,
                         ),
@@ -453,14 +391,86 @@ class _HomeScreenState extends State<HomeScreen> {
                               switch (index) {
                                 case 1:
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          EMICalculatorUI()));
+                                      builder: (BuildContext context) => EMICalculatorUI()));
                                   break;
                                 case 0:
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          CarAssistant()));
+                                      builder: (BuildContext context) => VehicleSearchScreen()));
                                   break;
+                                case 2:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                                case 3:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                                case 4:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                                case 5:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+
+                                  );
+                                  break;
+                                case 6:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                                case 7:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+
                               }
                             },
                             child: Column(
@@ -484,40 +494,76 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         itemCount: items.length,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                'assets/images/call.gif',
-                                width: 120,
-                                height: 100,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "Our Team will call you soon...",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: themeColor,
-                                  ),
-                                ),
-                              ),
-                              // SizedBox(
-                              //   height: 5,
-                              // ),
-                            ],
+
+                      // Padding(
+                      //   padding: const EdgeInsets.all(10.0),
+                      //   child: Card(
+                      //     shape: RoundedRectangleBorder(
+                      //       borderRadius: BorderRadius.circular(15.0),
+                      //     ),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.start,
+                      //       children: [
+                      //         Image.asset(
+                      //           'assets/images/call.gif',
+                      //           width: 120,
+                      //           height: 150,
+                      //         ),
+                      //         SizedBox(
+                      //           width: 10,
+                      //         ),
+                      //         Expanded(
+                      //           child: Text(
+                      //             "Our Team will call you soon...",
+                      //             style: TextStyle(
+                      //               fontSize: 20,
+                      //               fontWeight: FontWeight.bold,
+                      //               color: themeColor,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //         // SizedBox(
+                      //         //   height: 5,
+                      //         // ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/images/call.gif',
+                        width: 120,
+                        height: 150,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Text(
+                          "Our Team will call you soon...",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: themeColor,
                           ),
                         ),
                       ),
+                      // SizedBox(
+                      //   height: 5,
+                      // ),
                     ],
                   ),
                 ),
@@ -527,5 +573,200 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+
+  // void _showaccoutCraeteDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         title: const Text("Create account",style: TextStyle(
+  //           color: themeColor,
+  //           fontSize: 20,
+  //           fontWeight: FontWeight.bold
+  //         ),),
+  //         content: const Text("Do want to create account?",style: TextStyle(
+  //             color: themeColor,
+  //             fontSize: 18,
+  //             fontWeight: FontWeight.bold
+  //         ),),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             onPressed: () => Navigator.of(context).pop(),
+  //             child: const Text("Yes",style: TextStyle(
+  //                 color: themeColor,
+  //                 fontSize: 15,
+  //                 fontWeight: FontWeight.bold
+  //             ),),
+  //           ),
+  //           TextButton(
+  //             onPressed: () {
+  //
+  //               Navigator.of(context).pop();
+  //             },
+  //             child: const Text("No",style: TextStyle(
+  //                 color: themeColor,
+  //                 fontSize: 15,
+  //                 fontWeight: FontWeight.bold
+  //             ),),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  //
+  // }
+
+  void AddtoMycar(context) {
+    Future.delayed(Duration(seconds: 5)).then((value) => showModalBottomSheet<void>(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+      backgroundColor: Colors.white,
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(builder: (context, state) {
+          int selectedRadio = 0;
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topRight,
+                  child:
+
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.cancel_outlined,
+                      size: 30,
+                    ),
+                  ),
+                ),
+                Divider(color: Colors.grey.shade300),
+                Center(
+                  child: Image.asset(
+                    "assets/images/car.png",
+                    width: 100,
+                    height: 100,
+                  ),
+                ),
+                SizedBox(height: 15
+                  ,),
+                Center(
+                  child: const Text('Mark this as your car',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold)),
+                ),
+                SizedBox(height: 15
+                  ,),
+
+                const Text(
+                  'Get important remainders like insurance '
+                      'and pollution expiry, upload your '
+                      'vehicle documents securly and get exclusive offers ',
+                  style:
+                  TextStyle(fontSize: 14, color:Colors.grey,
+                      fontWeight: FontWeight.normal),
+                ),
+
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 200,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                topLeft: Radius.circular(20),
+                              ),
+                              color: Colors.grey[200],
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 0.7,
+                              ),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                "Not My Vehicle",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Fluttertoast.showToast(msg: 'Added in to my vehicle'
+                                , backgroundColor: Colors.grey,);
+
+
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 200,
+                            decoration:  BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                topLeft: Radius.circular(20),
+
+                              ),
+                              color: Colors.grey[200],
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 0.7,
+                              ),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                "My Vehicle",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        });
+      },
+    ));
   }
 }

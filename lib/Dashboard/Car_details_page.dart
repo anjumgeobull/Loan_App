@@ -1,8 +1,8 @@
-
+import 'package:get/get.dart';
 import 'dart:core';
 import 'dart:io';
 import 'package:flutter/material.dart';
-
+import '../Controller/VehicleDetailedController.dart';
 import '../Helper/globle style.dart';
 class CarDetailScreen extends StatefulWidget {
   CarDetailScreen({Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
   late File pickedImageFile;
 
   bool isIconSelected = false;
-
+  final vehicleScreenController = Get.find<VehicleDetailedController>();
   @override
   void initState() {
     // TODO: implement initState
@@ -95,9 +95,14 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children:   [
-                              Text("John Smith",style: TextStyle(
-                                  fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
-                              ),),
+                              Obx(() => Text(
+                                "${vehicleScreenController.owner}",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              )),
                               SizedBox(
                                 height: 5,
                               ),
@@ -219,97 +224,83 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                         ),
 
                         children: <Widget>[
-                          Align(
-                            alignment: Alignment.topLeft,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Owner Name",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Owner Name",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Text(
+                                      "John Smith",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Ownwership",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text(
+                                        "First Owner",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "John Smith",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-
                           ),
-
                           Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Ownwership",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Registration Date",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Text(
+                                      "28-Jan-2023",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Financer's Name",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text(
+                                        "ICICI BANK LTD",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "First Owner",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-
                           ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Registration Date",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "28-Jan-2023",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Financer's Name",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "ICICI BANK LTD",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
                           Divider(),
                           Align(
                             alignment: Alignment.topLeft,
@@ -332,8 +323,6 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                             ),
 
                           ),
-
-
 
                         ],
                       ),
@@ -370,98 +359,86 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           ),
 
                           Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Vehicle Class",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Vehicle Class ",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Text(
+                                      "Motor Car(LMV)",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Fule Type",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text(
+                                        "PETROL",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "Motor Car(LMV)",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-
                           ),
+                          Divider(),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Fule Norms",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Text(
+                                      "BHARAT STAGE VI",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Engine Number",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text(
+                                        "DTB0XXXXX",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
 
                           Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Fule Type",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "PETROL",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Fule Norms",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "BHARAT STAGE VI",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Engine Number",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "DTB0XXXXX",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-
 
                         ],
                       ),
@@ -474,144 +451,131 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                         ),
 
                         children: <Widget>[
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Registration Date",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "27-Jan-2023",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
 
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Registration Date",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Text(
+                                      "27-Jan-2023",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Vehicle Age",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text(
+                                        "1 year & 2 months",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
 
                           Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Vehicle Age",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "1 year & 2 months",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
 
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Fitness uoto",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Text(
+                                      "27-Jan-2037",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Pollution Upto",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text(
+                                        "27-Jan-2023",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
+
+
 
                           Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Fitness uoto",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Insurance Expiry(Updated today)",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text(
+                                        "27-Jan-2037",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "27-Jan-2037",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Insurance Expiring in",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text(
+                                        "1 year & 9 months",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-
                           ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Pollution Upto",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "27-Jan-2023",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Insurance Expiry(Updated today)",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "27-Jan-2025",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Insurance Expiring in",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "1 year & 9 months",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
 
 
                         ],
@@ -625,143 +589,133 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                         ),
 
                         children: <Widget>[
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Registration Number",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "MHTY563566",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
 
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Registration Number",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Text(
+                                      "MHTY563566",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "Vehicle Color",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text(
+                                        "CANDY WHITE",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
+
+
 
                           Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Vehicle Color",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "CANDY WHITE",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
 
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Unloaded weight()kg",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    Text(
+                                      "1234",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "RC Status",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      Text(
+                                        "ACTIVE",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
 
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Unloaded weight()kg",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "1234",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "RC Status",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "ACTIVE",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Insurance Expiry(Updated today)",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "27-Jan-2025",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Insurance Expiring in",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "1 year & 9 months",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
+                          // Align(
+                          //   alignment: Alignment.topLeft,
+                          //   child:
+                          //   Padding(
+                          //     padding: const EdgeInsets.all(8.0),
+                          //     child: Column(
+                          //       children: [
+                          //         Text(
+                          //           "Insurance Expiry(Updated today)",
+                          //           style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                          //         ),
+                          //         SizedBox(height: 10,),
+                          //         Text(
+                          //           "27-Jan-2025",
+                          //           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          //
+                          // ),
+                          //
+                          // Divider(),
+                          // Align(
+                          //   alignment: Alignment.topLeft,
+                          //   child:
+                          //   Padding(
+                          //     padding: const EdgeInsets.all(8.0),
+                          //     child: Column(
+                          //       children: [
+                          //         Text(
+                          //           "Insurance Expiring in",
+                          //           style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                          //         ),
+                          //         SizedBox(height: 10,),
+                          //         Text(
+                          //           "1 year & 9 months",
+                          //           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          //
+                          // ),
 
 
 
