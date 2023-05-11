@@ -5,6 +5,9 @@ import '../Model/MyVehicleData.dart';
 import 'VehicleDummyModel.dart';
 import 'my_Vehicle_view_details.dart';
 
+
+
+
 class my_Vehicle_List extends StatefulWidget {
   final MyVehicleData data;
   final int index;
@@ -20,8 +23,8 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
     return
       InkWell(
         onTap: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-          new my_Vehicle_DetailScreen(data: widget.data,)));
+          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>
+          new my_Vehicle_DetailScreen()));
 
         },
         child:
@@ -38,7 +41,6 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
-                    flex: 2,
                     child: Image.asset(
                       "assets/images/Vagnera.png",
                       width: 120,
@@ -48,74 +50,78 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                   SizedBox(
                     width: 10,
                   ),
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children:   [
-                        Text(widget.data.owner,
-                          style: TextStyle(
-                            fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
-                        ),),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          children:  [
-                            Text(
-                             widget.data.vehicleNumber,
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                                decoration: TextDecoration.underline,
-                              ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:   [
+                      Text("John Smith",style: TextStyle(
+                          fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
+                      ),),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children:  [
+                          Text(
+                           widget.data.vehicleNumber,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black,
+                              decoration: TextDecoration.underline,
                             ),
-                            SizedBox(width: 10), // Add some space between the two Text widgets
-                            // Text(
-                            //   widget.data.ownerCount,
-                            //   style: TextStyle(
-                            //     fontSize: 13,
-                            //     fontWeight: FontWeight.normal,
-                            //     color: Colors.grey,
-                            //
-                            //   ),
-                            // ),
-                          ],
+                          ),
+                          SizedBox(width: 10), // Add some space between the two Text widgets
+                          Text(
+                            "First Owner",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.normal,
+                              color: Colors.grey,
+
+                            ),
+                          ),
+                        ],
+                      ),
+
+
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "KUSHAQ AMBITION 1.0TSI AT ",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          widget.data.makerModel,
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          "PUC expired 27-Jan-2023",
                           style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.normal,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
                             color: Colors.black,
                           ),
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 0.0),
-                          child:
-                          Text(
-                            "PUC expiring Date: " + widget.data.pucExpiry,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+
+
+                    ],
                   ),
+
+
+
+
                 ],
               ),
             ),
           ),
+
         ),
       );
   }

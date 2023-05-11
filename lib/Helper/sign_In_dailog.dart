@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Helper/globle style.dart';
-import '../Register/register_screen.dart';
+import '../Register/register_screen (1).dart';
 
 class SignInConfirmationDialog extends StatefulWidget {
   const SignInConfirmationDialog({Key? key}) : super(key: key);

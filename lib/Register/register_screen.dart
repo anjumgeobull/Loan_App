@@ -1,13 +1,14 @@
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../Helper/SizedConfig.dart';
 import '../../Helper/globle style.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../Dashboard/Car_details_page.dart';
 import '../Dashboard/DashboardController.dart';
+import '../Helper/String_constant.dart';
 import '../Helper/commen_textField.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
+import '../Helper/shared_preferances.dart';
 import '../widget/common_snackbar.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -226,28 +227,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             },
                           ),
                         ),
-                        Flexible(
-                          child:
-                          Column(children: [
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  const TextSpan(
-                                    style: TextStyle(color: Colors.black87,),
-                                    text: "Agree to our ",
-                                  ),
-                                  TextSpan(
-                                    style: const TextStyle(color: Colors.blue),
-                                    text: "Terms of Service ",
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () async {
-                                        openUrl();
-                                      },
-                                  ),
-                                ],
-                              ),),
-                          ],),
-                        )
+                        Text(
+                          "I agree to the terms and conditions",
+                          style: KH7,
+                        ),
                       ],
                     ),
                   ),
@@ -255,29 +238,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     height: 5,
                   ),
-                  // dashboardController.isOtpVerified==true?
-                  // Container(
-                  //   margin: const EdgeInsets.only(right: 20.0,top: 5),
-                  //   alignment: Alignment.centerRight,
-                  //   child: const Text("Verified",style: TextStyle(color: Colors.green,fontSize: 13,fontWeight: FontWeight.bold),),
-                  // ):
-                  // Container(),
-                  // Obx(
-                  //   ()=> dashboardController.registered.value==false ?
+                  dashboardController.isOtpVerified==true?
+                  Container(
+                    margin: const EdgeInsets.only(right: 20.0,top: 5),
+                    alignment: Alignment.centerRight,
+                    child: const Text("Verified",style: TextStyle(color: Colors.green,fontSize: 13,fontWeight: FontWeight.bold),),
+                  ):
+                  Container(),
+                  Obx(
+                    ()=> dashboardController.registered.value==false ?
                     Center(
                       child: GestureDetector(
                         onTap: () async {
                           //Redirect to Dashboard / Home activity.
-                          //await Future.delayed(Duration.zero);
+                          await Future.delayed(Duration.zero);
 
                           if(mobile.text!=0 && name.text!="" && agreeToTerms==true) {
                             dashboardController.registration(token: "",
                                 user_name: name.text,
                                 contact: mobile.text);
-                            // if(dashboardController.registered==true)
-                            //   {
-                            //     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CarDetailScreen()));
-                            //   }
+                            if(dashboardController.registered==true)
+                              {
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CarDetailScreen()));
+                              }
                           }
                           else
                           {
@@ -302,32 +285,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       ),
+                    ):
+                    Center(
+                      child: GestureDetector(
+                        onTap: () async {
+                          //Redirect to Dashboard / Home activity.
+                          await Future.delayed(Duration.zero);
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 250,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color:themeColor,
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                          ),
+                          child: Text(
+                            'Register',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
                     )
-                    // Center(
-                    //   child: GestureDetector(
-                    //     onTap: () async {
-                    //       //Redirect to Dashboard / Home activity.
-                    //       await Future.delayed(Duration.zero);
-                    //     },
-                    //     child: Container(
-                    //       height: 50,
-                    //       width: 250,
-                    //       alignment: Alignment.center,
-                    //       decoration: BoxDecoration(
-                    //         color:themeColor,
-                    //         borderRadius: BorderRadius.all(Radius.circular(30)),
-                    //       ),
-                    //       child: Text(
-                    //         'Register',
-                    //         style: TextStyle(
-                    //           color: Colors.white,
-                    //           fontSize: 18,
-                    //           fontWeight: FontWeight.w500,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // )
                     // Center(
                     //   child: GestureDetector(
                     //     onTap: () async {
@@ -362,7 +345,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     //     ),
                     //   ),
                     // ),
-                  // )
+                  )
                 ],
               ),
             )
@@ -370,13 +353,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> openUrl() async {
-    final Uri _url = Uri.parse('https://grobiz.app/ClientProjects/VahanInfo/termConditionWeb');
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
-    }
   }
   Widget verifyOtpUi(){
     return Column(

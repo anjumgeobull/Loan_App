@@ -4,22 +4,16 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:loan_app/Dashboard/Dashboard.dart';
 import 'package:loan_app/Helper/navigation_helper.dart';
-import 'package:loan_app/login/login_screen.dart';
 
 import '../Controller/MyVehicleDetaileController.dart';
 import '../Controller/UserProfileController.dart';
 import '../Dashboard/Car_details_page.dart';
 import '../Documents/Document_List.dart';
-import '../Helper/String_constant.dart';
 import '../Helper/globle style.dart';
-import '../Helper/shared_preferances.dart';
 import '../Model/MyVehicleData.dart';
-import '../Register/register_screen.dart';
 import '../VehiclelList/VehicleDummyModel.dart';
 import '../VehiclelList/Vehicle_List.dart';
-import '../widget/sign_out_dailog.dart';
 import 'Edit_profile.dart';
 import 'Pdf_viewer.dart';
 
@@ -32,8 +26,8 @@ class CoustmerDetailScreen extends StatefulWidget {
 
 class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
     with TickerProviderStateMixin {
-  late TabController _tabController = TabController(length: 2, vsync: this);
-  String document="",token="";
+  late TabController _tabController = TabController(length: 3, vsync: this);
+  String document="";
   late File filedocument;
   bool isfileuploaded=false;
   final profileDataController = Get.find<UserProfileController>();
@@ -42,22 +36,12 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
   void initState() {
     super.initState();
     print(vehicles.length);
-    get_token();
-  }
-  get_token()
-  async {
-    if(await SPManager.instance.getUser(LOGIN_KEY)!=null)
-    token = (await SPManager.instance.getUser(LOGIN_KEY))!;
-    if(token!=''){
-      profileDataController.getUserProfile();
-      myVehicleListController.getMyVehicleDetail();
-      myVehicleListController.myVehicleList;
-      print("vehicle list====>");
-      print(myVehicleListController.myVehicleList);
-      setState(() {
-      });
-    }
-    print("token profile" + token.toString());
+    profileDataController.getUserProfile();
+    myVehicleListController.getMyVehicleDetail();
+    myVehicleListController.myVehicleList;
+    print("vehicle list====>");
+    print(  myVehicleListController.myVehicleList);
+
   }
 
   @override
@@ -76,16 +60,16 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                 color: Colors.white,
               ),
             ),
-            // leading: IconButton(
-            //   icon: Icon(
-            //     Icons.chevron_left,
-            //     size: 25.0,
-            //     color: Colors.white,
-            //   ),
-            //   onPressed: () {
-            //     Navigator.of(context).pop();
-            //   },
-            // ),
+            leading: IconButton(
+              icon: Icon(
+                Icons.chevron_left,
+                size: 25.0,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
             elevation: 0,
             actions: [
               IconButton(
@@ -93,88 +77,15 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                   Icons.edit,
                   size: 25.0,
                   color: Colors.white,
+
                 ),
                 onPressed: () {
-                  token==null || token==''?Get.to(()=>LoginScreen()):
                   Get.to(() => EditProfileScreen());
-                },
-              ),
-              IconButton(
-                icon: Icon(
-                  token==null || token==''?Icons.logout:Icons.login,
-                  size: 25.0,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  if(token!=null || token!=''){
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const SignOutConfirmationDialog();
-                        });
-                    //Get.off(()=>Dashboard());
-                  }else
-                  Get.off(() => LoginScreen());
                 },
               ),
             ],
           ),
-          body: token==null || token==''?
-          Container(
-            alignment: Alignment.center,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text('You are not logged '),
-                SizedBox(height: 20,),
-                InkWell(
-                  onTap: () async {
-                    Get.to(LoginScreen());
-                  },
-                  child: Container(
-                    height: 40,
-                    width: 120,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color:themeColor,
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Don't Have Any Account?  "),
-                      GestureDetector(
-                        child: Text(
-                          "Sign Up Now",
-                          style: TextStyle(color: themeColor),
-                        ),
-                        onTap: () {
-                          Get.to(()=>RegisterScreen());
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ):
-          SingleChildScrollView(
+          body: SingleChildScrollView(
             child: Column(
               children: [
                 Container(
@@ -195,7 +106,6 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                           children: [
                             Container(
                               width: MediaQuery.of(context).size.width * 0.7,
-                              margin: EdgeInsets.only(top: 10),
                               alignment: Alignment.topLeft,
                               child:  Text(
                                 "${profileDataController.name}",
@@ -209,18 +119,18 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                             SizedBox(
                               height: 5,
                             ),
-                            // Container(
-                            //   width: MediaQuery.of(context).size.width * 0.7,
-                            //   alignment: Alignment.topLeft,
-                            //   child: Text(
-                            //     "Pune, Maharashtra",
-                            //     style: TextStyle(
-                            //       fontWeight: FontWeight.normal,
-                            //       color: Colors.white,
-                            //       fontSize: 15,
-                            //     ),
-                            //   ),
-                            // ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                "Pune, Maharashtra",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                         Expanded(
@@ -249,7 +159,7 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                       text: 'Personal Info',
                     ),
                     Tab(text: 'My Vehicles'),
-                    //Tab(text: 'Documents'),
+                    Tab(text: 'Documents'),
                   ],
                   labelColor: Colors.black,
                   unselectedLabelColor: Colors.black,
@@ -477,36 +387,34 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child:
-                        Obx(() => myVehicleListController.myVehicleList.isNotEmpty?
-                          ListView.builder(
-                            itemCount: myVehicleListController.myVehicleList.length,
-                            itemBuilder: (context, index) {
-                              MyVehicleData data = MyVehicleData.fromJson(myVehicleListController.myVehicleList[index]);
-                              print(data.toString());
-                              return my_Vehicle_List(
-                                data: data,
+                        ListView.builder(
+                          itemCount: myVehicleListController.myVehicleList.length,
+                          itemBuilder: (context, index) {
+                            MyVehicleData data = MyVehicleData.fromJson(myVehicleListController.myVehicleList[index]);
+                            return my_Vehicle_List(
+                              data: data,
+                              index: index,
+                            );
+                          },
+                        ),
+
+
+                      ),
+
+                      // Document screen here..
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                          itemCount: vehicles.length,
+                          itemBuilder: (context, index) {
+                            return
+                              My_Document_List(
+                                data: vehicles[index],
                                 index: index,
                               );
-                            },
-                          ):Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children:[Text('No Vehicles')]),
+                          },
                         ),
                       ),
-                      // Document screen here..
-                      // Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: ListView.builder(
-                      //     itemCount: vehicles.length,
-                      //     itemBuilder: (context, index) {
-                      //       return
-                      //         My_Document_List(
-                      //           data: vehicles[index],
-                      //           index: index,
-                      //         );
-                      //     },
-                      //   ),
-                      // ),
 
                     ],
                   ),
@@ -515,7 +423,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                 )],
                   ),
                 ),
-      ),
+
+            ),
     );
 
   }
