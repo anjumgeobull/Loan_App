@@ -1,12 +1,15 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import '../Helper/String_constant.dart';
+import 'package:loan_app/Model/VehicleDetailedModel.dart';
+import '../Dashboard/Car_details_page.dart';
 import '../Helper/api_constant.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../Helper/loading_dialog.dart';
-import '../Helper/shared_preferances.dart';
 import '../Model/MyVehicleData.dart';
 import '../Helper/http_handler/network_http.dart';
 
@@ -16,7 +19,7 @@ class MyVehicleDetailedController extends GetxController{
   ///get vehicle data
   RxInt isSelected = 0.obs;
   List<MyVehicleData> vehicleList=[];
-  String user_auto_id="";
+  String user_auto_id="6458cb6be3ce3346ba00b4f2";
   RxBool isApiCallProcessing=false.obs;
   RxInt status= 0.obs;
   RxList  searchvehicle= [].obs;
@@ -71,19 +74,16 @@ class MyVehicleDetailedController extends GetxController{
     try {
       showLoadingDialog();
       Get.focusScope!.unfocus();
-      user_auto_id = (await SPManager.instance.getUser(LOGIN_KEY))!;
       log('starting to get response for --getmyVehicleList');
       var response = await HttpHandler.postHttpMethod(
           url: BASE_URL + get_my_vehicle_list,
           data: {"user_auto_id": user_auto_id});
       log('response received getMyVehicleList --$response');
-
+      hideLoadingDialog();
       if (response["body"]['status'] == 1) {
         myVehicleList.value = response["body"]["data"];
         myVehicleList.refresh();
-        hideLoadingDialog();
       } else if (response["body"]['status'] == 0) {
-        hideLoadingDialog();
         log("Data Not available");
         myVehicleList.clear();
       }
@@ -91,5 +91,6 @@ class MyVehicleDetailedController extends GetxController{
       debugPrint("Server Error -- $e  $s");
     }
   }
+
 
 }
