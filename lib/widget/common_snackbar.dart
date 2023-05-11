@@ -5,7 +5,7 @@ showSnackbar({required String title, required String message}) {
   Fluttertoast.showToast(
     msg: message,
     toastLength: Toast.LENGTH_SHORT,
-    gravity: ToastGravity.BOTTOM,
+    gravity: ToastGravity.TOP,
     timeInSecForIosWeb: 1,
     backgroundColor: Colors.grey,
     textColor: Colors.white,

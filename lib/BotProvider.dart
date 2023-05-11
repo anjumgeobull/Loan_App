@@ -40,20 +40,10 @@ class BotProvider with ChangeNotifier{
   bool existingtextvisible = true;
   bool existingbottonvisible = false;
 
-
-
-
   bool monthalyTextVisible = true;
   bool monthalybottonVisible = false;
-
-
   bool incomerangeButtonVisible = false;
-
-
-
   bool existingloanWidgetVisible = false;
-
-
 
   bool homeLoanChecked = false;
   bool bikeLoanChecked = false;

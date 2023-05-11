@@ -95,51 +95,54 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children:   [
-                              Obx(() => Text(
-                                "${vehicleScreenController.owner}",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              )),
+                               Obx(()=>vehicleScreenController.owner.value=='loading'?Text('NA'):
+                                 Text(
+                                 "${vehicleScreenController.owner.value}",
+                                   style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                              ),
+                               ),
                               SizedBox(
                                 height: 5,
                               ),
                               Row(
-                                children: const [
-                                  Text(
-                                    "MH12TY5476",
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                      decoration: TextDecoration.underline,
+                                children:  [
+                                  Obx(()=>vehicleScreenController.licNo.value=='loading'?Text('NA'):
+                                     Text(
+                                      "${vehicleScreenController.licNo.value}",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
+                                        decoration: TextDecoration.underline,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(width: 10), // Add some space between the two Text widgets
-                                  Text(
-                                    "First Owner",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.grey,
-
-                                    ),
-                                  ),
+                                  // Text(
+                                  //   "First Owner",
+                                  //   style: TextStyle(
+                                  //     fontSize: 13,
+                                  //     fontWeight: FontWeight.normal,
+                                  //     color: Colors.grey,
+                                  //
+                                  //   ),
+                                  // ),
                                 ],
                               ),
-
-
                               SizedBox(
                                 height: 5,
                               ),
-                              Text(
-                                "KUSHAQ AMBITION 1.0TSI AT ",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
+                              Obx(()=>vehicleScreenController.maker_model.value=='loading'?Text('NA'):                                 Text(
+                                  "${vehicleScreenController.maker_model.value}",
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -147,28 +150,24 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               ),
                               Padding(
                                 padding: EdgeInsets.only(left: 15.0),
-                                child: Text(
-                                  "PUC expired 27-Jan-2023",
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
+                                child:
+                                Obx(()=>vehicleScreenController.puc_expiry.value=='loading'?Text('NA'):
+                                 Text(
+                                    "${vehicleScreenController.puc_expiry.value}",
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
                                   ),
                                 ),
                               ),
-
-
                             ],
                           ),
-
-
-
-
                         ],
                       ),
                     ),
                   ),
-
                 ),
               ),
               SizedBox(height: 10,),
@@ -204,8 +203,6 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                         ),
                       ),
                     )
-
-
                   ],
                 ),
               ),
@@ -237,9 +234,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Text(
-                                      "John Smith",
-                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    Obx(()=>vehicleScreenController.owner.value=='loading'?Text('NA'):
+                                       Text(
+                                        "${vehicleScreenController.owner.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -252,9 +251,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                      Text(
-                                        "First Owner",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      Obx(()=>vehicleScreenController.ownerCount.value=='loading'?Text('NA'):
+                                         Text(
+                                          "${vehicleScreenController.ownerCount.value}",
+                                          style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -276,9 +277,12 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Text(
-                                      "28-Jan-2023",
-                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+
+                                    Obx(()=>vehicleScreenController.registration_date.value=='loading'?Text('NA'):
+                                      Text(
+                                        "${vehicleScreenController.registration_date.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -291,9 +295,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                      Text(
-                                        "ICICI BANK LTD",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      Obx(()=>vehicleScreenController.finaincerName.value=='loading'?Text('NA'):
+                                         Text(
+                                          "${vehicleScreenController.finaincerName.value}",
+                                          style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -314,16 +320,50 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                     style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                   SizedBox(height: 10,),
-                                  Text(
-                                    "Pune, Maharashtra",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                  Obx(()=>vehicleScreenController.registration_authority.value=='loading'?Text('NA'):
+                                    Text(
+                                      "${vehicleScreenController.registration_authority.value}",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-
                           ),
+                        ],
+                      ),
+                      SizedBox(height: 10,),
+                      Divider(),
+                      ExpansionTile(
+                        title: Text(
+                          "Finance Details",
+                          style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
+                        ),
 
+                        children: <Widget>[
+
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child:
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    "Financer's Name",
+                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Obx(()=>vehicleScreenController.finaincerName.value=='loading'?Text('NA'):
+                                     Text(
+                                      "${vehicleScreenController.finaincerName.value}",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(height: 10,),
@@ -348,16 +388,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                     style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                   SizedBox(height: 10,),
-                                  Text(
-                                    "SKODA AUTO VOLKSWAGEN INDIA PVT LTD, KUSHQ AMBITION 1.0 TSI AT",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                  Obx(()=>vehicleScreenController.model.value=='loading'?Text('NA'):
+                                     Text(
+                                      "${vehicleScreenController.model.value}",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-
                           ),
-
                           Divider(),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -372,9 +412,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Text(
-                                      "Motor Car(LMV)",
-                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    Obx(()=>vehicleScreenController.vehicle_class.value=='loading'?Text('NA'):
+                                       Text(
+                                        "${vehicleScreenController.vehicle_class.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -383,13 +425,15 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   child: Column(
                                     children: [
                                       Text(
-                                        "Fule Type",
+                                        "Fuel Type",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                      Text(
-                                        "PETROL",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      Obx(()=>vehicleScreenController.fule_type.value=='loading'?Text('NA'):
+                                         Text(
+                                          "${vehicleScreenController.fule_type.value}",
+                                          style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -407,13 +451,15 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 Column(
                                   children: [
                                     Text(
-                                      "Fule Norms",
+                                      "Fuel Norms",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Text(
-                                      "BHARAT STAGE VI",
-                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    Obx(()=>vehicleScreenController.norms_type.value=='loading'?Text('NA'):
+                                       Text(
+                                        "${vehicleScreenController.norms_type.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -426,9 +472,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                      Text(
-                                        "DTB0XXXXX",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      Obx(()=>vehicleScreenController.engine.value=='loading'?Text('NA'):
+                                         Text(
+                                          "${vehicleScreenController.engine.value}",
+                                          style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -436,10 +484,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               ],
                             ),
                           ),
-
-
                           Divider(),
-
                         ],
                       ),
                       SizedBox(height: 10,),
@@ -465,9 +510,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Text(
-                                      "27-Jan-2023",
-                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    Obx(()=>vehicleScreenController.registration_date.value=='loading'?Text('NA'):
+                                      Text(
+                                        "${vehicleScreenController.registration_date.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -476,14 +523,15 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   child: Column(
                                     children: [
                                       Text(
-                                        "Vehicle Age",
+                                        "Insurance Date",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
+                                  Obx(()=>vehicleScreenController.insu_date.value=='loading'?Text('NA'):
                                       Text(
-                                        "1 year & 2 months",
+                                        "${vehicleScreenController.insu_date.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
+                                      ),),
                                     ],
                                   ),
                                 ),
@@ -502,13 +550,15 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 Column(
                                   children: [
                                     Text(
-                                      "Fitness uoto",
+                                      "Fitness upto",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Text(
-                                      "27-Jan-2037",
-                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    Obx(()=>vehicleScreenController.fitnessDate.value=='loading'?Text('NA'):
+                                      Text(
+                                        "${vehicleScreenController.fitnessDate.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -521,61 +571,59 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
+                                      Obx(()=>vehicleScreenController.pollution.value=='loading'?Text('NA'):
                                       Text(
-                                        "27-Jan-2023",
+                                        "${vehicleScreenController.pollution.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
+                                      ),),
                                     ],
                                   ),
                                 ),
                               ],
                             ),
                           ),
-
-
-
                           Divider(),
 
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child:
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        "Insurance Expiry(Updated today)",
-                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
-                                      SizedBox(height: 10,),
-                                      Text(
-                                        "27-Jan-2037",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 20.0),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        "Insurance Expiring in",
-                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
-                                      SizedBox(height: 10,),
-                                      Text(
-                                        "1 year & 9 months",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(8.0),
+                          //   child:
+                          //   Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     children: [
+                          //       Expanded(
+                          //         child: Column(
+                          //           children: [
+                          //             Text(
+                          //               "Insurance Expiry(Updated today)",
+                          //               style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                          //             ),
+                          //             SizedBox(height: 10,),
+                          //             Text(
+                          //               "${vehicleScreenController.insu_date}",
+                          //               style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                          //             ),
+                          //           ],
+                          //         ),
+                          //       ),
+                          //       // Padding(
+                          //       //   padding: const EdgeInsets.only(right: 20.0),
+                          //       //   child: Column(
+                          //       //     children: [
+                          //       //       Text(
+                          //       //         "Insurance Expiring in",
+                          //       //         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                          //       //       ),
+                          //       //       SizedBox(height: 10,),
+                          //       //       Text(
+                          //       //         "1 year & 9 months",
+                          //       //         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                          //       //       ),
+                          //       //     ],
+                          //       //   ),
+                          //       // ),
+                          //     ],
+                          //   ),
+                          // ),
 
 
                         ],
@@ -603,9 +651,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Text(
-                                      "MHTY563566",
-                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    Obx(()=>vehicleScreenController.licNo.value=='loading'?Text('NA'):
+                                       Text(
+                                        "${vehicleScreenController.licNo.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -618,9 +668,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                      Text(
-                                        "CANDY WHITE",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      Obx(()=>vehicleScreenController.vehicle_color.value=='loading'?Text('NA'):
+                                        Text(
+                                          "${vehicleScreenController.vehicle_color.value}",
+                                          style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -628,8 +680,6 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               ],
                             ),
                           ),
-
-
 
                           Divider(),
 
@@ -646,9 +696,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Text(
-                                      "1234",
-                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    Obx(()=>vehicleScreenController.unladen_weight.value=='loading'?Text('NA'):
+                                      Text(
+                                        "${vehicleScreenController.unladen_weight.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -661,10 +713,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
+                                  Obx(()=>vehicleScreenController.rc_staus.value=='loading'?Text('NA'):
                                       Text(
-                                        "ACTIVE",
+                                        "${vehicleScreenController.rc_staus.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
+                                      ),),
                                     ],
                                   ),
                                 ),
@@ -717,8 +770,6 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           //
                           // ),
 
-
-
                         ],
                       ),
                     ],
@@ -739,7 +790,6 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           bottomRight: Radius.circular(20),
                           topRight: Radius.circular(20),
                           topLeft: Radius.circular(20),
-
                         ),
                         color: Colors.grey[200],
                         border: Border.all(
@@ -758,12 +808,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                         ),
                       ),
                     )
-
-
                   ],
                 ),
               ),
-             Padding(
+              vehicleScreenController.insuerName.value!=null && vehicleScreenController.insuerName.value!=""?
+              Padding(
                 padding: const EdgeInsets.all(10.0),
                 child:
                 Card(
@@ -784,315 +833,309 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       SizedBox(
                         width: 10,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:   [
-                          Text("Your are insured",style: TextStyle(
-                              fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
-                          ),),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "Insurance name",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black,
+                      
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children:   [
+                            Text("Your are insured",style: TextStyle(
+                                fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
+                            ),),
+                            SizedBox(
+                              height: 5,
                             ),
-                          ),
-                          SizedBox(width: 10), // Add some space between the two Text widgets
-                          Text(
-                            "Bajaj Allianze General Insurance Co LTd",
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.grey,
-
-                            ),
-                          ),
-
-
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "Insurance expired ",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 15.0),
-                            child: Text(
-                              "27-Jan-2023",
+                            Text(
+                              "Insurance name",
                               style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal,
                                 color: Colors.black,
                               ),
                             ),
-                          ),
+                            SizedBox(width: 10), // Add some space between the two Text widgets
+                        Obx(()=>vehicleScreenController.insuerName.value=='loading'?Text('NA'):
+                            Text(
+                              "${vehicleScreenController.insuerName.value}",
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey,
 
+                              ),
+                            ),),
 
-                        ],
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "Insurance Expiring on ",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 15.0),
+                              child:
+                              Obx(()=>vehicleScreenController.insuranceDate.value=='loading'?Text('NA'):
+                                 Text(
+                                  "${vehicleScreenController.insuranceDate.value}",
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 10,),
-
-
-
                     ],
                   ),
                 ),
-
-
-             ),
+             ):Container(),
               SizedBox(height: 5,),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    Container(
-                      height: 30,
-                      width: 190,
-                      decoration:  BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          topLeft: Radius.circular(20),
-
-                        ),
-                        color: Colors.grey[200],
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 0.7,
-                        ),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Specification",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    )
-
-
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0,right: 10.0),
-                child:
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children:   [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.percent,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  "Range",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.green
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "10lakh-15lakh",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children:   [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.transform_rounded,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  "Transmission",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.green
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Manual/Automatic",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-
-
-
-
-
-                      ],
-                    ),
-                  ),
-                ),
-
-
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0,right: 10.0,bottom: 10),
-                child:
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children:   [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.traffic,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  "Mileage",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.green
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "10.778 to 19.3 kmpl",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children:   [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  "Rating",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.green
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "4.5",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-
-
-
-
-
-                      ],
-                    ),
-                  ),
-                ),
-
-
-              ),
-
-
-
+              // Padding(
+              //   padding: const EdgeInsets.all(10.0),
+              //   child: Column(
+              //     children: [
+              //       Container(
+              //         height: 30,
+              //         width: 190,
+              //         decoration:  BoxDecoration(
+              //           borderRadius: const BorderRadius.only(
+              //             bottomLeft: Radius.circular(20),
+              //             bottomRight: Radius.circular(20),
+              //             topRight: Radius.circular(20),
+              //             topLeft: Radius.circular(20),
+              //
+              //           ),
+              //           color: Colors.grey[200],
+              //           border: Border.all(
+              //             color: Colors.black,
+              //             width: 0.7,
+              //           ),
+              //         ),
+              //         child: const Center(
+              //           child: Text(
+              //             "Specification",
+              //             style: TextStyle(
+              //               fontSize: 20,
+              //               fontWeight: FontWeight.bold,
+              //               color: Colors.black,
+              //             ),
+              //           ),
+              //         ),
+              //       )
+              //
+              //
+              //     ],
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 10.0,right: 10.0),
+              //   child:
+              //   Card(
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(15.0),
+              //     ),
+              //     child: Padding(
+              //       padding: const EdgeInsets.all(10.0),
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         children: [
+              //           Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children:   [
+              //               Row(
+              //                 children: [
+              //                   Icon(
+              //                     Icons.percent,
+              //                     color: Colors.green,
+              //                   ),
+              //                   SizedBox(
+              //                     width: 5.0,
+              //                   ),
+              //                   Text(
+              //                     "Range",
+              //                     style: TextStyle(
+              //                         fontSize: 15,
+              //                         fontWeight: FontWeight.normal,
+              //                         color: Colors.green
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //               SizedBox(
+              //                 height: 5,
+              //               ),
+              //               Text(
+              //                 "10lakh-15lakh",
+              //                 style: TextStyle(
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.normal,
+              //                   color: Colors.black,
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //           SizedBox(height: 10,),
+              //
+              //           Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children:   [
+              //               Row(
+              //                 children: [
+              //                   Icon(
+              //                     Icons.transform_rounded,
+              //                     color: Colors.green,
+              //                   ),
+              //                   SizedBox(
+              //                     width: 5.0,
+              //                   ),
+              //                   Text(
+              //                     "Transmission",
+              //                     style: TextStyle(
+              //                         fontSize: 15,
+              //                         fontWeight: FontWeight.normal,
+              //                         color: Colors.green
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //               SizedBox(
+              //                 height: 5,
+              //               ),
+              //               Text(
+              //                 "Manual/Automatic",
+              //                 style: TextStyle(
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.normal,
+              //                   color: Colors.black,
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //           SizedBox(height: 10,),
+              //
+              //
+              //
+              //
+              //
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              //
+              //
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 10.0,right: 10.0,bottom: 10),
+              //   child:
+              //   Card(
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(15.0),
+              //     ),
+              //     child: Padding(
+              //       padding: const EdgeInsets.all(10.0),
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //         children: [
+              //           Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children:   [
+              //               Row(
+              //                 children: [
+              //                   Icon(
+              //                     Icons.traffic,
+              //                     color: Colors.green,
+              //                   ),
+              //                   SizedBox(
+              //                     width: 5.0,
+              //                   ),
+              //                   Text(
+              //                     "Mileage",
+              //                     style: TextStyle(
+              //                         fontSize: 15,
+              //                         fontWeight: FontWeight.normal,
+              //                         color: Colors.green
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //               SizedBox(
+              //                 height: 5,
+              //               ),
+              //               Text(
+              //                 "10.778 to 19.3 kmpl",
+              //                 style: TextStyle(
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.normal,
+              //                   color: Colors.black,
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //           SizedBox(height: 10,),
+              //
+              //           Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children:   [
+              //               Row(
+              //                 children: [
+              //                   Icon(
+              //                     Icons.star,
+              //                     color: Colors.green,
+              //                   ),
+              //                   SizedBox(
+              //                     width: 5.0,
+              //                   ),
+              //                   Text(
+              //                     "Rating",
+              //                     style: TextStyle(
+              //                         fontSize: 15,
+              //                         fontWeight: FontWeight.normal,
+              //                         color: Colors.green
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //               SizedBox(
+              //                 height: 5,
+              //               ),
+              //               Text(
+              //                 "4.5",
+              //                 style: TextStyle(
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.normal,
+              //                   color: Colors.black,
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //           SizedBox(height: 10,),
+              //
+              //
+              //
+              //
+              //
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              //
+              //
+              // ),
             ],
-
           ),
         ),
-
-
       ),
     );
   }
@@ -1124,36 +1167,5 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
             )
           ])),
     );
-  }
-
-  Widget uploadLogoUi() {
-    return Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(bottom: 30),
-        child: Container(
-          alignment: Alignment.center,
-          child: Column(
-            children: <Widget>[
-              Container(
-                child: isIconSelected
-                    ? ClipRRect(
-                        child: Image.file(
-                          File(icon_img.path),
-                          height: 100,
-                          width: 100,
-                        ),
-                      )
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: Container(
-                          height: 100,
-                          width: 100,
-                          child: Image.asset('assets/images/img_3.png',
-                              height: 50, width: 50),
-                        )),
-              ),
-            ],
-          ),
-        ));
   }
 }
