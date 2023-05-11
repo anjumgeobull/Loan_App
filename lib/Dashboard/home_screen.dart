@@ -6,6 +6,7 @@ import 'dart:core';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:loan_app/Dashboard/Car_details_page.dart';
+import '../Controller/UserProfileController.dart';
 import '../Helper/String_constant.dart';
 import '../Helper/globle style.dart';
 import '../Helper/shared_preferances.dart';
@@ -15,6 +16,7 @@ import '../VehicleSearch/VehicleSearch.dart';
 import '../login/login_screen.dart';
 import 'CheckCriteriaWithBot.dart';
 import 'Emi_calculator.dart';
+import 'package:avatar_glow/avatar_glow.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -30,11 +32,24 @@ class Item {
   Item({required this.name, required this.imageUrl});
 }
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
+  final String name;
+
+  MyAppBar(this.name);
+
+  @override
+  _MyAppBarState createState() => _MyAppBarState();
+
+  @override
+  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+}
+
+class _MyAppBarState extends State<MyAppBar> {
+  final profileDataController = Get.find<UserProfileController>();
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [themeColor, themelightColor],
           begin: Alignment.topLeft,
@@ -43,44 +58,45 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       child: SafeArea(
         child: Row(
-          children: const [
+          children: [
             Expanded(
               child: Center(
-                child: Text(
-                  'Welcome John',
+                child: Obx(()=> profileDataController.name.value!="loading" ||profileDataController.name.value!=''?
+                  Text(
+                     "Welcome ${profileDataController.name.value}",
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ):
+                const Text(
+                  "Welcome User",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
+                ),
               ),
             ),
-            // InkWell(
-            //   onTap: () {
-            //     // Get.to(CoustmerDetailScreen());
-            //     // Navigator.of(context).push(new MaterialPageRoute(
-            //     //     builder: (context) => new CoustmerDetailScreen()));
-            //     //Profile
-            //   },
-            //   child: const Padding(
-            //     padding: EdgeInsets.only(right: 10.0),
-            //     child: Icon(
-            //       Icons.person,
-            //       color: Colors.white,
-            //       size: 25,
-            //     ),
-            //   ),
-            // ),
+            // IconButton(
+            //     onPressed: () {
+            //       Get.to(() => const ChooseLanguage())!.whenComplete(() {
+            //         setState(() {
+            //
+            //         });
+            //       });
+            //     },
+            //     icon: const Icon(Icons.language)),
           ],
         ),
       ),
     );
   }
-
-  @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
 }
+
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isApiCallProcessing = false;
@@ -94,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Item(name: 'Used Car loan', imageUrl: 'assets/images/car_loan.png'),
     Item(name: 'CIBIL', imageUrl: 'assets/images/cibil.png'),
   ];
-  late String vehicleNo = "MH12TY5476",
+  late String vehicleNo = "",
       emailid = "loading",
       mobile_no = "loading",
       dob = "";
@@ -109,6 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isIconSelected = false;
   String? token='';
   final vehicleScreenController = Get.find<VehicleDetailedController>();
+  final profileDataController = Get.find<UserProfileController>();
   bool is_my_vehicle=false;
   String my_vehicle="no";
   @override
@@ -121,13 +138,20 @@ class _HomeScreenState extends State<HomeScreen> {
   get_token()
   async {
     token = await SPManager.instance.getUser(LOGIN_KEY);
+    if(token!=null && token!="")
+    {
+      profileDataController.getUserProfile();
+    }
+    setState(() {
+
+    });
     print("token " + token.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: MyAppBar(profileDataController.name.value),
       // AppBar(
       //   elevation: 0,
       //   backgroundColor:themeColor,
@@ -210,10 +234,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     children: [
                       Expanded(
-
                         child: TextField(
                           controller: car_number,
-
                           decoration: InputDecoration(
                             hintText: 'Enter vehicle number',
                             filled: true,
@@ -249,14 +271,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                   builder: (context) => LoginScreen()));
                             }
                             else {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => CarDetailScreen()));
-                                  // showDialog(context: context,
-                                  // builder: (context) {
-                                  // return SignInConfirmationDialog();
-                                  // }
-                                  // );
-                                  AddtoMycar(context);
+                              if(vehicleNo.isNotEmpty && vehicleNo!="") {
+                                vehicleScreenController
+                                    .getVehicleDetailsSearchData(vehicleNo);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => CarDetailScreen()));
+                                // showDialog(context: context,
+                                // builder: (context) {
+                                // return SignInConfirmationDialog();
+                                // }
+                                // );
+                                AddtoMycar(context);
+                              }else
+                                {
+                                  Fluttertoast.showToast(msg: 'Please enter valid car no. ' , backgroundColor: Colors.grey,);
+                                }
                             }
                           }else {
                             Navigator.of(context).push(MaterialPageRoute(
@@ -314,6 +343,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
             padding: const EdgeInsets.only(left: 8.0,right: 8.0),
             child: Card(
+              elevation: 3,
+              color: secondaryColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
@@ -328,7 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: TextColor,
-                        fontSize: 15,
+                        fontSize: 18,
                         fontFamily: 'InterRegular',
                       ),
                     ),
@@ -351,8 +382,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
-                            Icons.question_mark,
-                            color: Colors.white,
+                            Icons.send,
+                            color: themeColor,
                           ),
                         ),
                       ),
@@ -367,7 +398,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.only(left: 20.0,top: 10,bottom: 10),
                 child: Text(
                   "Services",
-                  style:TextStyle(color: Colors.black54,fontSize: 15,fontWeight: FontWeight.bold),
+                  style:TextStyle(color: Colors.black54,fontSize: 18,fontWeight: FontWeight.bold),
                 ),
               ),
 
@@ -380,122 +411,123 @@ class _HomeScreenState extends State<HomeScreen> {
                   child:
                   Column(
                     children: [
-                      GridView.builder(
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 4,
-                          childAspectRatio: 1,
+                      Container(
+                        margin: EdgeInsets.only(top: 25),
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 4,
+                            childAspectRatio: 1,
+                          ),
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                switch (index) {
+                                  case 1:
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (BuildContext context) => EMICalculatorUI()));
+                                    break;
+                                  case 0:
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (BuildContext context) => VehicleSearchScreen()));
+                                    break;
+                                  case 2:
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Comming Soon',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        duration: Duration(seconds: 2),
+                                        backgroundColor: themeColor,
+                                      ),
+                                    );
+                                    break;
+                                  case 3:
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Comming Soon',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        duration: Duration(seconds: 2),
+                                        backgroundColor: themeColor,
+                                      ),
+                                    );
+                                    break;
+                                  case 4:
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Comming Soon',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        duration: Duration(seconds: 2),
+                                        backgroundColor: themeColor,
+                                      ),
+                                    );
+                                    break;
+                                  case 5:
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Comming Soon',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        duration: Duration(seconds: 2),
+                                        backgroundColor: themeColor,
+                                      ),
+
+                                    );
+                                    break;
+                                  case 6:
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Comming Soon',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        duration: Duration(seconds: 2),
+                                        backgroundColor: themeColor,
+                                      ),
+                                    );
+                                    break;
+                                  case 7:
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Comming Soon',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        duration: Duration(seconds: 2),
+                                        backgroundColor: themeColor,
+                                      ),
+                                    );
+                                    break;
+                                }
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                    items[index].imageUrl,
+                                    width: 35.0,
+                                    height: 35.0,
+                                    fit: BoxFit.fill,
+                                  ),
+                                  SizedBox(height: 5.0),
+                                  Text(
+                                    items[index].name,
+                                    style: TextStyle(fontSize: 14.0),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          itemCount: items.length,
                         ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            onTap: () {
-                              switch (index) {
-                                case 1:
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) => EMICalculatorUI()));
-                                  break;
-                                case 0:
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) => VehicleSearchScreen()));
-                                  break;
-                                case 2:
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Comming Soon',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: themeColor,
-                                    ),
-                                  );
-                                  break;
-                                case 3:
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Comming Soon',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: themeColor,
-                                    ),
-                                  );
-                                  break;
-                                case 4:
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Comming Soon',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: themeColor,
-                                    ),
-                                  );
-                                  break;
-                                case 5:
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Comming Soon',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: themeColor,
-                                    ),
-
-                                  );
-                                  break;
-                                case 6:
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Comming Soon',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: themeColor,
-                                    ),
-                                  );
-                                  break;
-                                case 7:
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Comming Soon',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: themeColor,
-                                    ),
-                                  );
-                                  break;
-
-                              }
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                  items[index].imageUrl,
-                                  width: 35.0,
-                                  height: 35.0,
-                                  fit: BoxFit.cover,
-                                ),
-                                SizedBox(height: 6.0),
-                                Text(
-                                  items[index].name,
-                                  style: TextStyle(fontSize: 15.0),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                        itemCount: items.length,
                       ),
-
                       // Padding(
                       //   padding: const EdgeInsets.all(10.0),
                       //   child: Card(
@@ -573,10 +605,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-    ]
-          )
-        )
-      )
 
     );
   }
@@ -625,7 +653,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // }
 
   void AddtoMycar(context) {
-    Future.delayed(Duration(seconds: 5)).then((value) => showModalBottomSheet<void>(
+    Future.delayed(Duration(seconds: 8)).then((value) => showModalBottomSheet<void>(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
       backgroundColor: Colors.white,
@@ -704,7 +732,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 topRight: Radius.circular(20),
                                 topLeft: Radius.circular(20),
                               ),
-                              color: Colors.grey[200],
+                              color: themelightColor,
                               border: Border.all(
                                 color: Colors.black,
                                 width: 0.7,
@@ -735,9 +763,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               if(is_my_vehicle==true){
                                 my_vehicle="yes";
                               }
-                              Fluttertoast.showToast(msg: 'Added in to my vehicle'
-                                , backgroundColor: Colors.grey,);
-                              vehicleScreenController.addVehicleDetails(car_number.text,my_vehicle);
+                              Fluttertoast.showToast(msg: 'Added in to my vehicle', backgroundColor: Colors.grey,);
+                              vehicleScreenController.addVehicleDetails(car_number.text,
+                                  my_vehicle,vehicleScreenController.licNo.value,vehicleScreenController.full_chasis.value,
+                                  vehicleScreenController.owner.value,vehicleScreenController.registration_date.value,vehicleScreenController.fule_type.value
+                                  ,vehicleScreenController.engine.value,vehicleScreenController.vehicle_class.value,vehicleScreenController.maker_name.value,
+                                  vehicleScreenController.maker_model.value,vehicleScreenController.count.value,vehicleScreenController.insuranceDate.value
+                                  ,vehicleScreenController.pollution.value,vehicleScreenController.fitnessDate.value,
+                                  vehicleScreenController.model.value,vehicleScreenController.insuerName.value,vehicleScreenController.financier_name.value,
+                                  vehicleScreenController.vehicle_color.value,vehicleScreenController.manufacturing_date.value,vehicleScreenController.norms_type.value,
+                                  vehicleScreenController.owner_father_name.value,vehicleScreenController.registration_authority.value,vehicleScreenController.insurance_policy_no.value,
+                                  vehicleScreenController.present_address.value,vehicleScreenController.permanent_address.value,vehicleScreenController.vehicle_cubic_capacity.value,
+                                  vehicleScreenController.pucc_no.value,vehicleScreenController.vehicle_weight.value,vehicleScreenController.seating_capacity.value,
+                                  vehicleScreenController.puc_expiry.value,vehicleScreenController.fitupto.value,vehicleScreenController.taxupto.value,
+                                  vehicleScreenController.blaclist.value,vehicleScreenController.nocdetails.value,vehicleScreenController.rc_staus.value
+                                  ,vehicleScreenController.rc_staus_ason.value,vehicleScreenController.body_type.value
+                              );
                             });
                           },
                           child: Container(
@@ -749,9 +790,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 bottomRight: Radius.circular(20),
                                 topRight: Radius.circular(20),
                                 topLeft: Radius.circular(20),
-
                               ),
-                              color: Colors.grey[200],
+                              color: secondaryColor,
                               border: Border.all(
                                 color: Colors.black,
                                 width: 0.7,

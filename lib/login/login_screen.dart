@@ -7,6 +7,8 @@ import '../Helper/commen_textField.dart';
 import '../Helper/globle style.dart';
 import 'package:get/get.dart';
 
+import '../Register/register_screen.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -67,6 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             horizontal: SizeConfig.screenWidth * 0.02,
                             vertical: SizeConfig.screenHeight * 0.02,
                           ),
+                        child: Image.asset('assets/images/applogo.png'),
                           ),
                       SizedBox(
                         height: SizeConfig.screenHeight * 0.01,
@@ -142,7 +145,28 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                      )
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Don't Have Any Account?  "),
+                            GestureDetector(
+                              child: Text(
+                                "Sign Up Now",
+                                style: TextStyle(color: themeColor),
+                              ),
+                              onTap: () {
+                                Get.to(()=>RegisterScreen());
+                              },
+                            )
+                          ],
+                        ),
+                      ),
                       ],
                     ),
                   ),

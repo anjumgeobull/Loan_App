@@ -2,33 +2,35 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'BotProvider.dart';
-
 import 'package:get/get.dart';
 import 'Controller/AddEnquiryController.dart';
+import 'Controller/GetEnquiryController.dart';
 import 'Controller/MyVehicleDetaileController.dart';
 import 'Controller/UserProfileController.dart';
 import 'Controller/VehicleDetailedController.dart';
-
-
 import 'Dashboard/DashboardController.dart';
-
 import 'Helper/globle style.dart';
 import 'Splash_Screen/splash_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import 'config/TranslationsUtils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  DashboardController dashboardController = Get.put(DashboardController());
-  await Firebase.initializeApp();
   Get.put(VehicleDetailedController());
   Get.put(AddEnquiryController());
   Get.put(DashboardController());
   Get.put(UserProfileController());
   Get.put(MyVehicleDetailedController());
-
+  Get.put(GetEnquiryController());
+  await Firebase.initializeApp();
+  await Permission.storage.isDenied.then((value) {
+    if (value) {
+      Permission.storage.request();
+    }
+  });
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(MyApp()));
 }
@@ -56,8 +58,9 @@ class MyApp extends  StatelessWidget {
             PointerDeviceKind.stylus,
             PointerDeviceKind.unknown
           }),
-
-          title: 'Loan App',
+          // locale: Locale(getLang()),
+          // translations: TranslationsUtils(),
+          title: 'RTO Vahan Info',
           theme: ThemeData(
               primarySwatch: Colors.blue,
               checkboxTheme: CheckboxThemeData(

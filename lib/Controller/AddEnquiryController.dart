@@ -4,16 +4,18 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Dashboard/home_screen (3).dart';
+import 'package:loan_app/Dashboard/Dashboard.dart';
+import '../Helper/String_constant.dart';
 import '../Helper/api_constant.dart';
 import '../Helper/http_handler/network_http.dart';
-import '../widget/common_snackbar.dart';
-import '../widget/loading_dialog.dart';
+import '../Helper/loading_dialog.dart';
+import '../Helper/shared_preferances.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 class AddEnquiryController extends GetxController
 {
-  String user_auto_id="6458cb6be3ce3346ba00b4f2";
-
+  String user_auto_id="";
+  RxList enquireyList = [].obs;
 
   addEnquieryApi({
     String? cityName,
@@ -35,16 +37,14 @@ class AddEnquiryController extends GetxController
   })
   async {
 
-
+    showLoadingDialog();
     var url = BASE_URL + add_enquirey;
     Uri uri=Uri.parse(url);
 
-
     var request = new http.MultipartRequest("POST", uri);
-    // user_auto_id,city,employment_type,requirement_amount,photo,
-    // pancard,aadhar_or_votingcard,bank_statement,rc_book,insurance
-//For profile image
 
+    //For profile image
+    user_auto_id = (await SPManager.instance.getUser(LOGIN_KEY))!;
     try{
       if(icon_img!=null){
         request.files.add(
@@ -165,19 +165,17 @@ class AddEnquiryController extends GetxController
     print(response.toString());
 
     if (response.statusCode == 200) {
-
-
+      hideLoadingDialog();
       final resp=jsonDecode(response.body);
-
       print(resp.toString());
 
       int status=resp['status'];
-      if(status=="1"){
+      if(status==1){
         Fluttertoast.showToast(
           msg: "Added successfully",
           backgroundColor: Colors.grey,
         );
-        Get.to(() => HomeScreen());
+        Get.off(() => Dashboard());
       }
       else{
         String message=resp['msg'];
@@ -185,11 +183,13 @@ class AddEnquiryController extends GetxController
       }
     }
     else if(response.statusCode==500){
+      hideLoadingDialog();
       print(response.statusCode.toString());
       Fluttertoast.showToast(msg: "Server Error", backgroundColor: Colors.grey,);
 
     }
     else {
+      hideLoadingDialog();
       print(response.statusCode.toString());
       Fluttertoast.showToast(msg: response.toString(), backgroundColor: Colors.grey,);
     }
@@ -246,4 +246,30 @@ class AddEnquiryController extends GetxController
   //     debugPrint("Server Error -- $e  $s");
   //   }
   // }
+
+  getenquirey() async {
+    log('entered add my vehicle api ----');
+    try {
+      showLoadingDialog();
+      Get.focusScope!.unfocus();
+      user_auto_id = (await SPManager.instance.getUser(LOGIN_KEY))!;
+      log('starting to get response for --getEnquirey');
+      var response = await HttpHandler.postHttpMethod(
+          url: BASE_URL + get_enquirey,
+          data: {"user_auto_id": user_auto_id});
+      log('response received getEnquirey --$response');
+
+      if (response["body"]['status'] == 1) {
+        enquireyList.value = response["body"]["data"];
+        enquireyList.refresh();
+        hideLoadingDialog();
+      } else if (response["body"]['status'] == 0) {
+        hideLoadingDialog();
+        log("Data Not available");
+        enquireyList.clear();
+      }
+    } catch (e, s) {
+      debugPrint("Server Error -- $e  $s");
+    }
+  }
 }

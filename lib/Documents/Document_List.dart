@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:loan_app/Documents/DocumentScreen.dart';
 import '../../Helper/globle style.dart';
 import '../VehiclelList/VehicleDummyModel.dart';
 import '../VehiclelList/my_Vehicle_view_details.dart';
@@ -22,7 +23,7 @@ class _My_Document_ListState extends State<My_Document_List> {
       InkWell(
         onTap: (){
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>
-          new upload_documentDetailScreen()));
+          new DocumentScreen()));
 
         },
         child:
@@ -104,15 +105,8 @@ class _My_Document_ListState extends State<My_Document_List> {
 
                       ],
                     ),
-
-
-
                   ],
                 ),
-
-
-
-
               ],
             ),
           ),

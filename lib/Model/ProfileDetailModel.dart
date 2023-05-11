@@ -40,7 +40,7 @@ class ProfileData {
   late final String status;
   late final String token;
   late final String registerDate;
-  late final int otp;
+  late final String otp;
   late final String otpStatus;
   late final String updatedAt;
   late final String createdAt;
@@ -53,7 +53,7 @@ class ProfileData {
     status = json['status'];
     token = json['token'];
     registerDate = json['register_date'];
-    otp = json['otp'];
+    otp = json['otp'].toString();
     otpStatus = json['otp_status'];
     updatedAt = json['updated_at'];
     createdAt = json['created_at'];
