@@ -1,14 +1,14 @@
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../Helper/SizedConfig.dart';
 import '../../Helper/globle style.dart';
-import '../Dashboard/Car_details_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../Dashboard/DashboardController.dart';
-import '../Helper/String_constant.dart';
 import '../Helper/commen_textField.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
-import '../Helper/shared_preferances.dart';
+import '../config/choosen_lang.dart';
 import '../widget/common_snackbar.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -76,7 +76,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       height: SizeConfig.screenHeight * 0.01,
                     ),
-                    Text(
+                    textToTrans(
+                      input:
                       "User Registration",
                       style: KH3.copyWith(color: KWHITE_COLOR),
                     )
@@ -93,7 +94,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all( 10.0),
-                    child: Text(
+                    child: textToTrans(
+                      input:
                       "Enter Your Name",
                       style: KH6_SemiBold,
                     ),
@@ -133,7 +135,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   // Padding(
                   //   padding: const EdgeInsets.only(left: 2.0),
-                  //   child: Text(
+                  //   child: textToTrans(
+                  // input:
                   //     "Enter email id",
                   //     style: KH6_SemiBold,
                   //   ),
@@ -157,7 +160,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   Padding(
                     padding: const EdgeInsets.only(left: 2.0),
-                    child: Text(
+                    child: textToTrans(
+                      input:
                       "Enter Mobile number",
                       style: KH6_SemiBold,
                     ),
@@ -184,7 +188,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   //
                   // Padding(
                   //   padding: const EdgeInsets.only(left: 2.0),
-                  //   child: Text(
+                  //   child: textToTrans(
+                  //input:
                   //     "Enter Address",
                   //     style: KH6_SemiBold,
                   //   ),
@@ -227,10 +232,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             },
                           ),
                         ),
-                        Text(
-                          "I agree to the terms and conditions",
-                          style: KH7,
-                        ),
+                        Flexible(
+                          child:
+                          Column(children: [
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    style: TextStyle(color: Colors.black87,),
+                                    text: "Agree to our ",
+                                  ),
+                                  TextSpan(
+                                    style: const TextStyle(color: Colors.blue),
+                                    text: "Terms of Service ",
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () async {
+                                        openUrl();
+                                      },
+                                  ),
+                                ],
+                              ),),
+                          ],),
+                        )
                       ],
                     ),
                   ),
@@ -238,114 +261,118 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     height: 5,
                   ),
-                  dashboardController.isOtpVerified==true?
-                  Container(
-                    margin: const EdgeInsets.only(right: 20.0,top: 5),
-                    alignment: Alignment.centerRight,
-                    child: const Text("Verified",style: TextStyle(color: Colors.green,fontSize: 13,fontWeight: FontWeight.bold),),
-                  ):
-                  Container(),
-                  Obx(
-                    ()=> dashboardController.registered.value==false ?
-                    Center(
-                      child: GestureDetector(
-                        onTap: () async {
-                          //Redirect to Dashboard / Home activity.
-                          await Future.delayed(Duration.zero);
+                  // dashboardController.isOtpVerified==true?
+                  // Container(
+                  //   margin: const EdgeInsets.only(right: 20.0,top: 5),
+                  //   alignment: Alignment.centerRight,
+                  //   child: const textToTrans(
+                  //input:"Verified",style: TextStyle(color: Colors.green,fontSize: 13,fontWeight: FontWeight.bold),),
+                  // ):
+                  // Container(),
+                  // Obx(
+                  //   ()=> dashboardController.registered.value==false ?
+                  Center(
+                    child: GestureDetector(
+                      onTap: () async {
+                        //Redirect to Dashboard / Home activity.
+                        //await Future.delayed(Duration.zero);
 
-                          if(mobile.text!=0 && name.text!="" && agreeToTerms==true) {
-                            dashboardController.registration(token: "",
-                                user_name: name.text,
-                                contact: mobile.text);
-                            if(dashboardController.registered==true)
-                              {
-                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CarDetailScreen()));
-                              }
-                          }
-                          else
-                          {
-                            showSnackbar(title: "", message: "please agree to terms and conditions");
-                          }
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 250,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color:themeColor,
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                          ),
-                          child: Text(
-                            'Registration',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
+                        if(mobile.text!=0 && name.text!="" && agreeToTerms==true) {
+                          dashboardController.registration(token: "",
+                              user_name: name.text,
+                              contact: mobile.text);
+                          // if(dashboardController.registered==true)
+                          //   {
+                          //     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CarDetailScreen()));
+                          //   }
+                        }
+                        else
+                        {
+                          showSnackbar(title: "", message: "please agree to terms and conditions");
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 250,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color:themeColor,
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        child: textToTrans(
+                          input:
+                          'Registration',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
-                    ):
-                    Center(
-                      child: GestureDetector(
-                        onTap: () async {
-                          //Redirect to Dashboard / Home activity.
-                          await Future.delayed(Duration.zero);
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 250,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color:themeColor,
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                          ),
-                          child: Text(
-                            'Register',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                    // Center(
-                    //   child: GestureDetector(
-                    //     onTap: () async {
-                    //       //Redirect to Dashboard / Home activity.
-                    //       await Future.delayed(Duration.zero);
-                    //       if(agreeToTerms==true) {
-                    //         dashboardController.registration(token: "",
-                    //             user_name: name.text,
-                    //             contact: mobile.text);
-                    //       }
-                    //       else
-                    //         {
-                    //           showSnackbar(title: "", message: "please agree to terms and conditions");
-                    //         }
-                    //     },
-                    //     child: Container(
-                    //       height: 50,
-                    //       width: 250,
-                    //       alignment: Alignment.center,
-                    //       decoration: BoxDecoration(
-                    //         color:themeColor,
-                    //         borderRadius: BorderRadius.all(Radius.circular(30)),
-                    //       ),
-                    //       child: Text(
-                    //         'Verify',
-                    //         style: TextStyle(
-                    //           color: Colors.white,
-                    //           fontSize: 18,
-                    //           fontWeight: FontWeight.w500,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                    ),
                   )
+                  // Center(
+                  //   child: GestureDetector(
+                  //     onTap: () async {
+                  //       //Redirect to Dashboard / Home activity.
+                  //       await Future.delayed(Duration.zero);
+                  //     },
+                  //     child: Container(
+                  //       height: 50,
+                  //       width: 250,
+                  //       alignment: Alignment.center,
+                  //       decoration: BoxDecoration(
+                  //         color:themeColor,
+                  //         borderRadius: BorderRadius.all(Radius.circular(30)),
+                  //       ),
+                  //       child: textToTrans(
+                  //input:
+                  //         'Register',
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontSize: 18,
+                  //           fontWeight: FontWeight.w500,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // )
+                  // Center(
+                  //   child: GestureDetector(
+                  //     onTap: () async {
+                  //       //Redirect to Dashboard / Home activity.
+                  //       await Future.delayed(Duration.zero);
+                  //       if(agreeToTerms==true) {
+                  //         dashboardController.registration(token: "",
+                  //             user_name: name.text,
+                  //             contact: mobile.text);
+                  //       }
+                  //       else
+                  //         {
+                  //           showSnackbar(title: "", message: "please agree to terms and conditions");
+                  //         }
+                  //     },
+                  //     child: Container(
+                  //       height: 50,
+                  //       width: 250,
+                  //       alignment: Alignment.center,
+                  //       decoration: BoxDecoration(
+                  //         color:themeColor,
+                  //         borderRadius: BorderRadius.all(Radius.circular(30)),
+                  //       ),
+                  //       child: textToTrans(
+                  //input:
+                  //         'Verify',
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontSize: 18,
+                  //           fontWeight: FontWeight.w500,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // )
                 ],
               ),
             )
@@ -354,10 +381,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  Future<void> openUrl() async {
+    final Uri _url = Uri.parse('https://grobiz.app/ClientProjects/VahanInfo/termConditionWeb');
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
   Widget verifyOtpUi(){
     return Column(
       children: <Widget>[
-        const Text('Please enter the otp sent to your mobile number '),
+        textToTrans(
+            input:'Please enter the otp sent to your mobile number '),
         SizedBox(height: 10.0),
 
         OtpTextField(
@@ -392,7 +427,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           onTap: () {
             dashboardController.resendOtpApi(contact:mobile.text);
           },
-          child: const Text(
+          child: textToTrans(
+            input:
             "Resend OTP Code",
             style: TextStyle(decoration: TextDecoration.underline,fontSize: 16, fontWeight: FontWeight.bold,color:
             Colors.blue),
@@ -411,7 +447,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Resend OTP in " , style: TextStyle(fontSize: 14),),
+        textToTrans(
+          input:"Resend OTP in " , style: TextStyle(fontSize: 14),),
         TweenAnimationBuilder(
           onEnd: ()=>{
             if(this.mounted){
@@ -424,7 +461,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           },
           tween: Tween(begin: 30.0, end: 0.0),
           duration: const Duration(seconds: 30),
-          builder: (_, dynamic value, child) => Text(
+          builder: (_, dynamic value, child) => textToTrans(
+            input:
             "00:${value.toInt()}",
             style: const TextStyle(color: Colors.blue,fontSize: 17,fontWeight: FontWeight.bold),
           ),

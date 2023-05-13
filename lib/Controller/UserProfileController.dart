@@ -16,7 +16,7 @@ import '../Profile/my_profile.dart';
 import '../widget/common_snackbar.dart';
 
 class UserProfileController extends GetxController{
-  RxString name="loading".obs,
+  RxString name="".obs,
       contact="loading".obs,
       owner="loading".obs;
 
@@ -53,10 +53,11 @@ class UserProfileController extends GetxController{
         ProfileModel getProfileData =
         ProfileModel.fromJson(json.decode(response.body));
         var Profile_data = getProfileData.profile ;
-        name.value=Profile_data.name ;
-        log("$name");
-        contact.value=Profile_data.contact;
-        owner.value=Profile_data.uniqueId;
+
+        name.value=Profile_data[0].name ;
+        log("Name $name");
+        contact.value=Profile_data[0].contact;
+        //owner.value=Profile_data.uniqueId;
         //Navigator.of(context).push(MaterialPageRoute(builder: (context) => CarDetailScreen()));
         //Get.to(() => CarDetailScreen());
         isApiCallProcessing.value = false;

@@ -10,6 +10,8 @@ import '../Dashboard/otpScreen.dart';
 import '../Helper/commen_textField.dart';
 import '../HomePage.dart';
 import '../Controller/UserProfileController.dart';
+import '../config/choosen_lang.dart';
+
 class EditProfileScreen extends StatefulWidget {
 
   const EditProfileScreen({Key? key,})
@@ -50,7 +52,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           backgroundColor: themeColor,
-          title: const Text(
+          title: textToTrans(
+                  input:
             "Edit Profile",
             style: TextStyle(
               color: Colors.white,
@@ -97,7 +100,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                     Padding(
                       padding: const EdgeInsets.only(left: 2.0,top: 30),
-                      child: Text(
+                      child: textToTrans(
+                  input:
                         "Enter Your Name",
                         style: KH6_SemiBold,
                       ),
@@ -119,7 +123,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 2.0),
-                      child: Text(
+                      child: textToTrans(
+                  input:
                         "Enter Mobile number",
                         style: KH6_SemiBold,
                       ),
@@ -158,7 +163,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             color:themeColor,
                             borderRadius: BorderRadius.all(Radius.circular(30)),
                           ),
-                          child: Text(
+                          child: textToTrans(
+                  input:
                             'Update',
                             style: TextStyle(
                               color: Colors.white,
@@ -201,7 +207,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    textToTrans(
+                  input:
                       "Enter OTP",
                       style: TextStyle(
                         fontSize: 24,
@@ -226,7 +233,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         Navigator.of(context).pop();
 
                       },
-                      child: Text(
+                      child: textToTrans(
+                  input:
                         "Verify",
                         style: TextStyle(color: Colors.white),
                       ),
@@ -236,7 +244,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       onPressed: () {
                         // Resend OTP
                       },
-                      child: Text(
+                      child: textToTrans(
+                  input:
                         "Resend OTP",
                         style: TextStyle(
                           color: themeColor,

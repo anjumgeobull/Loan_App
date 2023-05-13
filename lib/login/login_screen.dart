@@ -7,6 +7,9 @@ import '../Helper/commen_textField.dart';
 import '../Helper/globle style.dart';
 import 'package:get/get.dart';
 
+import '../Register/register_screen.dart';
+import '../config/choosen_lang.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -61,17 +64,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                          width: SizeConfig.screenWidth * 0.3,
-                          height: SizeConfig.screenHeight * 0.15,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.screenWidth * 0.02,
-                            vertical: SizeConfig.screenHeight * 0.02,
-                          ),
-                          ),
+                        width: SizeConfig.screenWidth * 0.3,
+                        height: SizeConfig.screenHeight * 0.15,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.screenWidth * 0.02,
+                          vertical: SizeConfig.screenHeight * 0.02,
+                        ),
+                        child: Image.asset('assets/images/applogo.png'),
+                      ),
                       SizedBox(
                         height: SizeConfig.screenHeight * 0.01,
                       ),
-                      Text(
+                      textToTrans(
+                        input:
                         "User Login",
                         style: KH3.copyWith(color: KWHITE_COLOR),
                       )
@@ -94,7 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 2.0),
-                        child: Text(
+                        child: textToTrans(
+                          input:
                           "Enter Mobile Number",
                           style: KH6_SemiBold,
                         ),
@@ -120,9 +126,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             if(userName.text!="" && userName.text.length==10) {
                               dashboardController.send_otp(contact: userName.text,context: context);
                             }else
-                              {
-                                showSnackbar(title: "Validation", message: "please enter valid mobile no.");
-                              }
+                            {
+                              showSnackbar(title: "Validation", message: "please enter valid mobile no.");
+                            }
                           },
                           child: Container(
                             height: 50,
@@ -132,7 +138,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: themeColor,
                               borderRadius: BorderRadius.all(Radius.circular(30)),
                             ),
-                            child: Text(
+                            child: textToTrans(
+                              input:
                               'Send OTP',
                               style: TextStyle(
                                 color: Colors.white,
@@ -142,84 +149,41 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                      )
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            textToTrans(
+                                input:"Don't Have Any Account?  "),
+                            GestureDetector(
+                              child: textToTrans(
+                                input:
+                                "Sign Up Now",
+                                style: TextStyle(color: themeColor),
+                              ),
+                              onTap: () {
+                                Get.to(()=>RegisterScreen());
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
-
-  // Widget verifyOtpUi(){
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text('OTP Verification'),
-  //     ),
-  //     body: Padding(
-  //       padding: EdgeInsets.all(16.0),
-  //       child: Form(
-  //         key: _formKey,
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             Text(
-  //               'Enter the OTP sent to your mobile number',
-  //               style: TextStyle(fontSize: 16),
-  //             ),
-  //             SizedBox(height: 16),
-  //             TextFormField(
-  //               keyboardType: TextInputType.number,
-  //               decoration: InputDecoration(
-  //                 labelText: 'Enter OTP',
-  //                 border: OutlineInputBorder(),
-  //               ),
-  //               onChanged: (value) {
-  //                 setState(() {
-  //                   _otp = value;
-  //                 });
-  //               },
-  //               validator: (value) {
-  //                 if (value == null || value.isEmpty) {
-  //                   return 'Please enter OTP';
-  //                 }
-  //                 return null;
-  //               },
-  //             ),
-  //             SizedBox(height: 16),
-  //             ElevatedButton(
-  //               onPressed: () {
-  //                 if (_formKey.currentState!.validate()) {
-  //                   // TODO: Verify OTP.
-  //                 }
-  //               },
-  //               child: Text('Verify OTP'),
-  //             ),
-  //             SizedBox(height: 16),
-  //             Row(
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: [
-  //                 Text('Didn\'t receive OTP?'),
-  //                 TextButton(
-  //                   onPressed: () {
-  //                     // TODO: Resend OTP.
-  //                   },
-  //                   child: Text('Resend OTP'),
-  //                 ),
-  //               ],
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
 }
-
 
 
 

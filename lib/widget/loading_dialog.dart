@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../config/app_colors.dart';
+import '../config/choosen_lang.dart';
 import '../config/text_style.dart';
 import '../main.dart';
 
@@ -27,9 +28,10 @@ void showLoadingDialog({bool? loadingText=false}) {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const CircularProgressIndicator(),
+                       CircularProgressIndicator(),
                       if(loadingText==true)
-                        Padding(padding:EdgeInsets.only(top: Get.width*0.2),child: Text("Loading the data .. Please wait",style: AppTextStyle.regular500.copyWith(fontSize: 18,color: AppColors.whiteColor),))
+                        Padding(padding:EdgeInsets.only(top: Get.width*0.2),child: textToTrans(
+                  input:"Loading the data .. Please wait",style: AppTextStyle.regular500.copyWith(fontSize: 18,color: AppColors.whiteColor),))
                 // showSnackbar(title: "", message: "Please Wait Loding");
 
                     ],

@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../Helper/String_constant.dart';
 import '../Helper/api_constants.dart';
 import '../Helper/http_handler/network_http.dart';
@@ -11,10 +10,8 @@ import '../Register/register_screen.dart';
 import '../widget/common_snackbar.dart';
 import '../widget/loading_dialog.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'Car_details_page.dart';
 import 'Dashboard.dart';
 import 'otpScreen.dart';
-import 'package:connectivity/connectivity.dart';
 
 class DashboardController extends GetxController
 {

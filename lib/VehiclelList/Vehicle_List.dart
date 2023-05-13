@@ -1,12 +1,8 @@
 
 import 'package:flutter/material.dart';
-import '../../Helper/globle style.dart';
 import '../Model/MyVehicleData.dart';
-import 'VehicleDummyModel.dart';
+import '../config/choosen_lang.dart';
 import 'my_Vehicle_view_details.dart';
-
-
-
 
 class my_Vehicle_List extends StatefulWidget {
   final MyVehicleData data;
@@ -23,8 +19,8 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
     return
       InkWell(
         onTap: (){
-          Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) =>
-          new my_Vehicle_DetailScreen()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+          new my_Vehicle_DetailScreen(data: widget.data,)));
 
         },
         child:
@@ -41,6 +37,7 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
+                    flex: 2,
                     child: Image.asset(
                       "assets/images/Vagnera.png",
                       width: 120,
@@ -50,78 +47,79 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                   SizedBox(
                     width: 10,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:   [
-                      Text("John Smith",style: TextStyle(
-                          fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
-                      ),),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        children:  [
-                          Text(
-                           widget.data.vehicleNumber,
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                          SizedBox(width: 10), // Add some space between the two Text widgets
-                          Text(
-                            "First Owner",
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.grey,
-
-                            ),
-                          ),
-                        ],
-                      ),
-
-
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "KUSHAQ AMBITION 1.0TSI AT ",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 15.0),
-                        child: Text(
-                          "PUC expired 27-Jan-2023",
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:   [
+                        textToTrans(
+                          input:widget.data.owner,
                           style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
+                              fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
+                          ),),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          children:  [
+                            textToTrans(
+                              input:
+                              widget.data.vehicleNumber,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                            SizedBox(width: 10), // Add some space between the two Text widgets
+                            // textToTrans(
+                            //input:
+                            //   widget.data.ownerCount,
+                            //   style: TextStyle(
+                            //     fontSize: 13,
+                            //     fontWeight: FontWeight.normal,
+                            //     color: Colors.grey,
+                            //
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        textToTrans(
+                          input:
+                          widget.data.makerModel,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal,
                             color: Colors.black,
                           ),
                         ),
-                      ),
-
-
-                    ],
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 0.0),
+                          child:
+                          textToTrans(
+                            input:
+                            "PUC expiring Date: " + widget.data.pucExpiry,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-
-
-
-
                 ],
               ),
             ),
           ),
-
         ),
       );
   }

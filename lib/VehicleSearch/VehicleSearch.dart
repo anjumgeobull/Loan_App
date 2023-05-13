@@ -1,16 +1,16 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:core';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import '../../../Helper/SizedConfig.dart';
+import '../Controller/UserProfileController.dart';
+import '../Controller/VehicleDetailedController.dart';
 import '../Dashboard/Car_details_page.dart';
-import '../Dashboard/CheckCriteriaWithBot.dart';
-import '../Dashboard/Emi_calculator.dart';
+import '../Helper/String_constant.dart';
 import '../Helper/globle style.dart';
-import '../Profile/my_profile.dart';
-import '../Splash_Screen/car_assistants.dart';
-import 'package:avatar_glow/avatar_glow.dart';
-
+import '../Helper/shared_preferances.dart';
+import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import '../config/choosen_lang.dart';
+import '../login/login_screen.dart';
 
 class VehicleSearchScreen extends StatefulWidget {
   VehicleSearchScreen({Key? key}) : super(key: key);
@@ -40,14 +40,32 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
   String image = "assets/images/Vagnera.png";
   late File icon_img;
   late File pickedImageFile;
-  TextEditingController emailId = TextEditingController();
+  TextEditingController car_number = TextEditingController();
   FocusNode userNameFocus = FocusNode();
   bool isIconSelected = false;
+  String? token='';
+  bool is_my_vehicle=false;
+  String my_vehicle="no";
+  final profileDataController = Get.find<UserProfileController>();
+  final vehicleScreenController = Get.find<VehicleDetailedController>();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    get_token();
+  }
+  get_token()
+  async {
+    token = await SPManager.instance.getUser(LOGIN_KEY);
+    if(token!=null && token!="")
+    {
+      profileDataController.getUserProfile();
+    }
+    setState(() {
+
+    });
+    print("token " + token.toString());
   }
 
   @override
@@ -71,8 +89,8 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
           ),
           title: Column(
             children: [
-
-              Text(
+              textToTrans(
+                input:
                 "Search Vehicle",
                 style:TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
               ),
@@ -101,7 +119,8 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: Text(
+                        child: textToTrans(
+                          input:
                           "Enter The Vehicle Number",
                           style:TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
                         ),
@@ -112,7 +131,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                           Expanded(
                             child:
                             TextField(
-                              controller: emailId,
+                              controller: car_number,
                               decoration: InputDecoration(
                                 hintText: 'DL 1CXA 8010',
                                 filled: true,
@@ -133,7 +152,32 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                           IconButton(
                             icon: Icon(Icons.search,size: 43,color: Colors.white,),
                             onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => CarDetailScreen()));
+                              if (token != null) {
+                                if(token==""){
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => LoginScreen()));
+                                }
+                                else {
+                                  if(car_number.text.isNotEmpty && car_number.text!="") {
+                                    vehicleScreenController
+                                        .getVehicleDetailsSearchData(car_number.text);
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context) => CarDetailScreen()));
+                                    // showDialog(context: context,
+                                    // builder: (context) {
+                                    // return SignInConfirmationDialog();
+                                    // }
+                                    // );
+                                    AddtoMycar(context);
+                                  }else
+                                  {
+                                    Fluttertoast.showToast(msg: 'Please enter valid car no. ' , backgroundColor: Colors.grey,);
+                                  }
+                                }
+                              }else {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => LoginScreen()));
+                              }
                               // Perform search action here
                             },
                           ),
@@ -145,88 +189,93 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
               ),
 
 
+              // Padding(
+              //   padding: const EdgeInsets.all(15.0),
+              //   child: textToTrans(
+              //   input:
+              //     "Recent Search",
+              //     style:TextStyle(color: Colors.black54,fontSize: 15,fontWeight: FontWeight.bold),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.all(10.0),
+              //   child:
+              //   Card(
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(15.0),
+              //     ),
+              //     child: Padding(
+              //       padding: const EdgeInsets.all(10.0),
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.start,
+              //         children: [
+              //           Expanded(
+              //             child: Image.asset(
+              //               image,
+              //               width: 50,
+              //               height: 80,
+              //             ),
+              //           ),
+              //           SizedBox(
+              //             width: 10,
+              //           ),
+              //           Column(
+              //             crossAxisAlignment: CrossAxisAlignment.start,
+              //             children:   [
+              //
+              //               textToTrans(
+              //   input:"MH12TY5476",style: TextStyle(
+              //                   fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
+              //               ),),
+              //               SizedBox(
+              //                 height: 5,
+              //               ),
+              //               Row(
+              //                 children: const [
+              //                   textToTrans(
+              //  input:
+              //                     "John Smith",
+              //                     style: TextStyle(
+              //                       fontSize: 15,
+              //                       fontWeight: FontWeight.normal,
+              //                       color: Colors.black,
+              //
+              //                     ),
+              //                   ),
+              //                   SizedBox(width: 10), // Add some space between the two Text widgets
+              //                   textToTrans(
+              //   input:
+              //                     "First Owner",
+              //                     style: TextStyle(
+              //                       fontSize: 13,
+              //                       fontWeight: FontWeight.normal,
+              //                       color: Colors.grey,
+              //
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //
+              //
+              //
+              //             ],
+              //           ),
+              //
+              //
+              //
+              //
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              //
+              // ),
+
+
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Text(
-                  "Recent Search",
-                  style:TextStyle(color: Colors.black54,fontSize: 15,fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child:
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Image.asset(
-                            image,
-                            width: 50,
-                            height: 80,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children:   [
-
-                            Text("MH12TY5476",style: TextStyle(
-                                fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
-                            ),),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: const [
-                                Text(
-                                  "John Smith",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-
-                                  ),
-                                ),
-                                SizedBox(width: 10), // Add some space between the two Text widgets
-                                Text(
-                                  "First Owner",
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.grey,
-
-                                  ),
-                                ),
-                              ],
-                            ),
-
-
-
-                          ],
-                        ),
-
-
-
-
-                      ],
-                    ),
-                  ),
-                ),
-
-              ),
-
-
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Text(
+                child: textToTrans(
+                  input:
                   "Recommended Services",
                   style:TextStyle(color: Colors.black54,fontSize: 15,fontWeight: FontWeight.bold),
                 ),
@@ -256,7 +305,8 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                                 case 0:
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(
+                                      content: textToTrans(
+                                        input:
                                         'Comming Soon...',
                                         style: TextStyle(color: Colors.white),
                                       ),
@@ -268,7 +318,8 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                                 case 1:
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(
+                                      content: textToTrans(
+                                        input:
                                         'Comming Soon...',
                                         style: TextStyle(color: Colors.white),
                                       ),
@@ -280,7 +331,8 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                                 case 2:
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(
+                                      content: textToTrans(
+                                        input:
                                         'Comming Soon...',
                                         style: TextStyle(color: Colors.white),
                                       ),
@@ -292,17 +344,16 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                                 case 3:
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text(
+                                      content: textToTrans(
+                                        input:
                                         'Comming Soon...',
                                         style: TextStyle(color: Colors.white),
                                       ),
                                       duration: Duration(seconds: 2),
                                       backgroundColor: themeColor,
                                     ),
-
                                   );
                                   break;
-
                               }
                             },
                             child: Column(
@@ -315,7 +366,8 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                                   fit: BoxFit.cover,
                                 ),
                                 SizedBox(height: 6.0),
-                                Text(
+                                textToTrans(
+                                  input:
                                   items[index].name,
                                   style: TextStyle(fontSize: 15.0),
                                   textAlign: TextAlign.center,
@@ -330,8 +382,6 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                   ),
                 ),
               ),
-
-
             ],
           ),
         ),
@@ -339,5 +389,176 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
     );
   }
 
+  void AddtoMycar(context) {
+    Future.delayed(Duration(seconds: 8)).then((value) => showModalBottomSheet<void>(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
+      backgroundColor: Colors.white,
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(builder: (context, state) {
+          int selectedRadio = 0;
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.topRight,
+                  child:
 
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.cancel_outlined,
+                      size: 30,
+                    ),
+                  ),
+                ),
+                Divider(color: Colors.grey.shade300),
+                Center(
+                  child: Image.asset(
+                    "assets/images/car.png",
+                    width: 100,
+                    height: 100,
+                  ),
+                ),
+                SizedBox(height: 15
+                  ,),
+                Center(
+                  child:  textToTrans(
+                      input:'Mark this as your car',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold)),
+                ),
+                SizedBox(height: 15
+                  ,),
+
+                textToTrans(
+                  input:
+                  'Get important remainders like insurance '
+                      'and pollution expiry, upload your '
+                      'vehicle documents securly and get exclusive offers ',
+                  style:
+                  TextStyle(fontSize: 14, color:Colors.grey,
+                      fontWeight: FontWeight.normal),
+                ),
+
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 200,
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                topLeft: Radius.circular(20),
+                              ),
+                              color: themelightColor,
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 0.7,
+                              ),
+                            ),
+                            child:  Center(
+                              child: textToTrans(
+                                input:
+                                "Not My Vehicle",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              is_my_vehicle=true;
+                              if(is_my_vehicle==true){
+                                my_vehicle="yes";
+                              }
+                              Fluttertoast.showToast(msg: 'Added in to my vehicle', backgroundColor: Colors.grey,);
+                              vehicleScreenController.addVehicleDetails(car_number.text,
+                                  my_vehicle,vehicleScreenController.licNo.value,vehicleScreenController.full_chasis.value,
+                                  vehicleScreenController.owner.value,vehicleScreenController.registration_date.value,vehicleScreenController.fule_type.value
+                                  ,vehicleScreenController.engine.value,vehicleScreenController.vehicle_class.value,vehicleScreenController.maker_name.value,
+                                  vehicleScreenController.maker_model.value,vehicleScreenController.count.value,vehicleScreenController.insuranceDate.value
+                                  ,vehicleScreenController.pollution.value,vehicleScreenController.fitnessDate.value,
+                                  vehicleScreenController.model.value,vehicleScreenController.insuerName.value,vehicleScreenController.financier_name.value,
+                                  vehicleScreenController.vehicle_color.value,vehicleScreenController.manufacturing_date.value,vehicleScreenController.norms_type.value,
+                                  vehicleScreenController.owner_father_name.value,vehicleScreenController.registration_authority.value,vehicleScreenController.insurance_policy_no.value,
+                                  vehicleScreenController.present_address.value,vehicleScreenController.permanent_address.value,vehicleScreenController.vehicle_cubic_capacity.value,
+                                  vehicleScreenController.pucc_no.value,vehicleScreenController.vehicle_weight.value,vehicleScreenController.seating_capacity.value,
+                                  vehicleScreenController.puc_expiry.value,vehicleScreenController.fitupto.value,vehicleScreenController.taxupto.value,
+                                  vehicleScreenController.blaclist.value,vehicleScreenController.nocdetails.value,vehicleScreenController.rc_staus.value
+                                  ,vehicleScreenController.rc_staus_ason.value,vehicleScreenController.body_type.value
+                              );
+                            });
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 200,
+                            decoration:  BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                                topLeft: Radius.circular(20),
+                              ),
+                              color: secondaryColor,
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 0.7,
+                              ),
+                            ),
+                            child: Center(
+                              child: textToTrans(
+                                input:
+                                "My Vehicle",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        });
+      },
+    ));
+  }
 }

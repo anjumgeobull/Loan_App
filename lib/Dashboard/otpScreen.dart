@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loan_app/widget/common_snackbar.dart';
-
-import '../Helper/String_constant.dart';
 import '../Helper/globle style.dart';
-import '../Helper/shared_preferances.dart';
-import '../Register/register_screen.dart';
-import 'Dashboard.dart';
+import '../config/choosen_lang.dart';
 import 'DashboardController.dart';
 import 'package:get/get.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -16,7 +12,8 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My App"),
+        title: textToTrans(
+                  input:"My App"),
       ),
       body: Center(
         child: ElevatedButton(
@@ -26,7 +23,8 @@ class MyHomePage extends StatelessWidget {
             //   builder: (BuildContext context) => OtpScreen(),
             // );
           },
-          child: Text("Open OTP Screen"),
+          child: textToTrans(
+                  input:"Open OTP Screen"),
         ),
       ),
     );
@@ -58,7 +56,8 @@ class _OtpScreenState extends State<OtpScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            textToTrans(
+                  input:
               "Enter OTP",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color:themeColor),
             ),
@@ -105,7 +104,8 @@ class _OtpScreenState extends State<OtpScreen> {
                   showSnackbar(title: "", message: "please enter otp");
                 }
               },
-              child: Text(
+              child: textToTrans(
+                  input:
                 "Verify",
                 style: TextStyle(color: Colors.white),
               ),
@@ -117,7 +117,8 @@ class _OtpScreenState extends State<OtpScreen> {
                 if(widget.mobile.isNotEmpty)
                 dashboardController.send_otp(contact: widget.mobile);
               },
-              child: Text("Resend OTP",style: TextStyle(color:themeColor,fontSize: 15),),
+              child: textToTrans(
+                  input:"Resend OTP",style: TextStyle(color:themeColor,fontSize: 15),),
             ),
           ],
         ),

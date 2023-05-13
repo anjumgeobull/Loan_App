@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:loan_app/Dashboard/Dashboard.dart';
+
 import '../../Helper/globle style.dart';
-import '../Register/register_screen.dart';
+import '../../Helper/navigation_helper.dart';
+import '../../Helper/shared_preferances.dart';
 import '../config/choosen_lang.dart';
 
-class SignInConfirmationDialog extends StatefulWidget {
-  const SignInConfirmationDialog({Key? key}) : super(key: key);
+class SignOutConfirmationDialog extends StatefulWidget {
+  const SignOutConfirmationDialog({Key? key}) : super(key: key);
 
   @override
-  State<SignInConfirmationDialog> createState() => _SignInConfirmationDialogState();
+  State<SignOutConfirmationDialog> createState() => _SignOutConfirmationDialogState();
 }
 
-class _SignInConfirmationDialogState extends State<SignInConfirmationDialog> {
+class _SignOutConfirmationDialogState extends State<SignOutConfirmationDialog> {
   @override
   Widget build(BuildContext context) {
-    return
-      SimpleDialog(
+    return SimpleDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
         insetPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
         contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -37,11 +38,10 @@ class _SignInConfirmationDialogState extends State<SignInConfirmationDialog> {
                           Padding(
                             padding: EdgeInsets.all(8),
                             child: textToTrans(
-                  input:"Do want to create account ?",style: TextStyle(
-                                color: themeColor,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold
-                            ),),
+                              input:'Are you sure you want to sign out?',
+                              style:KH7_SemiBold.copyWith(color: KSECONDARY_COLOR,  fontSize:14),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                           SizedBox(
                             height: 28,
@@ -50,7 +50,9 @@ class _SignInConfirmationDialogState extends State<SignInConfirmationDialog> {
                               mainAxisAlignment: MainAxisAlignment.end, children: [
                             InkWell(
                               onTap: () async {
-                                Get.to(() => RegisterScreen());
+                                await SPManager.instance.logout();
+                                pushAndRemoveUntil(context, Dashboard(),false);
+
                               },
                               child: Container(
                                 padding: EdgeInsets.only(
@@ -58,11 +60,9 @@ class _SignInConfirmationDialogState extends State<SignInConfirmationDialog> {
                                 child: Center(
                                     child:
                                     textToTrans(
-                  input:"Yes",style: TextStyle(
-                                        color: themeColor,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold
-                                    ),)
+                                      input:'Yes',
+                                        style: KH6.copyWith(color: kPrimaryColor,
+                                            fontSize:16))
                                 ),
                               ),
                             ),
@@ -76,11 +76,10 @@ class _SignInConfirmationDialogState extends State<SignInConfirmationDialog> {
                                 child: Center(
                                     child:
                                     textToTrans(
-                  input:"No",style: TextStyle(
-                                        color: themeColor,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold
-                                    ),)
+                                      input:'No',
+                                        style: KH6.copyWith(color:kPrimaryColor,
+                                            fontSize:16
+                                        ))
                                 ),
                               ),
                             ),

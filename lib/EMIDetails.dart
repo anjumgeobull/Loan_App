@@ -4,6 +4,7 @@ class EMIDetails {
   final double interest;
   final double principalPaid;
   final double balance;
+  final String date;
 
   EMIDetails({
     required this.month,
@@ -11,5 +12,6 @@ class EMIDetails {
     required this.interest,
     required this.principalPaid,
     required this.balance,
+    required this.date,
   });
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../config/choosen_lang.dart';
 import 'Button.dart';
 import 'InputField.dart';
 class InputWrapper extends StatelessWidget{
@@ -16,7 +17,8 @@ class InputWrapper extends StatelessWidget{
            child: InputFiled(),
          ),
          SizedBox(height: 40,),
-         Text(
+         textToTrans(
+                  input:
            "Forget Password?",
            style: TextStyle(
              color: Colors.grey),

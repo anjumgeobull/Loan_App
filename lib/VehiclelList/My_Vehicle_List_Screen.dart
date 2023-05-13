@@ -38,7 +38,8 @@
 //           },
 //         ),
 //         backgroundColor: themeColor,
-//         title: const Text(
+//         title: const textToTrans(
+                  //input:
 //           "My Vehicle",
 //           style: TextStyle(
 //             color: Colors.white,

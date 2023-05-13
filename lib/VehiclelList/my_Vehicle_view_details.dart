@@ -1,9 +1,14 @@
 
+
 import 'dart:core';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import '../Helper/globle style.dart';
+import '../Model/MyVehicleData.dart';
+import '../config/choosen_lang.dart';
 class my_Vehicle_DetailScreen extends StatefulWidget {
-  my_Vehicle_DetailScreen({Key? key}) : super(key: key);
+  final MyVehicleData data;
+  my_Vehicle_DetailScreen({Key? key,required this.data}) : super(key: key);
 
   @override
   State<my_Vehicle_DetailScreen> createState() => _my_Vehicle_DetailScreenState();
@@ -33,11 +38,12 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueGrey[200],
-          title: const Text(
-            "Car Detail",
+          backgroundColor:themeColor,
+          title: textToTrans(
+            input:
+            "Car Details",
             style: TextStyle(
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
           leading:
@@ -52,7 +58,6 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
             },
           ),
           elevation: 0,
-
         ),
         body:
         SingleChildScrollView(
@@ -66,7 +71,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),
                   ),
-                  color: Colors.blueGrey[200],
+                  color: themeColor,
                 ),
                 child:
                 Padding(
@@ -91,73 +96,92 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                           SizedBox(
                             width: 10,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children:   [
-                              Text("John Smith",style: TextStyle(
-                                  fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
-                              ),),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                children: const [
-                                  Text(
-                                    "MH12TY5476",
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                  ),
-                                  SizedBox(width: 10), // Add some space between the two Text widgets
-                                  Text(
-                                    "First Owner",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.grey,
-
-                                    ),
-                                  ),
-                                ],
-                              ),
-
-
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "KUSHAQ AMBITION 1.0TSI AT ",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 15.0),
-                                child: Text(
-                                  "PUC expired 27-Jan-2023",
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children:   [
+                                textToTrans(
+                                  input:
+                                  widget.data.owner,
                                   style: TextStyle(
-                                    fontSize: 13,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
                                 ),
-                              ),
-
-
-                            ],
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children:  [
+                                    textToTrans(
+                                      input:
+                                      widget.data.vehicleNumber,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                    SizedBox(width: 10), // Add some space between the two Text widgets
+                                    // textToTrans(
+                                    // input:
+                                    //   "First Owner",
+                                    //   style: TextStyle(
+                                    //     fontSize: 13,
+                                    //     fontWeight: FontWeight.normal,
+                                    //     color: Colors.grey,
+                                    //
+                                    //   ),
+                                    // ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                textToTrans(
+                                  input:
+                                  "Owner Number: "+widget.data.ownerCount,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 15.0),
+                                  child: textToTrans(
+                                    input:
+                                    "PUC Expirey: ",
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 15.0),
+                                  child: textToTrans(
+                                    input:
+                                    widget.data.pucExpiry,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-
-
-
-
                         ],
                       ),
                     ),
@@ -181,14 +205,15 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                           topLeft: Radius.circular(20),
 
                         ),
-                        color: Colors.grey[200],
+                        color: secondaryColor,
                         border: Border.all(
-                          color: Colors.black,
+                          color: Colors.grey,
                           width: 0.7,
                         ),
                       ),
-                      child: const Center(
-                        child: Text(
+                      child: Center(
+                        child: textToTrans(
+                          input:
                           "RC Details",
                           style: TextStyle(
                             fontSize: 20,
@@ -198,8 +223,6 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                         ),
                       ),
                     )
-
-
                   ],
                 ),
               ),
@@ -212,134 +235,168 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                   child: Column(
                     children: [
                       ExpansionTile(
-                        title: Text(
+                        title: textToTrans(
+                          input:
                           "Ownership Details",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
 
                         children: <Widget>[
-                          Align(
-                            alignment: Alignment.topLeft,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Owner Name",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    textToTrans(
+                                      input:
+                                      "Owner Name",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    textToTrans(
+                                      input:
+                                      widget.data.owner,
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      textToTrans(
+                                        input:
+                                        "Ownwership",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      textToTrans(
+                                        input:
+                                        widget.data.ownerCount,
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "John Smith",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-
                           ),
-
                           Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Ownwership",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    textToTrans(
+                                      input:
+                                      "Registration Date",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    textToTrans(
+                                      input:
+                                      widget.data.registrationDate,
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      textToTrans(
+                                        input:
+                                        "Registered RTO",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      textToTrans(
+                                        input:
+                                        widget.data.registrationAuthority,
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "First Owner",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-
                           ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Registration Date",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "28-Jan-2023",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Financer's Name",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "ICICI BANK LTD",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Registered RTO",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "Pune, Maharashtra",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-
+                          // Divider(),
+                          // Align(
+                          //   alignment: Alignment.topLeft,
+                          //   child:
+                          //   Padding(
+                          //     padding: const EdgeInsets.all(8.0),
+                          //     child: Column(
+                          //       children: [
+                          //         textToTrans(
+                          // input:
+                          //           "Registered RTO",
+                          //           style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                          //         ),
+                          //         SizedBox(height: 10,),
+                          //         textToTrans(
+                          //input:
+                          //           widget.data.registrationAuthority,
+                          //           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //   ),
+                          //
+                          // ),
 
                         ],
                       ),
                       SizedBox(height: 10,),
                       Divider(),
                       ExpansionTile(
-                        title: Text(
+                        title: textToTrans(
+                          input:
+                          "Financer Details",
+                          style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
+                        ),
+
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    textToTrans(
+                                      input:
+                                      "Financer Name",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    textToTrans(
+                                      input:
+                                      widget.data.financierName,
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Divider(),
+
+                        ],
+                      ),
+                      SizedBox(height: 10,),
+                      Divider(),
+                      ExpansionTile(
+                        title: textToTrans(
+                          input:
                           "Vehicle Details",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -353,13 +410,15 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  textToTrans(
+                                    input:
                                     "Maker Model",
                                     style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                   SizedBox(height: 10,),
-                                  Text(
-                                    "SKODA AUTO VOLKSWAGEN INDIA PVT LTD, KUSHQ AMBITION 1.0 TSI AT",
+                                  textToTrans(
+                                    input:
+                                    widget.data.makerModel,
                                     style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                 ],
@@ -369,401 +428,295 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                           ),
 
                           Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Vehicle Class",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    textToTrans(
+                                      input:
+                                      "Vehicle Class ",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    textToTrans(
+                                      input:
+                                      widget.data.vehicleClass,
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      textToTrans(
+                                        input:
+                                        "Fule Type",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      textToTrans(
+                                        input:
+                                        widget.data.fuelType,
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "Motor Car(LMV)",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-
                           ),
+                          Divider(),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    textToTrans(
+                                      input:
+                                      "Fule Norms",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    textToTrans(
+                                      input:
+                                      widget.data.normsType,
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      textToTrans(
+                                        input:
+                                        "Engine Number",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      textToTrans(
+                                        input:
+                                        widget.data.engine,
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
 
                           Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Fule Type",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "PETROL",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Fule Norms",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "BHARAT STAGE VI",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Engine Number",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "DTB0XXXXX",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-
 
                         ],
                       ),
                       SizedBox(height: 10,),
                       Divider(),
                       ExpansionTile(
-                        title: Text(
+                        title: textToTrans(
+                          input:
                           "Important Dates",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
 
                         children: <Widget>[
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Registration Date",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "27-Jan-2023",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
 
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    textToTrans(
+                                      input:
+                                      "Registration Date",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    textToTrans(
+                                      input:
+                                      widget.data.registrationDate,
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      textToTrans(
+                                        input:
+                                        "Insurance Expiry Date",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      textToTrans(
+                                        input:
+                                        widget.data.insuranceDate,
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
 
                           Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Vehicle Age",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    textToTrans(
+                                      input:
+                                      "Fitness upto",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    textToTrans(
+                                      input:
+                                      widget.data.fitUpto,
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      textToTrans(
+                                        input:
+                                        "Pollution Upto",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      textToTrans(
+                                        input:
+                                        widget.data.pollution,
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "1 year & 2 months",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-
                           ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Fitness uoto",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "27-Jan-2037",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Pollution Upto",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "27-Jan-2023",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Insurance Expiry(Updated today)",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "27-Jan-2025",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Insurance Expiring in",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "1 year & 9 months",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-
 
                         ],
                       ),
                       SizedBox(height: 10,),
                       Divider(),
                       ExpansionTile(
-                        title: Text(
+                        title: textToTrans(
+                          input:
                           "Other Information",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
-
                         children: <Widget>[
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Registration Number",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "MHTY563566",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
 
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    textToTrans(
+                                      input:
+                                      "Registration Number",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    textToTrans(
+                                      input:
+                                      widget.data.fullChassis,
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      textToTrans(
+                                        input:
+                                        "Vehicle Color",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      textToTrans(
+                                        input:
+                                        widget.data.vehicleColor,
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
 
                           Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
+
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
                             child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Vehicle Color",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    textToTrans(
+                                      input:
+                                      "Unloaded weight()kg",
+                                      style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                    SizedBox(height: 10,),
+                                    textToTrans(
+                                      input:
+                                      widget.data.vehicleWeight,
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 20.0),
+                                  child: Column(
+                                    children: [
+                                      textToTrans(
+                                        input:
+                                        "RC Status",
+                                        style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                      SizedBox(height: 10,),
+                                      textToTrans(
+                                        input:
+                                        widget.data.rcStatus,
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "CANDY WHITE",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-
                           ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Unloaded weight()kg",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "1234",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "RC Status",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "ACTIVE",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Insurance Expiry(Updated today)",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "27-Jan-2025",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-                          Divider(),
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child:
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "Insurance Expiring in",
-                                    style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                  SizedBox(height: 10,),
-                                  Text(
-                                    "1 year & 9 months",
-                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                          ),
-
-
-
                         ],
                       ),
                     ],
@@ -786,14 +739,15 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                           topLeft: Radius.circular(20),
 
                         ),
-                        color: Colors.grey[200],
+                        color: secondaryColor,
                         border: Border.all(
                           color: Colors.black,
                           width: 0.7,
                         ),
                       ),
-                      child: const Center(
-                        child: Text(
+                      child:  Center(
+                        child: textToTrans(
+                          input:
                           "Insurance Details",
                           style: TextStyle(
                             fontSize: 20,
@@ -803,8 +757,6 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                         ),
                       ),
                     )
-
-
                   ],
                 ),
               ),
@@ -832,13 +784,15 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children:   [
-                          Text("Your are insured",style: TextStyle(
+                          textToTrans(
+                            input:"Your are insured",style: TextStyle(
                               fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
                           ),),
                           SizedBox(
                             height: 5,
                           ),
-                          Text(
+                          textToTrans(
+                            input:
                             "Insurance name",
                             style: TextStyle(
                               fontSize: 15,
@@ -847,22 +801,21 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                             ),
                           ),
                           SizedBox(width: 10), // Add some space between the two Text widgets
-                          Text(
-                            "Bajaj Allianze General Insurance Co LTd",
+                          textToTrans(
+                            input:
+                            widget.data.insurerName,
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.normal,
                               color: Colors.grey,
-
                             ),
                           ),
-
-
                           SizedBox(
                             height: 5,
                           ),
-                          Text(
-                            "Insurance expired ",
+                          textToTrans(
+                            input:
+                            "Insurance Expiry Date ",
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.normal,
@@ -874,8 +827,9 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                           ),
                           Padding(
                             padding: EdgeInsets.only(left: 15.0),
-                            child: Text(
-                              "27-Jan-2023",
+                            child: textToTrans(
+                              input:
+                              widget.data.insuranceDate,
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
@@ -883,261 +837,18 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                               ),
                             ),
                           ),
-
-
                         ],
                       ),
                       SizedBox(height: 10,),
-
-
-
                     ],
                   ),
                 ),
-
-
               ),
               SizedBox(height: 5,),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    Container(
-                      height: 30,
-                      width: 190,
-                      decoration:  BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          topLeft: Radius.circular(20),
-
-                        ),
-                        color: Colors.grey[200],
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 0.7,
-                        ),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Specification",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    )
-
-
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0,right: 10.0),
-                child:
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children:   [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.percent,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  "Range",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.green
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "10lakh-15lakh",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children:   [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.transform_rounded,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  "Transmission",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.green
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Manual/Automatic",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-
-
-
-
-
-                      ],
-                    ),
-                  ),
-                ),
-
-
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0,right: 10.0,bottom: 10),
-                child:
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children:   [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.traffic,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  "Mileage",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.green
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "10.778 to 19.3 kmpl",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children:   [
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.green,
-                                ),
-                                SizedBox(
-                                  width: 5.0,
-                                ),
-                                Text(
-                                  "Rating",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.green
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "4.5",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-
-
-
-
-
-                      ],
-                    ),
-                  ),
-                ),
-
-
-              ),
-
-
 
             ],
-
           ),
         ),
-
-
       ),
     );
   }
@@ -1154,7 +865,8 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Text(
+                  textToTrans(
+                    input:
                     msg,
                     style: TextStyle(color: Colors.black54),
                   ),

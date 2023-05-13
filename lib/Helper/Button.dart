@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../config/choosen_lang.dart';
 class Button extends StatelessWidget{
   @override
   Widget build(BuildContext context){
@@ -12,7 +14,8 @@ class Button extends StatelessWidget{
       ),
       child: Center(
         child:
-        Text("Login", style: TextStyle(
+        textToTrans(
+                  input:"Login", style: TextStyle(
           color: Colors.white,
           fontSize: 15,
           fontWeight: FontWeight.bold

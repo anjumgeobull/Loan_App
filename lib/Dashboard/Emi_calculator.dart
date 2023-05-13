@@ -1,9 +1,14 @@
+
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:loan_app/Dashboard/Dashboard.dart';
 import '../EMIDetails.dart';
 import '../Helper/globle style.dart';
+import '../config/choosen_lang.dart';
 import 'Emi_details.dart';
-import 'home_screen.dart';
+import 'package:date_format/date_format.dart';
+import 'package:intl/intl.dart';
+
 
 class EMICalculatorUI extends StatefulWidget {
   @override
@@ -14,11 +19,13 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
   final _principalController = TextEditingController();
   final _rateController = TextEditingController();
   final _termController = TextEditingController();
-  RangeValues _loanRangeValues = RangeValues(0.0, 10.0);
-  RangeValues _interestRangeValues = RangeValues(0.0, 10.0);
-  RangeValues _ternurRangeValues = RangeValues(0.0, 10.0);
-  String _emiResult = '',_totalAmountPayable='',_totalInterest='';
+  final _startDate = TextEditingController();
+  String _emiResult = '',_totalAmountPayable='',_totalInterest='',startDate='';
   List<EMIDetails> _emiDetailsList = [];
+  double _loanValue = 0.0;
+  double _ternerValue = 0.0;
+  double _InterValue = 0.0;
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +40,11 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Dashboard()));
           },
         ),
-        title: Text('EMI Calculator'),
+        title: textToTrans(
+            input:'EMI Calculator'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -46,13 +54,15 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
             children: [
               Row(
                 children: [
-                  Text("Loan Amount (in rupees)"),
+                  textToTrans(
+                      input:"Loan Amount (in rupees)"),
                   SizedBox(width: 50),
                   Expanded(
                     child:
                     SizedBox(
                       height: 40,
-                      child: TextField(
+                      child:
+                      TextField(
                         controller: _principalController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -68,38 +78,46 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
               ),
               SizedBox(height: 5),
               Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("1L"),
-              Expanded(
-                child:
-                RangeSlider(
-                  values: _loanRangeValues,
-                  min: 0.0,
-                  max: 4000000.0,
-                  divisions: 40,
-                  labels: RangeLabels(
-                    '${_loanRangeValues.start}L',
-                    '${_loanRangeValues.end}L',
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  textToTrans(
+                      input:"1L"),
+                  Expanded(
+                      child:
+                      SliderTheme(
+                        data: SliderThemeData(
+                          trackHeight: 4.0,
+                          overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0),
+                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8.0),
+                          tickMarkShape: SliderTickMarkShape.noTickMark,
+                          activeTrackColor:themeColor, // Change the active track color to blue
+                        ),
+                        child:
+                        Slider(
+                          value: _loanValue,
+                          min: 0.0,
+                          max: 4000000.0,
+                          divisions: 40,
+                          label: '${_loanValue.toStringAsFixed(2)}L',
+                          onChanged: (double value) {
+                            setState(() {
+                              _loanValue = value;
+                              _principalController.text = _loanValue.toStringAsFixed(2);
+                            });
+                          },
+                          activeColor: themeColor, // Change the active color to blue
+                        ),
+                      )
                   ),
-                  onChanged: (RangeValues values) {
-                    setState(() {
-                      _loanRangeValues = values;
-                      _principalController.text = _loanRangeValues.end.toStringAsFixed(2);
-                    });
-                  },
-                  activeColor: themeColor, // Change the color to blue
-                )
+                  textToTrans(
+                      input:"40L"),
+                ],
               ),
-              Text("40L"),
-            ],
-          ),
-
-
-          SizedBox(height: 16),
+              SizedBox(height: 20),
               Row(
                 children: [
-                  Text("Tenure (in months)"),
+                  textToTrans(
+                      input:"Tenure (in months)"),
                   SizedBox(width: 90),
                   Expanded(
                     child:
@@ -112,7 +130,6 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-
                         ),
                         keyboardType: TextInputType.numberWithOptions(decimal: true),
                       ),
@@ -120,41 +137,49 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                   ),
                 ],
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("12"),
+                  textToTrans(
+                      input:"12"),
                   Expanded(
-                    child:
-                    RangeSlider(
-                      values: _ternurRangeValues,
-                      min: 0.0,
-                      max: 84.0,
-                      divisions: 40,
-                      labels: RangeLabels(
-                        '${_ternurRangeValues.start}',
-                        '${_ternurRangeValues.end}',
-                      ),
-                      onChanged: (RangeValues values) {
-                        setState(() {
-                          _ternurRangeValues = values;
-                          _termController.text = _ternurRangeValues.end.toStringAsFixed(2);
-                        });
-                      },
-                      activeColor: themeColor,
-                    ),
+                      child:
+                      SliderTheme(
+                        data: SliderThemeData(
+                          trackHeight: 4.0,
+                          overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0),
+                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8.0),
+                          tickMarkShape: SliderTickMarkShape.noTickMark,
+                          activeTrackColor:themeColor, // Change the active track color to blue
+                        ),
+                        child:
+                        Slider(
+                          value: _ternerValue,
+                          min: 0.0,
+                          max: 84.0,
+                          divisions: 40,
+                          label: '${_ternerValue.toStringAsFixed(2)}L',
+                          onChanged: (double values) {
+                            setState(() {
+                              _ternerValue = values;
+                              _termController.text = _ternerValue.toStringAsFixed(2);
+                            });
+                          },
+                          activeColor: themeColor, // Change the active color to blue
+                        ),
+                      )
                   ),
-                  Text("84"),
+                  textToTrans(
+                      input:"84"),
                 ],
               ),
-
-              SizedBox(height: 16),
-
+              SizedBox(height: 20),
               Row(
                 children: [
-                  Text("Interest Rate (in months)"),
-                  SizedBox(width: 50),
+                  textToTrans(
+                      input:"Interest Rate                      "),
+                  SizedBox(width: 100),
                   Expanded(
                     child:
                     SizedBox(
@@ -166,7 +191,6 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-
                         ),
                         keyboardType: TextInputType.numberWithOptions(decimal: true),
                       ),
@@ -174,74 +198,135 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                   ),
                 ],
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 15),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("11"),
+                  textToTrans(
+                      input:"11"),
                   Expanded(
-                    child:
-                    RangeSlider(
-                      values: _interestRangeValues,
-                      min: 0.0,
-                      max: 84.0,
-                      divisions: 40,
-                      labels: RangeLabels(
-                        '${_interestRangeValues.start}',
-                        '${_interestRangeValues.end}',
-                      ),
-                      onChanged: (RangeValues values) {
-                        setState(() {
-                          _interestRangeValues = values;
-                          _rateController.text = _interestRangeValues.end.toStringAsFixed(2);
-                        });
-                      },
-                      activeColor: themeColor,
-                    ),
+                      child:
+                      SliderTheme(
+                        data: SliderThemeData(
+                          trackHeight: 4.0,
+                          overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0),
+                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8.0),
+                          tickMarkShape: SliderTickMarkShape.noTickMark,
+                          activeTrackColor:themeColor, // Change the active track color to blue
+                        ),
+                        child:
+                        Slider(
+                          value: _InterValue,
+                          min: 0.0,
+                          max: 25.0,
+                          divisions: 40,
+                          label: '${_InterValue.toStringAsFixed(2)}L',
+                          onChanged: (double values) {
+                            setState(() {
+                              _InterValue = values;
+                              _rateController.text = _InterValue.toStringAsFixed(2);
+                            });
+                          },
+                          activeColor: themeColor, // Change the active color to blue
+                        ),
+                      )
                   ),
-                  Text("25"),
+                  textToTrans(
+                      input:"25"),
                 ],
               ),
 
-              SizedBox(height: 16),
+              SizedBox(height: 20),
+
+              GestureDetector(
+                onTap:()=>{ _selectDate(context)},
+                child: Container(
+                  height: 50,
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.all(10),
+                  width: MediaQuery.of(context).size.width,
+                  // decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //     border: Border.all(
+                  //         color:Colors.grey,
+                  //         width: 1.0
+                  //     )
+                  // ),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        textToTrans(
+                            input:"Select Emi Start Date"),
+                        SizedBox(width: 20,),
+                        Expanded(
+                          child: SizedBox(
+                            height: 40,
+                            width: 90,
+                            child: TextField(
+                              controller: _startDate,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              enabled: false,
+                              //keyboardType: TextInputType.numberWithOptions(decimal: true),
+                            ),
+                          ),
+                        ),
+                      ]
+                  ),
+                ),
+              ),
               ElevatedButton(
                 onPressed: _calculateEMI,
-                child: Text('Calculate EMI'),
+                child: textToTrans(
+                  input:'Calculate EMI',style: TextStyle(color: themeColor),),
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(themeColor),
+                  backgroundColor: MaterialStateProperty.all<Color>(secondaryColor),
                 ),
               ),
               SizedBox(height: 16),
-              Card(color: themeColor,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                elevation: 2.0,
+              Container(
+                decoration:  BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [themeColor, themelightColor],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
                 child: Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Your EMI is",style: TextStyle(
-                        fontSize: 13,color: Colors.white
+                      textToTrans(
+                        input:"Your EMI is",style: TextStyle(
+                          fontSize: 13,color: Colors.white
                       ),),
                       SizedBox(height: 5,),
-                      Text(
+                      textToTrans(
+                        input:
                         ' $_emiResult',
                         style:  TextStyle(
-                          fontSize: 20.0,color: Colors.white
+                            fontSize: 20.0,color: Colors.white
                         ),
                       ),
-                       Divider(
+                      Divider(
                         color: Colors.white,
                       ),
                       Row(
                         children:  [
                           Icon(Icons.circle,size: 10,color: Colors.white,),
                           SizedBox(width: 10,),
-                          Text("Total Interest",style: TextStyle(
+                          textToTrans(
+                            input:"Total Interest",style: TextStyle(
                               fontSize: 13,color: Colors.white
                           ),),
                           Spacer(),
-                          Text(_totalInterest,style: TextStyle(
+                          textToTrans(
+                            input:_totalInterest,style: TextStyle(
                               fontSize: 13,color: Colors.white
                           ),),
                         ],
@@ -251,11 +336,13 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                           Icon(Icons.circle,size: 10,color: Colors.white,),
                           SizedBox(width: 10,),
                           Expanded(
-                            child: Text("Total Amount Payable",style: TextStyle(
+                            child: textToTrans(
+                              input:"Total Amount Payable",style: TextStyle(
                                 fontSize: 13,color: Colors.white
                             ),),
                           ),
-                          Text(_totalAmountPayable,style: TextStyle(
+                          textToTrans(
+                            input:_totalAmountPayable,style: TextStyle(
                               fontSize: 13,color: Colors.white
                           ),),
                         ],
@@ -263,22 +350,33 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                       const Divider(
                         color: Colors.red,
                       ),
-                       Align(
-                        alignment: Alignment.topRight,
-                        child:
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Emi_details(_emiDetailsList)));
-                          },
-                          child: Text(
-                            "View Details",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                      Align(
+                          alignment: Alignment.topRight,
+                          child:
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Emi_details(_emiDetailsList)));
+                            },
+                            child: Card(
+                              elevation: 5,
+                              color: secondaryColor,
+                              child: SizedBox(
+                                width: 130,
+                                height: 35,
+                                child: Center(
+                                  child: textToTrans(
+                                    input:
+                                    "View Details",
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: themeColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        )
+                          )
                       ),
                     ],
                   ),
@@ -291,6 +389,25 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
     );
   }
 
+  Future<Null> _selectDate(BuildContext context) async {
+
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialEntryMode: DatePickerEntryMode.calendarOnly,
+        initialDate: selectedDate,
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2100)
+    );
+    if (picked != null)
+      setState(() {
+        selectedDate = picked;
+        startDate=formatDate(selectedDate, [dd,'-',mm,'-',yyyy]);
+        _startDate.text=startDate;
+        //print('Date: $dob');
+      });
+  }
+
   void _calculateEMI() {
     final principal = double.tryParse(_principalController.text) ?? 0;
     final rate = double.tryParse(_rateController.text) ?? 0;
@@ -300,29 +417,7 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
     print(term.toString()+" term");
 
     final emi = _calculateEMIValue(principal, rate, term);
-    // final emi1 = (principal * rate * pow(1 + rate, term)) / (pow(1 + rate ,term) - 1);
-    // double balance = principal;
-    // List<EMIDetails> emiDetailsList = [];
-    //
-    // for (int i = 1; i <= term; i++) {
-    //   final interest = balance * rate;
-    //   final principalPaid = emi - interest;
-    //   balance -= principalPaid;
-    //
-    //   EMIDetails emiDetails = EMIDetails(
-    //     month: i,
-    //     emi: emi1,
-    //     interest: interest,
-    //     principalPaid: principalPaid,
-    //     balance: balance,
-    //   );
-    //   emiDetailsList.add(emiDetails);
-    //
-    //   setState(() {
-    //     _emiResult = '₹ ${emi.toStringAsFixed(2)} / month';
-    //     _emiDetailsList = emiDetailsList;
-    //   });
-    // }
+
   }
 
   double _calculateEMIValue(double principal, double rate, double term) {
@@ -331,49 +426,38 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
     final emi = (principal * r * pow(1 + r, n)) / (pow(1 + r, n) - 1);
     final totalAmountPayable = emi * n;
     final totalInterest = totalAmountPayable - principal;
-    //double balance = principal;
     List<EMIDetails> emiDetailsList = [];
-
-    // for (int i = 1; i <= term; i++) {
-    //   final interest = balance * rate;
-    //   final principalPaid = emi - interest;
-    //   balance -= principalPaid;
-    //
-    //   EMIDetails emiDetails = EMIDetails(
-    //     month: i,
-    //     emi: emi,
-    //     interest: interest,
-    //     principalPaid: principalPaid,
-    //     balance: balance,
-    //   );
-    //   emiDetailsList.add(emiDetails);
-    // }
 
     double monthlyInterestRate = rate / 1200;
     double monthlyPayment = principal * monthlyInterestRate /
         (1 - pow(1 / (1 + monthlyInterestRate), n));
 
     double balance = principal;
-
+    final startDate = DateFormat('dd-MM-yyyy').parse(_startDate.text);
     for (int i = 0; i < n; i++) {
       double interestPaid = balance * monthlyInterestRate;
       double principalPaid = monthlyPayment - interestPaid;
       balance -= principalPaid;
+      // Add one month to the start date for each iteration
+      //DateTime date = startDate.add(Duration(days: i * 30));
+      // Create a new DateTime object with the day and year from the start date, and add i months
+      DateTime installmentDate = DateTime(startDate.year, startDate.month + i, startDate.day);
+      // Format the date in the desired format
+      final formattedDate = DateFormat('dd-MM-yyyy').format(installmentDate);
       emiDetailsList.add(EMIDetails(
-          month: i + 1,
-          emi: monthlyPayment,
-          principalPaid: principalPaid,
-          interest: interestPaid,
-          balance: balance));
+        month: i + 1,
+        emi: monthlyPayment,
+        principalPaid: principalPaid,
+        interest: interestPaid,
+        balance: balance,
+        date:formattedDate,
+      ));
     }
-      // setState(() {
-      //   //_emiResult = '₹ ${emi.toStringAsFixed(2)} / month';
-      //   //_emiDetailsList = emiDetailsList;
-      // });
+
     setState(() {
-      _emiResult = '₹ ${emi.toStringAsFixed(2)} / month';
-      _totalAmountPayable = ' ₹ ${totalAmountPayable.toStringAsFixed(2)}';
-      _totalInterest = ' ₹ ${totalInterest.toStringAsFixed(2)}';
+      _emiResult = ' ${emi.toStringAsFixed(2)} / month';
+      _totalAmountPayable = '  ${totalAmountPayable.toStringAsFixed(2)}';
+      _totalInterest = '  ${totalInterest.toStringAsFixed(2)}';
       _emiDetailsList = emiDetailsList;
     });
     return emi;

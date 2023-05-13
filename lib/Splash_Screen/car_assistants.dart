@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Helper/SizedConfig.dart';
+import '../config/choosen_lang.dart';
 import '../login/login_screen.dart';
 
 
@@ -39,7 +40,8 @@ class _CarAssistantState extends State<CarAssistant> {
                    Image.asset(logo,width: 500,
                      height: 500,
                    ),
-                   // const Text("Car Assistant",style: TextStyle(
+                   // const textToTrans(
+                  //input:"Car Assistant",style: TextStyle(
                    //   fontSize: 29,
                    //   color: Colors.black54,
                    // ),)
@@ -63,8 +65,9 @@ class _CarAssistantState extends State<CarAssistant> {
                    color: Colors.cyan,
                    borderRadius: const BorderRadius.all(Radius.circular(30),),
                  ),
-                 child: const Center(
-                   child: Text('Get Started',style: TextStyle(
+                 child: Center(
+                   child: textToTrans(
+                  input:'Get Started',style: TextStyle(
                      color: Colors.white,
                        fontSize: 18,
                        fontWeight: FontWeight.w500

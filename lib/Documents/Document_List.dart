@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../Helper/globle style.dart';
 import '../VehiclelList/VehicleDummyModel.dart';
 import '../VehiclelList/my_Vehicle_view_details.dart';
+import '../config/choosen_lang.dart';
 import 'UploadDocumentScreen.dart';
 
 
@@ -50,8 +51,9 @@ class _My_Document_ListState extends State<My_Document_List> {
                   children:   [
 
                     Row(
-                      children: const [
-                        Text(
+                      children: [
+                        textToTrans(
+                            input:
                           "MH12TY5476",
                           style: TextStyle(
                             fontSize: 15,
@@ -61,7 +63,8 @@ class _My_Document_ListState extends State<My_Document_List> {
                           ),
                         ),
                         SizedBox(width: 10), // Add some space between the two Text widgets
-                        Text(
+                        textToTrans(
+                  input:
                           "First Owner",
                           style: TextStyle(
                             fontSize: 13,
@@ -76,7 +79,8 @@ class _My_Document_ListState extends State<My_Document_List> {
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
+                    textToTrans(
+                  input:
                       "KUSHAQ AMBITION 1.0TSI AT ",
                       style: TextStyle(
                         fontSize: 15,
@@ -92,7 +96,8 @@ class _My_Document_ListState extends State<My_Document_List> {
                       children: [
                         Icon(Icons.check_circle, color: Colors.grey,size: 15,),
                         SizedBox(width: 10,),
-                        Text(
+                        textToTrans(
+                          input:
                           "No documents uploaded",
                           style: TextStyle(
                             fontSize: 13,

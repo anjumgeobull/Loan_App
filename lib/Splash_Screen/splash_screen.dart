@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loan_app/Helper/globle%20style.dart';
 import '../Dashboard/Dashboard.dart';
 import '../Helper/SizedConfig.dart';
 import '../Helper/String_constant.dart';
@@ -42,10 +43,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   redirect() async {
     await Future.delayed(Duration.zero);
-
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Dashboard()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Dashboard()));
   }
 
 }
-
 
