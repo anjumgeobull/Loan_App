@@ -14,6 +14,7 @@ import '../Dashboard/Car_details_page.dart';
 import '../Documents/Document_List.dart';
 import '../Helper/globle style.dart';
 import '../Model/GetEnquiryData.dart';
+import '../config/choosen_lang.dart';
 
 
 class RcBookImagelScreen extends StatefulWidget {
@@ -45,7 +46,8 @@ class _RcBookImagelScreenState extends State<RcBookImagelScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: themeColor,
-          title: const Text(
+          title: textToTrans(
+                  input:
             "Rc Book Image",
             style: TextStyle(
               color: Colors.white,

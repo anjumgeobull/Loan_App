@@ -14,6 +14,7 @@ import '../Dashboard/Car_details_page.dart';
 import '../Documents/Document_List.dart';
 import '../Helper/globle style.dart';
 import '../Model/GetEnquiryData.dart';
+import '../config/choosen_lang.dart';
 
 
 class AdharCardImagelScreen extends StatefulWidget {
@@ -45,7 +46,8 @@ class _AdharCardImagelScreenState extends State<AdharCardImagelScreen> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: themeColor,
-          title: const Text(
+          title: textToTrans(
+                  input:
             "Adhar Card or Voting Card Image",
             style: TextStyle(
               color: Colors.white,

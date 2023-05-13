@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../config/choosen_lang.dart';
 class Header extends StatelessWidget{
   @override
   Widget build(BuildContext context){
@@ -7,14 +9,16 @@ class Header extends StatelessWidget{
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Center(
-          child: Text(
+          child: textToTrans(
+                  input:
             "Login",style: TextStyle(
             color: Colors.white,fontSize: 40,
           ),
           ),
         ),
         SizedBox(height: 10,),
-        Center(child: Text("Welcome",style: TextStyle(color: Colors.white,fontSize: 10),),)
+        Center(child: textToTrans(
+                  input:"Welcome",style: TextStyle(color: Colors.white,fontSize: 10),),)
       ],
     ),);
   }

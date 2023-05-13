@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../Helper/globle style.dart';
+import '../config/choosen_lang.dart';
 
 class EnquireyList extends StatefulWidget {
   const EnquireyList({Key? key}) : super(key: key);
@@ -15,7 +16,8 @@ class _EnquireyListState extends State<EnquireyList> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: themeColor,
-        title: const Text(
+        title: textToTrans(
+                  input:
           "Your Enquirey",
           style: TextStyle(
             color: Colors.white,

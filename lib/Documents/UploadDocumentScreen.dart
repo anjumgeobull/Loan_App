@@ -15,6 +15,8 @@ import '../Photo/RcBook.dart';
 import '../Profile/Pdf_viewer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
+import '../config/choosen_lang.dart';
+
 
 class upload_documentDetailScreen extends StatefulWidget {
   final GetEnquiryData data;
@@ -87,7 +89,8 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Uploads Your Docs",style: TextStyle(
+                        textToTrans(
+                  input:"Uploads Your Docs",style: TextStyle(
                             fontSize: 15,fontWeight:FontWeight.bold,color: Colors.white
                         ),),
                         GestureDetector(
@@ -104,7 +107,8 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
+                    textToTrans(
+                  input:
                       "Access your docs anytime",
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
@@ -137,8 +141,9 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                   width: 0.7,
                 ),
               ),
-              child: const Center(
-                child: Text(
+              child: Center(
+                child: textToTrans(
+                  input:
                   "Details",
                   style: TextStyle(
                     fontSize: 17,
@@ -161,11 +166,13 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:   [
-                    Text("Personal Details",style: TextStyle(
+                    textToTrans(
+                  input:"Personal Details",style: TextStyle(
                         fontSize: 20,fontWeight:FontWeight.bold,color: Colors.grey[700]
                     ),),
                     Divider(),
-                    Text("Name",style: TextStyle(
+                    textToTrans(
+                  input:"Name",style: TextStyle(
                         fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black
                     ),),
                     // GestureDetector(
@@ -204,7 +211,8 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
+                    textToTrans(
+                  input:
                       widget.data.name,
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
@@ -216,13 +224,15 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     SizedBox(
                       height: 5,
                     ),
-                    Text("Contact",style: TextStyle(
+                    textToTrans(
+                  input:"Contact",style: TextStyle(
                         fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black
                     ),),
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
+                    textToTrans(
+                  input:
                       widget.data.contact,
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
@@ -234,13 +244,15 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     SizedBox(
                       height: 5,
                     ),
-                    Text("City",style: TextStyle(
+                    textToTrans(
+                  input:"City",style: TextStyle(
                         fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black
                     ),),
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
+                    textToTrans(
+                  input:
                       widget.data.city,
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
@@ -252,13 +264,15 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     SizedBox(
                       height: 5,
                     ),
-                    Text("Employement Type",style: TextStyle(
+                    textToTrans(
+                  input:"Employement Type",style: TextStyle(
                         fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black
                     ),),
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
+                    textToTrans(
+                  input:
                       widget.data.employmentType,
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
@@ -270,13 +284,15 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     SizedBox(
                       height: 5,
                     ),
-                    Text("Required Amount",style: TextStyle(
+                    textToTrans(
+                  input:"Required Amount",style: TextStyle(
                         fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black
                     ),),
                     SizedBox(
                       height: 5,
                     ),
-                    Text(
+                    textToTrans(
+                  input:
                       widget.data.requirementAmount,
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
@@ -311,8 +327,9 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                   width: 0.7,
                 ),
               ),
-              child: const Center(
-                child: Text(
+              child: Center(
+                child: textToTrans(
+                  input:
                   "Documents",
                   style: TextStyle(
                     fontSize: 17,
@@ -337,14 +354,16 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:   [
-                    Text("Profile Image",style: TextStyle(
+                    textToTrans(
+                  input:"Profile Image",style: TextStyle(
                         fontSize: 20,fontWeight:FontWeight.bold,color: Colors.grey[700]
                     ),),
                     Divider(),
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     //   children: [
-                    //     Text("Uploads Your Docs",style: TextStyle(
+                    //     textToTrans(
+                  //input:"Uploads Your Docs",style: TextStyle(
                     //         fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black
                     //     ),),
                     //     GestureDetector(
@@ -385,7 +404,8 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     // SizedBox(
                     //   height: 5,
                     // ),
-                    // Text(
+                    // textToTrans(
+                  //input:
                     //   "Keep PUC Certificate handy",
                     //   style: TextStyle(
                     //       fontWeight: FontWeight.normal,
@@ -416,14 +436,16 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:   [
-                    Text("Pan Card",style: TextStyle(
+                    textToTrans(
+                  input:"Pan Card",style: TextStyle(
                         fontSize: 20,fontWeight:FontWeight.bold,color: Colors.grey[700]
                     ),),
                     Divider(),
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     //   children: [
-                    //     Text("Uploads Your Docs",style: TextStyle(
+                    //     textToTrans(
+                  // input:"Uploads Your Docs",style: TextStyle(
                     //         fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black
                     //     ),),
                     //     GestureDetector(
@@ -464,7 +486,8 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     // SizedBox(
                     //   height: 5,
                     // ),
-                    // Text(
+                    // textToTrans(
+                  //input:
                     //   "Keep PUC Certificate handy",
                     //   style: TextStyle(
                     //       fontWeight: FontWeight.normal,
@@ -495,14 +518,16 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:   [
-                    Text("Adhar Card or Voting Card",style: TextStyle(
+                    textToTrans(
+                  input:"Adhar Card or Voting Card",style: TextStyle(
                         fontSize: 20,fontWeight:FontWeight.bold,color: Colors.grey[700]
                     ),),
                     Divider(),
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     //   children: [
-                    //     Text("Uploads Your Docs",style: TextStyle(
+                    //     textToTrans(
+                  // input:"Uploads Your Docs",style: TextStyle(
                     //         fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black
                     //     ),),
                     //     GestureDetector(
@@ -543,7 +568,8 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     // SizedBox(
                     //   height: 5,
                     // ),
-                    // Text(
+                    // textToTrans(
+                  // input:
                     //   "Keep PUC Certificate handy",
                     //   style: TextStyle(
                     //       fontWeight: FontWeight.normal,
@@ -574,14 +600,16 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:   [
-                    Text("RC Book",style: TextStyle(
+                    textToTrans(
+                  input:"RC Book",style: TextStyle(
                         fontSize: 20,fontWeight:FontWeight.bold,color: Colors.grey[700]
                     ),),
                     Divider(),
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     //   children: [
-                    //     Text("Uploads Your Docs",style: TextStyle(
+                    //     textToTrans(
+                  // input:"Uploads Your Docs",style: TextStyle(
                     //         fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black
                     //     ),),
                     //     GestureDetector(
@@ -622,7 +650,8 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     // SizedBox(
                     //   height: 5,
                     // ),
-                    // Text(
+                    // textToTrans(
+                  // input:
                     //   "Keep PUC Certificate handy",
                     //   style: TextStyle(
                     //       fontWeight: FontWeight.normal,
@@ -653,14 +682,16 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:   [
-                    Text("Insurance",style: TextStyle(
+                    textToTrans(
+                  input:"Insurance",style: TextStyle(
                         fontSize: 20,fontWeight:FontWeight.bold,color: Colors.grey[700]
                     ),),
                     Divider(),
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     //   children: [
-                    //     Text("Uploads Your Docs",style: TextStyle(
+                    //     textToTrans(
+                  // input:"Uploads Your Docs",style: TextStyle(
                     //         fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black
                     //     ),),
                     //     GestureDetector(
@@ -701,7 +732,8 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     // SizedBox(
                     //   height: 5,
                     // ),
-                    // Text(
+                    // textToTrans(
+                  // input:
                     //   "Keep PUC Certificate handy",
                     //   style: TextStyle(
                     //       fontWeight: FontWeight.normal,
@@ -732,14 +764,16 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children:   [
-                    Text("Bank Statement",style: TextStyle(
+                    textToTrans(
+                  input:"Bank Statement",style: TextStyle(
                         fontSize: 20,fontWeight:FontWeight.bold,color: Colors.grey[700]
                     ),),
                     Divider(),
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     //   children: [
-                    //     Text("Uploads Your Docs",style: TextStyle(
+                    //     textToTrans(
+                  // input:"Uploads Your Docs",style: TextStyle(
                     //         fontSize: 15,fontWeight:FontWeight.bold,color: Colors.black
                     //     ),),
                     //     GestureDetector(
@@ -780,7 +814,8 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
                     // SizedBox(
                     //   height: 5,
                     // ),
-                    // Text(
+                    // textToTrans(
+                  // input:
                     //   "Keep PUC Certificate handy",
                     //   style: TextStyle(
                     //       fontWeight: FontWeight.normal,
@@ -808,19 +843,23 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text(" Confirmation"),
-          content: const Text("Are you sure you want to upload this document?"),
+          title: textToTrans(
+                  input:" Confirmation"),
+          content:  textToTrans(
+                  input:"Are you sure you want to upload this document?"),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text("Yes"),
+              child:  textToTrans(
+                  input:"Yes"),
             ),
             TextButton(
               onPressed: () {
 
                 Navigator.of(context).pop();
               },
-              child: const Text("No"),
+              child:  textToTrans(
+                  input:"No"),
             ),
           ],
         );
@@ -1103,7 +1142,8 @@ class _upload_documentDetailScreenState extends State<upload_documentDetailScree
            push(context, Pdf_viewer(document));
          },
          child: 
-         Text(
+         textToTrans(
+                  input:
            document,
            style: TextStyle(
              fontSize: 15,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../Helper/SizedConfig.dart';
 import '../../../Helper/globle style.dart';
+import '../config/choosen_lang.dart';
 
 class ContentComponentFull extends StatefulWidget {
   final String title,data;
@@ -21,9 +22,11 @@ class _ContentComponentState extends State<ContentComponentFull> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text("${widget.title}",style: KH8.copyWith(color: KCOLOR_LigthPink),),
+          textToTrans(
+                  input:"${widget.title}",style: KH8.copyWith(color: KCOLOR_LigthPink),),
           SizedBox(height: 5,),
-          Text("${widget.data}",style: KH8,maxLines: 1,overflow: TextOverflow.ellipsis,),
+          textToTrans(
+                  input:"${widget.data}",style: KH8,maxLines: 1,overflow: TextOverflow.ellipsis,),
         ],
       ),
     );

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import '../Controller/VehicleDetailedController.dart';
 import '../Helper/globle style.dart';
+import '../config/choosen_lang.dart';
 class CarDetailScreen extends StatefulWidget {
   CarDetailScreen({Key? key}) : super(key: key);
 
@@ -36,15 +37,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor:themeColor,
-          title: const Text(
+          title: textToTrans(
+                  input:
             "Car Details",
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
             ),
           ),
           leading:
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.chevron_left,
               size: 25.0,
               color: Colors.white,
@@ -95,8 +97,10 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children:   [
-                               Obx(()=>vehicleScreenController.owner.value=='loading'?Text('NA'):
-                                 Text(
+                               Obx(()=>vehicleScreenController.owner.value=='loading'?textToTrans(
+                  input:'NA'):
+                                 textToTrans(
+                  input:
                                  "${vehicleScreenController.owner.value}",
                                    style: TextStyle(
                                     fontSize: 20,
@@ -110,8 +114,10 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               ),
                               Row(
                                 children:  [
-                                  Obx(()=>vehicleScreenController.licNo.value=='loading'?Text('NA'):
-                                     Text(
+                                  Obx(()=>vehicleScreenController.licNo.value=='loading'?textToTrans(
+                  input:'NA'):
+                                     textToTrans(
+                  input:
                                       "${vehicleScreenController.licNo.value}",
                                       style: TextStyle(
                                         fontSize: 15,
@@ -122,7 +128,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                     ),
                                   ),
                                   SizedBox(width: 10), // Add some space between the two Text widgets
-                                  // Text(
+                                  // textToTrans(
+                                  // input:
                                   //   "First Owner",
                                   //   style: TextStyle(
                                   //     fontSize: 13,
@@ -136,7 +143,9 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               SizedBox(
                                 height: 5,
                               ),
-                              Obx(()=>vehicleScreenController.maker_model.value=='loading'?Text('NA'):                                 Text(
+                              Obx(()=>vehicleScreenController.maker_model.value=='loading'?textToTrans(
+                  input:'NA'):                                 textToTrans(
+                  input:
                                   "${vehicleScreenController.maker_model.value}",
                                   style: TextStyle(
                                     fontSize: 15,
@@ -151,8 +160,10 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               Padding(
                                 padding: EdgeInsets.only(left: 15.0),
                                 child:
-                                Obx(()=>vehicleScreenController.puc_expiry.value=='loading'?Text('NA'):
-                                 Text(
+                                Obx(()=>vehicleScreenController.puc_expiry.value=='loading'?textToTrans(
+                  input:'NA'):
+                                 textToTrans(
+                  input:
                                     "${vehicleScreenController.puc_expiry.value}",
                                     style: TextStyle(
                                       fontSize: 13,
@@ -192,8 +203,9 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           width: 0.7,
                         ),
                       ),
-                      child: const Center(
-                        child: Text(
+                      child:  Center(
+                        child: textToTrans(
+                            input:
                           "RC Details",
                           style: TextStyle(
                             fontSize: 20,
@@ -215,7 +227,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                   child: Column(
                     children: [
                       ExpansionTile(
-                        title: Text(
+                        title: textToTrans(
+                  input:
                           "Ownership Details",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -229,13 +242,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               children: [
                                 Column(
                                   children: [
-                                    Text(
+                                    textToTrans(
+                  input:
                                       "Owner Name",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Obx(()=>vehicleScreenController.owner.value=='loading'?Text('NA'):
-                                       Text(
+                                    Obx(()=>vehicleScreenController.owner.value=='loading'?textToTrans(
+                  input:'NA'):
+                                       textToTrans(
+                  input:
                                         "${vehicleScreenController.owner.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -246,13 +262,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   padding: const EdgeInsets.only(right: 20.0),
                                   child: Column(
                                     children: [
-                                      Text(
+                                      textToTrans(
+                  input:
                                         "Ownwership",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                      Obx(()=>vehicleScreenController.ownerCount.value=='loading'?Text('NA'):
-                                         Text(
+                                      Obx(()=>vehicleScreenController.ownerCount.value=='loading'?textToTrans(
+                  input:'NA'):
+                                         textToTrans(
+                  input:
                                           "${vehicleScreenController.ownerCount.value}",
                                           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                         ),
@@ -272,14 +291,17 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               children: [
                                 Column(
                                   children: [
-                                    Text(
+                                    textToTrans(
+                  input:
                                       "Registration Date",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
 
-                                    Obx(()=>vehicleScreenController.registration_date.value=='loading'?Text('NA'):
-                                      Text(
+                                    Obx(()=>vehicleScreenController.registration_date.value=='loading'?textToTrans(
+                  input:'NA'):
+                                      textToTrans(
+                  input:
                                         "${vehicleScreenController.registration_date.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -290,13 +312,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   padding: const EdgeInsets.only(right: 20.0),
                                   child: Column(
                                     children: [
-                                      Text(
+                                      textToTrans(
+                  input:
                                         "Financer's Name",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                      Obx(()=>vehicleScreenController.finaincerName.value=='loading'?Text('NA'):
-                                         Text(
+                                      Obx(()=>vehicleScreenController.finaincerName.value=='loading'?textToTrans(
+                  input:'NA'):
+                                         textToTrans(
+                  input:
                                           "${vehicleScreenController.finaincerName.value}",
                                           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                         ),
@@ -315,13 +340,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
-                                  Text(
+                                  textToTrans(
+                  input:
                                     "Registered RTO",
                                     style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                   SizedBox(height: 10,),
-                                  Obx(()=>vehicleScreenController.registration_authority.value=='loading'?Text('NA'):
-                                    Text(
+                                  Obx(()=>vehicleScreenController.registration_authority.value=='loading'?textToTrans(
+                  input:'NA'):
+                                    textToTrans(
+                  input:
                                       "${vehicleScreenController.registration_authority.value}",
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
@@ -335,7 +363,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       SizedBox(height: 10,),
                       Divider(),
                       ExpansionTile(
-                        title: Text(
+                        title: textToTrans(
+                  input:
                           "Finance Details",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -349,13 +378,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
                                 children: [
-                                  Text(
+                                  textToTrans(
+                  input:
                                     "Financer's Name",
                                     style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                   SizedBox(height: 10,),
-                                  Obx(()=>vehicleScreenController.finaincerName.value=='loading'?Text('NA'):
-                                     Text(
+                                  Obx(()=>vehicleScreenController.finaincerName.value=='loading'?textToTrans(
+                  input:'NA'):
+                                     textToTrans(
+                  input:
                                       "${vehicleScreenController.finaincerName.value}",
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
@@ -369,7 +401,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       SizedBox(height: 10,),
                       Divider(),
                       ExpansionTile(
-                        title: Text(
+                        title: textToTrans(
+                  input:
                           "Vehicle Details",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -383,13 +416,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  textToTrans(
+                  input:
                                     "Maker Model",
                                     style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                   SizedBox(height: 10,),
-                                  Obx(()=>vehicleScreenController.model.value=='loading'?Text('NA'):
-                                     Text(
+                                  Obx(()=>vehicleScreenController.model.value=='loading'?textToTrans(
+                  input:'NA'):
+                                     textToTrans(
+                  input:
                                       "${vehicleScreenController.model.value}",
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
@@ -407,13 +443,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               children: [
                                 Column(
                                   children: [
-                                    Text(
+                                    textToTrans(
+                  input:
                                       "Vehicle Class ",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Obx(()=>vehicleScreenController.vehicle_class.value=='loading'?Text('NA'):
-                                       Text(
+                                    Obx(()=>vehicleScreenController.vehicle_class.value=='loading'?textToTrans(
+                  input:'NA'):
+                                       textToTrans(
+                  input:
                                         "${vehicleScreenController.vehicle_class.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -424,13 +463,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   padding: const EdgeInsets.only(right: 20.0),
                                   child: Column(
                                     children: [
-                                      Text(
+                                      textToTrans(
+                  input:
                                         "Fuel Type",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                      Obx(()=>vehicleScreenController.fule_type.value=='loading'?Text('NA'):
-                                         Text(
+                                      Obx(()=>vehicleScreenController.fule_type.value=='loading'?textToTrans(
+                  input:'NA'):
+                                         textToTrans(
+                  input:
                                           "${vehicleScreenController.fule_type.value}",
                                           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                         ),
@@ -450,13 +492,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               children: [
                                 Column(
                                   children: [
-                                    Text(
+                                    textToTrans(
+                  input:
                                       "Fuel Norms",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Obx(()=>vehicleScreenController.norms_type.value=='loading'?Text('NA'):
-                                       Text(
+                                    Obx(()=>vehicleScreenController.norms_type.value=='loading'?textToTrans(
+                  input:'NA'):
+                                       textToTrans(
+                  input:
                                         "${vehicleScreenController.norms_type.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -467,13 +512,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   padding: const EdgeInsets.only(right: 20.0),
                                   child: Column(
                                     children: [
-                                      Text(
+                                      textToTrans(
+                  input:
                                         "Engine Number",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                      Obx(()=>vehicleScreenController.engine.value=='loading'?Text('NA'):
-                                         Text(
+                                      Obx(()=>vehicleScreenController.engine.value=='loading'?textToTrans(
+                  input:'NA'):
+                                         textToTrans(
+                  input:
                                           "${vehicleScreenController.engine.value}",
                                           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                         ),
@@ -490,7 +538,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       SizedBox(height: 10,),
                       Divider(),
                       ExpansionTile(
-                        title: Text(
+                        title: textToTrans(
+                            input:
                           "Important Dates",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -505,13 +554,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               children: [
                                 Column(
                                   children: [
-                                    Text(
+                                    textToTrans(
+                  input:
                                       "Registration Date",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Obx(()=>vehicleScreenController.registration_date.value=='loading'?Text('NA'):
-                                      Text(
+                                    Obx(()=>vehicleScreenController.registration_date.value=='loading'?textToTrans(
+                  input:'NA'):
+                                      textToTrans(
+                  input:
                                         "${vehicleScreenController.registration_date.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -522,14 +574,17 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   padding: const EdgeInsets.only(right: 20.0),
                                   child: Column(
                                     children: [
-                                      Text(
+                                      textToTrans(
+                  input:
                                         "Insurance Date",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                  Obx(()=>vehicleScreenController.insu_date.value=='loading'?Text('NA'):
-                                      Text(
-                                        "${vehicleScreenController.insu_date.value}",
+                                  Obx(()=>vehicleScreenController.insuranceDate.value=='loading'?textToTrans(
+                  input:'NA'):
+                                      textToTrans(
+                  input:
+                                        "${vehicleScreenController.insuranceDate.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),),
                                     ],
@@ -549,13 +604,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               children: [
                                 Column(
                                   children: [
-                                    Text(
+                                    textToTrans(
+                  input:
                                       "Fitness upto",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Obx(()=>vehicleScreenController.fitnessDate.value=='loading'?Text('NA'):
-                                      Text(
+                                    Obx(()=>vehicleScreenController.fitnessDate.value=='loading'?textToTrans(
+                  input:'NA'):
+                                      textToTrans(
+                  input:
                                         "${vehicleScreenController.fitnessDate.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -566,13 +624,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   padding: const EdgeInsets.only(right: 20.0),
                                   child: Column(
                                     children: [
-                                      Text(
+                                      textToTrans(
+                  input:
                                         "Pollution Upto",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                      Obx(()=>vehicleScreenController.pollution.value=='loading'?Text('NA'):
-                                      Text(
+                                      Obx(()=>vehicleScreenController.pollution.value=='loading'?textToTrans(
+                  input:'NA'):
+                                      textToTrans(
+                  input:
                                         "${vehicleScreenController.pollution.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),),
@@ -593,12 +654,14 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           //       Expanded(
                           //         child: Column(
                           //           children: [
-                          //             Text(
+                          //             textToTrans(
+                                            //input:
                           //               "Insurance Expiry(Updated today)",
                           //               style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                           //             ),
                           //             SizedBox(height: 10,),
-                          //             Text(
+                          //             textToTrans(
+                  //input:
                           //               "${vehicleScreenController.insu_date}",
                           //               style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                           //             ),
@@ -609,12 +672,14 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           //       //   padding: const EdgeInsets.only(right: 20.0),
                           //       //   child: Column(
                           //       //     children: [
-                          //       //       Text(
+                          //       //       textToTrans(
+                  //input:
                           //       //         "Insurance Expiring in",
                           //       //         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                           //       //       ),
                           //       //       SizedBox(height: 10,),
-                          //       //       Text(
+                          //       //       textToTrans(
+                  //input:
                           //       //         "1 year & 9 months",
                           //       //         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                           //       //       ),
@@ -631,7 +696,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       SizedBox(height: 10,),
                       Divider(),
                       ExpansionTile(
-                        title: Text(
+                        title: textToTrans(
+                  input:
                           "Other Information",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -646,13 +712,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               children: [
                                 Column(
                                   children: [
-                                    Text(
+                                    textToTrans(
+                                      input:
                                       "Registration Number",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Obx(()=>vehicleScreenController.licNo.value=='loading'?Text('NA'):
-                                       Text(
+                                    Obx(()=>vehicleScreenController.licNo.value=='loading'?textToTrans(
+                                        input:'NA'):
+                                       textToTrans(
+                                          input:
                                         "${vehicleScreenController.licNo.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -663,13 +732,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   padding: const EdgeInsets.only(right: 20.0),
                                   child: Column(
                                     children: [
-                                      Text(
+                                      textToTrans(
+                                          input:
                                         "Vehicle Color",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                      Obx(()=>vehicleScreenController.vehicle_color.value=='loading'?Text('NA'):
-                                        Text(
+                                      Obx(()=>vehicleScreenController.vehicle_color.value=='loading'?textToTrans(
+                                           input:'NA'):
+                                        textToTrans(
+                                                input:
                                           "${vehicleScreenController.vehicle_color.value}",
                                           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                         ),
@@ -691,13 +763,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               children: [
                                 Column(
                                   children: [
-                                    Text(
+                                    textToTrans(
+                                        input:
                                       "Unloaded weight()kg",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
-                                    Obx(()=>vehicleScreenController.unladen_weight.value=='loading'?Text('NA'):
-                                      Text(
+                                    Obx(()=>vehicleScreenController.unladen_weight.value=='loading'?textToTrans(
+                                            input:'NA'):
+                                      textToTrans(
+                                          input:
                                         "${vehicleScreenController.unladen_weight.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -708,13 +783,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   padding: const EdgeInsets.only(right: 20.0),
                                   child: Column(
                                     children: [
-                                      Text(
+                                      textToTrans(
+                                          input:
                                         "RC Status",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                  Obx(()=>vehicleScreenController.rc_staus.value=='loading'?Text('NA'):
-                                      Text(
+                                  Obx(()=>vehicleScreenController.rc_staus.value=='loading'?textToTrans(
+                                          input:'NA'):
+                                      textToTrans(
+                                            input:
                                         "${vehicleScreenController.rc_staus.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),),
@@ -732,12 +810,14 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           //     padding: const EdgeInsets.all(8.0),
                           //     child: Column(
                           //       children: [
-                          //         Text(
+                          //         textToTrans(
+                            //          input:
                           //           "Insurance Expiry(Updated today)",
                           //           style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                           //         ),
                           //         SizedBox(height: 10,),
-                          //         Text(
+                          //         textToTrans(
+                           //         input:
                           //           "27-Jan-2025",
                           //           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                           //         ),
@@ -755,12 +835,14 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           //     padding: const EdgeInsets.all(8.0),
                           //     child: Column(
                           //       children: [
-                          //         Text(
+                          //         textToTrans(
+                          //input:
                           //           "Insurance Expiring in",
                           //           style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                           //         ),
                           //         SizedBox(height: 10,),
-                          //         Text(
+                          //         textToTrans(
+                  //         input:
                           //           "1 year & 9 months",
                           //           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                           //         ),
@@ -797,8 +879,9 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           width: 0.7,
                         ),
                       ),
-                      child: const Center(
-                        child: Text(
+                      child: Center(
+                        child: textToTrans(
+                          input:
                           "Insurance Details",
                           style: TextStyle(
                             fontSize: 20,
@@ -811,7 +894,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                   ],
                 ),
               ),
-              vehicleScreenController.insuerName.value!=null && vehicleScreenController.insuerName.value!=""?
+              vehicleScreenController.insuerName.value!=""?
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child:
@@ -839,13 +922,15 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children:   [
-                            Text("Your are insured",style: TextStyle(
+                            textToTrans(
+                              input:"Your are insured",style: TextStyle(
                                 fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
                             ),),
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
+                            textToTrans(
+                              input:
                               "Insurance name",
                               style: TextStyle(
                                 fontSize: 15,
@@ -854,8 +939,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               ),
                             ),
                             SizedBox(width: 10), // Add some space between the two Text widgets
-                        Obx(()=>vehicleScreenController.insuerName.value=='loading'?Text('NA'):
-                            Text(
+                        Obx(()=>vehicleScreenController.insuerName.value=='loading'?
+                        textToTrans(
+                            input:'NA'):
+                            textToTrans(
+                                  input:
                               "${vehicleScreenController.insuerName.value}",
                               style: TextStyle(
                                 fontSize: 13,
@@ -868,7 +956,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                             SizedBox(
                               height: 5,
                             ),
-                            Text(
+                            textToTrans(
+                  input:
                               "Insurance Expiring on ",
                               style: TextStyle(
                                 fontSize: 15,
@@ -882,8 +971,10 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                             Padding(
                               padding: EdgeInsets.only(left: 15.0),
                               child:
-                              Obx(()=>vehicleScreenController.insuranceDate.value=='loading'?Text('NA'):
-                                 Text(
+                              Obx(()=>vehicleScreenController.insuranceDate.value=='loading'?textToTrans(
+                  input:'NA'):
+                                 textToTrans(
+                  input:
                                   "${vehicleScreenController.insuranceDate.value}",
                                   style: TextStyle(
                                     fontSize: 13,
@@ -924,7 +1015,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
               //           ),
               //         ),
               //         child: const Center(
-              //           child: Text(
+              //           child: textToTrans(
+                //  input:
               //             "Specification",
               //             style: TextStyle(
               //               fontSize: 20,
@@ -963,7 +1055,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
               //                   SizedBox(
               //                     width: 5.0,
               //                   ),
-              //                   Text(
+              //                   textToTrans(
+              //     input:
               //                     "Range",
               //                     style: TextStyle(
               //                         fontSize: 15,
@@ -976,7 +1069,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
               //               SizedBox(
               //                 height: 5,
               //               ),
-              //               Text(
+              //               textToTrans(
+              //     input:
               //                 "10lakh-15lakh",
               //                 style: TextStyle(
               //                   fontSize: 15,
@@ -1000,7 +1094,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
               //                   SizedBox(
               //                     width: 5.0,
               //                   ),
-              //                   Text(
+              //                   textToTrans(
+              //     input:
               //                     "Transmission",
               //                     style: TextStyle(
               //                         fontSize: 15,
@@ -1013,7 +1108,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
               //               SizedBox(
               //                 height: 5,
               //               ),
-              //               Text(
+              //               textToTrans(
+              //     input:
               //                 "Manual/Automatic",
               //                 style: TextStyle(
               //                   fontSize: 15,
@@ -1060,7 +1156,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
               //                   SizedBox(
               //                     width: 5.0,
               //                   ),
-              //                   Text(
+              //                   textToTrans(
+              //     input:
               //                     "Mileage",
               //                     style: TextStyle(
               //                         fontSize: 15,
@@ -1073,7 +1170,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
               //               SizedBox(
               //                 height: 5,
               //               ),
-              //               Text(
+              //               textToTrans(
+              //     input:
               //                 "10.778 to 19.3 kmpl",
               //                 style: TextStyle(
               //                   fontSize: 15,
@@ -1097,7 +1195,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
               //                   SizedBox(
               //                     width: 5.0,
               //                   ),
-              //                   Text(
+              //                   textToTrans(
+              //     input:
               //                     "Rating",
               //                     style: TextStyle(
               //                         fontSize: 15,
@@ -1110,7 +1209,8 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
               //               SizedBox(
               //                 height: 5,
               //               ),
-              //               Text(
+              //               textToTrans(
+              //     input:
               //                 "4.5",
               //                 style: TextStyle(
               //                   fontSize: 15,
@@ -1144,7 +1244,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
     showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (context) => new AlertDialog(
+      builder: (context) => AlertDialog(
           backgroundColor: Colors.yellow[50],
           content: Wrap(children: <Widget>[
             Container(
@@ -1152,14 +1252,15 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Text(
+                  textToTrans(
+                  input:
                     msg,
-                    style: TextStyle(color: Colors.black54),
+                    style: const TextStyle(color: Colors.black54),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Center(
+                  const Center(
                     child: CircularProgressIndicator(),
                   )
                 ],

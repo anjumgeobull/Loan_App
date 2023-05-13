@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../Helper/SizedConfig.dart';
+import '../config/choosen_lang.dart';
 import 'globle style.dart';
 
 
@@ -89,7 +90,8 @@ class _TextFiledBorderWidgetState extends State<TextFiledBorderWidget> {
                 borderRadius: KInputRadius),
             hintText: widget.label,
             errorText: widget.errorText,
-            // label:  Text( widget.label,style:  KH7,),
+            // label:  textToTrans(
+            //       input: widget.label,style:  KH7,),
             prefixIconColor: widget.focusNode.hasFocus ? kPrimaryColor :KTextBlack,
             hintStyle: KH7.copyWith(color: widget.textColor),
             suffixIcon: widget.suffixIcon

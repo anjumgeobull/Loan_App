@@ -4,7 +4,7 @@ import 'package:loan_app/Dashboard/Dashboard.dart';
 import '../../Helper/globle style.dart';
 import '../../Helper/navigation_helper.dart';
 import '../../Helper/shared_preferances.dart';
-import '../login/login_screen.dart';
+import '../config/choosen_lang.dart';
 
 class SignOutConfirmationDialog extends StatefulWidget {
   const SignOutConfirmationDialog({Key? key}) : super(key: key);
@@ -37,7 +37,8 @@ class _SignOutConfirmationDialogState extends State<SignOutConfirmationDialog> {
                           ),
                           Padding(
                             padding: EdgeInsets.all(8),
-                            child: Text('Are you sure you want to sign out?',
+                            child: textToTrans(
+                              input:'Are you sure you want to sign out?',
                               style:KH7_SemiBold.copyWith(color: KSECONDARY_COLOR,  fontSize:14),
                               textAlign: TextAlign.center,
                             ),
@@ -58,7 +59,8 @@ class _SignOutConfirmationDialogState extends State<SignOutConfirmationDialog> {
                                     top: 4, bottom: 4, left: 32, right: 32),
                                 child: Center(
                                     child:
-                                    Text('Yes',
+                                    textToTrans(
+                                      input:'Yes',
                                         style: KH6.copyWith(color: kPrimaryColor,
                                             fontSize:16))
                                 ),
@@ -73,7 +75,8 @@ class _SignOutConfirmationDialogState extends State<SignOutConfirmationDialog> {
                                     top: 6, bottom: 6, left: 32, right: 16),
                                 child: Center(
                                     child:
-                                    Text('No',
+                                    textToTrans(
+                                      input:'No',
                                         style: KH6.copyWith(color:kPrimaryColor,
                                             fontSize:16
                                         ))

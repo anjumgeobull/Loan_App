@@ -7,12 +7,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:loan_app/Dashboard/Car_details_page.dart';
 import '../Controller/UserProfileController.dart';
+import '../Helper/LanguageProvider.dart';
 import '../Helper/String_constant.dart';
 import '../Helper/globle style.dart';
 import '../Helper/shared_preferances.dart';
 import '../Controller/VehicleDetailedController.dart';
 import 'package:get/get.dart';
 import '../VehicleSearch/VehicleSearch.dart';
+import '../config/choosen_lang.dart';
 import '../login/login_screen.dart';
 import 'CheckCriteriaWithBot.dart';
 import 'Emi_calculator.dart';
@@ -46,6 +48,7 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _MyAppBarState extends State<MyAppBar> {
   final profileDataController = Get.find<UserProfileController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,35 +64,33 @@ class _MyAppBarState extends State<MyAppBar> {
           children: [
             Expanded(
               child: Center(
-                child: Obx(()=> profileDataController.name.value!="loading" ||profileDataController.name.value!=''?
-                  Text(
-                     "Welcome ${profileDataController.name.value}",
+                child: Obx(()=> profileDataController.name.value!="loading" && profileDataController.name.value!=''?
+                textToTrans(
+                  input:"Welcome ${profileDataController.name.value}",
                     style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ):
-                const Text(
-                  "Welcome User",
+                textToTrans(
+                  input: "Welcome User",
                   style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                   fontSize: 18,
+                   fontWeight: FontWeight.bold,
+                  color: Colors.white,
                   ),
                 ),
                 ),
               ),
             ),
-            // IconButton(
-            //     onPressed: () {
-            //       Get.to(() => const ChooseLanguage())!.whenComplete(() {
-            //         setState(() {
-            //
-            //         });
-            //       });
-            //     },
-            //     icon: const Icon(Icons.language)),
+            IconButton(
+                onPressed: () {
+                  Get.to(() => const ChooseLanguage())!.whenComplete(() {
+                    setState(() {});
+                  });
+                },
+                icon: const Icon(Icons.language,color: Colors.white,)),
           ],
         ),
       ),
@@ -113,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late String vehicleNo = "",
       emailid = "loading",
       mobile_no = "loading",
-      dob = "";
+      dob = "",vehicle_number_hint='Enter vehicle number';
   late String profile_pic = '';
   String image = "assets/images/img_10.png";
   late File icon_img;
@@ -133,8 +134,13 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     get_token();
+    translateText();
   }
-
+  void translateText() async {
+    vehicle_number_hint = await textTranslate(input: vehicle_number_hint, language: "en");
+    print(vehicle_number_hint);
+    setState(() {});
+  }
   get_token()
   async {
     token = await SPManager.instance.getUser(LOGIN_KEY);
@@ -142,73 +148,84 @@ class _HomeScreenState extends State<HomeScreen> {
     {
       profileDataController.getUserProfile();
     }
-    setState(() {
-
-    });
-    print("token " + token.toString());
+    setState(() {});
+    //print("token " + token.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(profileDataController.name.value),
-      // AppBar(
-      //   elevation: 0,
-      //   backgroundColor:themeColor,
-      //   //leading:
-      //   // IconButton(
-      //   //   icon: Icon(
-      //   //     Icons.chevron_left,
-      //   //     size: 25.0,
-      //   //     color: Colors.white,
-      //   //   ),
-      //   //   onPressed: () {
-      //   //     Navigator.of(context).pop();
-      //   //   },
-      //   // ),
-      //   title: Row(
-      //     mainAxisAlignment: MainAxisAlignment.start,
-      //     children: [
-      //       //   Icon(
-      //       //   Icons.person,
-      //       //   color: Colors.white,
-      //       //   size: 35,
-      //       // ),
-      //       SizedBox(
-      //         width: 30,
-      //       ),
-      //       Text(
-      //         "Welcome, John",
-      //         style:TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
-      //       ),
-      //     ],
-      //   ),
-      //   actions: [
-      //     InkWell(
-      //       onTap: () {
-      //         Navigator.of(context).push(new MaterialPageRoute(builder: (context) => new CoustmerDetailScreen()));
-      //         //Profile
-      //       },
-      //       child: const Padding(
-      //         padding: EdgeInsets.only(right: 10.0),
-      //         child: Icon(
-      //           Icons.person,
-      //           color: Colors.white,
-      //           size: 25,
-      //         ),
-      //       ),
-      //     ),
-      //   ],
-      // ),
+      //appBar: MyAppBar(profileDataController.name.value),
+      appBar:AppBar(
+        elevation: 0,
+        backgroundColor:themeColor,
+        automaticallyImplyLeading: false,
+        //leading:
+        // IconButton(
+        //   icon: Icon(
+        //     Icons.chevron_left,
+        //     size: 25.0,
+        //     color: Colors.white,
+        //   ),
+        //   onPressed: () {
+        //     Navigator.of(context).pop();
+        //   },
+        // ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            //   Icon(
+            //   Icons.person,
+            //   color: Colors.white,
+            //   size: 35,
+            // ),
+            SizedBox(
+              width: 30,
+            ),
+            textToTrans(
+                 input:
+              "Welcome",
+              style:TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.to(() => const ChooseLanguage())!.whenComplete(() {
+                  setState(() {});
+                });
+              },
+              icon: const Icon(Icons.language,color: Colors.white,)),
+        ],
+      ),
       body:
       SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(bottom: 40),
+          padding: EdgeInsets.only(bottom: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Obx(()=> profileDataController.name.value!="loading" && profileDataController.name.value!=''?
+              // textToTrans(
+              //   input:"Welcome ${profileDataController.name.value}",
+              //   style: const TextStyle(
+              //     fontSize: 18,
+              //     fontWeight: FontWeight.bold,
+              //     color: Colors.black,
+              //   ),
+              // ):
+              // textToTrans(
+              //   input: "Welcome User",
+              //   style: TextStyle(
+              //     fontSize: 18,
+              //     fontWeight: FontWeight.bold,
+              //     color: Colors.black,
+              //   ),
+              // ),
+              // ),
               Container(
-                height: 100,
+                height: 80,
                 decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(30),
@@ -238,6 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           controller: car_number,
                           decoration: InputDecoration(
                             hintText: 'Enter vehicle number',
+                            hintStyle: TextStyle(color: Colors.grey,fontSize: 14),
                             filled: true,
                             fillColor: Colors.white,
                             border: OutlineInputBorder(
@@ -259,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       IconButton(
                         icon: const Icon(
                           Icons.search,
-                          size: 40,
+                          size: 35,
                           color: Colors.white,
                         ),
                         onPressed: () {
@@ -274,8 +292,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               if(vehicleNo.isNotEmpty && vehicleNo!="") {
                                 vehicleScreenController
                                     .getVehicleDetailsSearchData(vehicleNo);
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => CarDetailScreen()));
+                                //Get.to(()=>CarDetailScreen());
+
                                 // showDialog(context: context,
                                 // builder: (context) {
                                 // return SignInConfirmationDialog();
@@ -288,8 +306,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                             }
                           }else {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
+                            Get.to(()=>LoginScreen());
                           }
                           // Perform search action here
                         },
@@ -300,14 +317,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               SizedBox(height: 15),
-              const Padding(
+               Padding(
                 padding: EdgeInsets.only(left: 10.0),
-                child: Text(
-                  "Best Offer For You :",
+                child: textToTrans(
+                  input:
+                  'Best Offer For You :',
                   style: TextStyle(
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       color: TextColor,
-                      fontSize: 18,
+                      fontSize: 16,
                       fontFamily: 'InterRegular'),
                 ),
               ),
@@ -341,228 +359,202 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               Padding(
-            padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-            child: Card(
-              elevation: 3,
-              color: secondaryColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              child:
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Check Your Eligibility Criteria:",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: TextColor,
-                        fontSize: 18,
-                        fontFamily: 'InterRegular',
+                padding: const EdgeInsets.only(left: 8.0,right: 8.0),
+                child: Container(height: 60,
+                  child: Card(
+                    elevation: 1,
+                    color: Colors.grey[300],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child:
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0,right: 10,top: 0,bottom: 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          textToTrans(
+                            input:"Check Your Eligibility Criteria:",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: TextColor,
+                              fontSize: 16,
+                              fontFamily: 'InterRegular',
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                builder: (context) => CheckCriteriaWithBot(),
+                              ));
+                            },
+                            icon: AvatarGlow(
+                              glowColor:themeColor,
+                              endRadius: 200,
+                              duration: Duration(milliseconds: 2000),
+                              repeat: true,
+                              showTwoGlows: true,
+                              curve: Curves.easeOutQuad,
+                              child: Container(
+                                padding: EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.send,size: 15,
+                                  color: themeColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => CheckCriteriaWithBot(),
-                        ));
-                      },
-                      icon: AvatarGlow(
-                        glowColor:themeColor,
-                        endRadius: 120,
-                        duration: Duration(milliseconds: 2000),
-                        repeat: true,
-                        showTwoGlows: true,
-                        curve: Curves.easeOutQuad,
-                        child: Container(
-                          padding: EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.send,
-                            color: themeColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
 
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0,top: 10,bottom: 10),
+              const Padding(
+                padding: EdgeInsets.only(left: 20.0,top: 10,),
                 child: Text(
                   "Services",
-                  style:TextStyle(color: Colors.black54,fontSize: 18,fontWeight: FontWeight.bold),
+                  style:TextStyle(color: Colors.black54,fontSize: 16,fontWeight: FontWeight.w500),
                 ),
               ),
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  child:
-                  Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 25),
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            childAspectRatio: 1,
-                          ),
-                          itemBuilder: (BuildContext context, int index) {
-                            return GestureDetector(
-                              onTap: () {
-                                switch (index) {
-                                  case 1:
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (BuildContext context) => EMICalculatorUI()));
-                                    break;
-                                  case 0:
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (BuildContext context) => VehicleSearchScreen()));
-                                    break;
-                                  case 2:
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Comming Soon',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        duration: Duration(seconds: 2),
-                                        backgroundColor: themeColor,
-                                      ),
-                                    );
-                                    break;
-                                  case 3:
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Comming Soon',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        duration: Duration(seconds: 2),
-                                        backgroundColor: themeColor,
-                                      ),
-                                    );
-                                    break;
-                                  case 4:
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Comming Soon',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        duration: Duration(seconds: 2),
-                                        backgroundColor: themeColor,
-                                      ),
-                                    );
-                                    break;
-                                  case 5:
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Comming Soon',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        duration: Duration(seconds: 2),
-                                        backgroundColor: themeColor,
-                                      ),
-
-                                    );
-                                    break;
-                                  case 6:
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Comming Soon',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        duration: Duration(seconds: 2),
-                                        backgroundColor: themeColor,
-                                      ),
-                                    );
-                                    break;
-                                  case 7:
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Comming Soon',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        duration: Duration(seconds: 2),
-                                        backgroundColor: themeColor,
-                                      ),
-                                    );
-                                    break;
-                                }
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Image.asset(
-                                    items[index].imageUrl,
-                                    width: 35.0,
-                                    height: 35.0,
-                                    fit: BoxFit.fill,
-                                  ),
-                                  SizedBox(height: 5.0),
-                                  Text(
-                                    items[index].name,
-                                    style: TextStyle(fontSize: 14.0),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          itemCount: items.length,
+                padding: const EdgeInsets.all(10.0),
+                child: Container(height: 210,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    child:
+                    Container(
+                      margin: EdgeInsets.only(top: 15),
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          childAspectRatio: 1,
                         ),
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              switch (index) {
+                                case 1:
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) => EMICalculatorUI()));
+                                  break;
+                                case 0:
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) => VehicleSearchScreen()));
+                                  break;
+                                case 2:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                                case 3:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                                case 4:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                                case 5:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+
+                                  );
+                                  break;
+                                case 6:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                                case 7:
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Comming Soon',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: themeColor,
+                                    ),
+                                  );
+                                  break;
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      width: 32.0,
+                                      height: 32.0,
+                                      child: Image.asset(
+                                        items[index].imageUrl,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 5.0),
+                                    textToTrans(
+                                      input:
+                                      items[index].name,
+                                      style: const TextStyle(fontSize: 13.0,fontWeight: FontWeight.w400,color: Colors.grey),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        itemCount: items.length,
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.all(10.0),
-                      //   child: Card(
-                      //     shape: RoundedRectangleBorder(
-                      //       borderRadius: BorderRadius.circular(15.0),
-                      //     ),
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.start,
-                      //       children: [
-                      //         Image.asset(
-                      //           'assets/images/call.gif',
-                      //           width: 120,
-                      //           height: 150,
-                      //         ),
-                      //         SizedBox(
-                      //           width: 10,
-                      //         ),
-                      //         Expanded(
-                      //           child: Text(
-                      //             "Our Team will call you soon...",
-                      //             style: TextStyle(
-                      //               fontSize: 20,
-                      //               fontWeight: FontWeight.bold,
-                      //               color: themeColor,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //         // SizedBox(
-                      //         //   height: 5,
-                      //         // ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
+                    ),
                   ),
                 ),
               ),
@@ -578,28 +570,30 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Image.asset(
                         'assets/images/call.gif',
-                        width: 120,
-                        height: 150,
+                        width: 100,
+                        height: 100,
                       ),
                       SizedBox(
                         width: 10,
                       ),
                       Expanded(
-                        child: Text(
+                        child: textToTrans(
+                          input:
                           "Our Team will call you soon...",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: themeColor,
                           ),
                         ),
                       ),
-                      // SizedBox(
-                      //   height: 5,
-                      // ),
                     ],
                   ),
                 ),
+              ),
+
+              SizedBox(
+                height: 50,
               ),
             ],
           ),
@@ -615,12 +609,14 @@ class _HomeScreenState extends State<HomeScreen> {
   //     context: context,
   //     builder: (BuildContext context) {
   //       return AlertDialog(
-  //         title: const Text("Create account",style: TextStyle(
+  //         title: const textToTrans(
+                 // input:"Create account",style: TextStyle(
   //           color: themeColor,
   //           fontSize: 20,
   //           fontWeight: FontWeight.bold
   //         ),),
-  //         content: const Text("Do want to create account?",style: TextStyle(
+  //         content: const textToTrans(
+               //   input:"Do want to create account?",style: TextStyle(
   //             color: themeColor,
   //             fontSize: 18,
   //             fontWeight: FontWeight.bold
@@ -628,7 +624,8 @@ class _HomeScreenState extends State<HomeScreen> {
   //         actions: <Widget>[
   //           TextButton(
   //             onPressed: () => Navigator.of(context).pop(),
-  //             child: const Text("Yes",style: TextStyle(
+  //             child: const textToTrans(
+    //              input:"Yes",style: TextStyle(
   //                 color: themeColor,
   //                 fontSize: 15,
   //                 fontWeight: FontWeight.bold
@@ -639,7 +636,8 @@ class _HomeScreenState extends State<HomeScreen> {
   //
   //               Navigator.of(context).pop();
   //             },
-  //             child: const Text("No",style: TextStyle(
+  //             child: const textToTrans(
+              //    input:"No",style: TextStyle(
   //                 color: themeColor,
   //                 fontSize: 15,
   //                 fontWeight: FontWeight.bold
@@ -671,7 +669,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 Align(
                   alignment: Alignment.topRight,
                   child:
-
                   IconButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -693,7 +690,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 15
                   ,),
                 Center(
-                  child: const Text('Mark this as your car',
+                  child: textToTrans(
+                  input:'Mark this as your car',
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.black,
@@ -702,7 +700,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 15
                   ,),
 
-                const Text(
+                 textToTrans(
+                  input:
                   'Get important remainders like insurance '
                       'and pollution expiry, upload your '
                       'vehicle documents securly and get exclusive offers ',
@@ -738,10 +737,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: 0.7,
                               ),
                             ),
-                            child: const Center(
-                              child: Text(
+                            child: Center(
+                              child: textToTrans(
+                                  input:
                                 "Not My Vehicle",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
@@ -779,6 +779,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   vehicleScreenController.blaclist.value,vehicleScreenController.nocdetails.value,vehicleScreenController.rc_staus.value
                                   ,vehicleScreenController.rc_staus_ason.value,vehicleScreenController.body_type.value
                               );
+                              Navigator.pop(context);
                             });
                           },
                           child: Container(
@@ -797,8 +798,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: 0.7,
                               ),
                             ),
-                            child: const Center(
-                              child: Text(
+                            child: Center(
+                              child: textToTrans(
+                                  input:
                                 "My Vehicle",
                                 style: TextStyle(
                                   fontSize: 20,

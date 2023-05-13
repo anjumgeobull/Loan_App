@@ -4,7 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:loan_app/Dashboard/Dashboard.dart';
 import '../EMIDetails.dart';
 import '../Helper/globle style.dart';
+import '../config/choosen_lang.dart';
 import 'Emi_details.dart';
+import 'package:date_format/date_format.dart';
+import 'package:intl/intl.dart';
+
 
 class EMICalculatorUI extends StatefulWidget {
   @override
@@ -15,14 +19,13 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
   final _principalController = TextEditingController();
   final _rateController = TextEditingController();
   final _termController = TextEditingController();
-  RangeValues _loanRangeValues = RangeValues(0.0, 10.0);
-  RangeValues _interestRangeValues = RangeValues(0.0, 10.0);
-  RangeValues _ternurRangeValues = RangeValues(0.0, 10.0);
-  String _emiResult = '',_totalAmountPayable='',_totalInterest='';
+  final _startDate = TextEditingController();
+  String _emiResult = '',_totalAmountPayable='',_totalInterest='',startDate='';
   List<EMIDetails> _emiDetailsList = [];
   double _loanValue = 0.0;
   double _ternerValue = 0.0;
   double _InterValue = 0.0;
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,8 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Dashboard()));
           },
         ),
-        title: Text('EMI Calculator'),
+        title: textToTrans(
+                  input:'EMI Calculator'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -50,7 +54,8 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
             children: [
               Row(
                 children: [
-                  Text("Loan Amount (in rupees)"),
+                  textToTrans(
+                  input:"Loan Amount (in rupees)"),
                   SizedBox(width: 50),
                   Expanded(
                     child:
@@ -75,7 +80,8 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("1L"),
+                  textToTrans(
+                  input:"1L"),
                   Expanded(
                       child:
                       SliderTheme(
@@ -103,13 +109,15 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                         ),
                       )
                   ),
-                  Text("40L"),
+                  textToTrans(
+                  input:"40L"),
                 ],
               ),
               SizedBox(height: 20),
               Row(
                 children: [
-                  Text("Tenure (in months)"),
+                  textToTrans(
+                  input:"Tenure (in months)"),
                   SizedBox(width: 90),
                   Expanded(
                     child:
@@ -122,13 +130,10 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-
                         ),
                         keyboardType: TextInputType.numberWithOptions(decimal: true),
                       ),
                     ),
-
-
                   ),
                 ],
               ),
@@ -136,7 +141,8 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("12"),
+                  textToTrans(
+                  input:"12"),
                   Expanded(
                       child:
                       SliderTheme(
@@ -163,17 +169,17 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                           activeColor: themeColor, // Change the active color to blue
                         ),
                       )
-
-
                   ),
-                  Text("84"),
+                  textToTrans(
+                  input:"84"),
                 ],
               ),
               SizedBox(height: 20),
               Row(
                 children: [
-                  Text("Interest Rate                      "),
-                  SizedBox(width: 50),
+                  textToTrans(
+                  input:"Interest Rate                      "),
+                  SizedBox(width: 100),
                   Expanded(
                     child:
                     SizedBox(
@@ -185,13 +191,10 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
-
                         ),
                         keyboardType: TextInputType.numberWithOptions(decimal: true),
                       ),
                     ),
-
-
                   ),
                 ],
               ),
@@ -199,7 +202,8 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("11"),
+                  textToTrans(
+                  input:"11"),
                   Expanded(
                       child:
                       SliderTheme(
@@ -226,16 +230,58 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                           activeColor: themeColor, // Change the active color to blue
                         ),
                       )
-
                   ),
-                  Text("25"),
+                  textToTrans(
+                  input:"25"),
                 ],
               ),
 
               SizedBox(height: 20),
+
+              GestureDetector(
+                onTap:()=>{ _selectDate(context)},
+                child: Container(
+                    height: 50,
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.all(10),
+                    width: MediaQuery.of(context).size.width,
+                    // decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(10.0),
+                    //     border: Border.all(
+                    //         color:Colors.grey,
+                    //         width: 1.0
+                    //     )
+                    // ),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          textToTrans(
+                              input:"Select Emi Start Date"),
+                      SizedBox(width: 20,),
+                      Expanded(
+                        child: SizedBox(
+                          height: 40,
+                          width: 90,
+                          child: TextField(
+                             controller: _startDate,
+                             decoration: InputDecoration(
+                               border: OutlineInputBorder(
+                                 borderRadius: BorderRadius.circular(10.0),
+                               ),
+                             ),
+                             enabled: false,
+                             //keyboardType: TextInputType.numberWithOptions(decimal: true),
+                            ),
+                        ),
+                      ),
+                         ]
+                    ),
+                ),
+              ),
               ElevatedButton(
                 onPressed: _calculateEMI,
-                child: Text('Calculate EMI',style: TextStyle(color: themeColor),),
+                child: textToTrans(
+                  input:'Calculate EMI',style: TextStyle(color: themeColor),),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(secondaryColor),
                 ),
@@ -255,11 +301,13 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Your EMI is",style: TextStyle(
+                      textToTrans(
+                  input:"Your EMI is",style: TextStyle(
                         fontSize: 13,color: Colors.white
                       ),),
                       SizedBox(height: 5,),
-                      Text(
+                      textToTrans(
+                  input:
                         ' $_emiResult',
                         style:  TextStyle(
                           fontSize: 20.0,color: Colors.white
@@ -272,11 +320,13 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                         children:  [
                           Icon(Icons.circle,size: 10,color: Colors.white,),
                           SizedBox(width: 10,),
-                          Text("Total Interest",style: TextStyle(
+                          textToTrans(
+                  input:"Total Interest",style: TextStyle(
                               fontSize: 13,color: Colors.white
                           ),),
                           Spacer(),
-                          Text(_totalInterest,style: TextStyle(
+                          textToTrans(
+                  input:_totalInterest,style: TextStyle(
                               fontSize: 13,color: Colors.white
                           ),),
                         ],
@@ -286,11 +336,13 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                           Icon(Icons.circle,size: 10,color: Colors.white,),
                           SizedBox(width: 10,),
                           Expanded(
-                            child: Text("Total Amount Payable",style: TextStyle(
+                            child: textToTrans(
+                  input:"Total Amount Payable",style: TextStyle(
                                 fontSize: 13,color: Colors.white
                             ),),
                           ),
-                          Text(_totalAmountPayable,style: TextStyle(
+                          textToTrans(
+                  input:_totalAmountPayable,style: TextStyle(
                               fontSize: 13,color: Colors.white
                           ),),
                         ],
@@ -312,9 +364,10 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                               width: 130,
                               height: 35,
                               child: Center(
-                                child: Text(
+                                child: textToTrans(
+                                  input:
                                   "View Details",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: themeColor,
@@ -334,6 +387,25 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
         ),
       ),
     );
+  }
+
+  Future<Null> _selectDate(BuildContext context) async {
+
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialEntryMode: DatePickerEntryMode.calendarOnly,
+        initialDate: selectedDate,
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2100)
+    );
+    if (picked != null)
+      setState(() {
+        selectedDate = picked;
+        startDate=formatDate(selectedDate, [dd,'-',mm,'-',yyyy]);
+        _startDate.text=startDate;
+        //print('Date: $dob');
+      });
   }
 
   void _calculateEMI() {
@@ -361,23 +433,31 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
         (1 - pow(1 / (1 + monthlyInterestRate), n));
 
     double balance = principal;
-
+    final startDate = DateFormat('dd-MM-yyyy').parse(_startDate.text);
     for (int i = 0; i < n; i++) {
       double interestPaid = balance * monthlyInterestRate;
       double principalPaid = monthlyPayment - interestPaid;
       balance -= principalPaid;
+      // Add one month to the start date for each iteration
+      //DateTime date = startDate.add(Duration(days: i * 30));
+      // Create a new DateTime object with the day and year from the start date, and add i months
+      DateTime installmentDate = DateTime(startDate.year, startDate.month + i, startDate.day);
+      // Format the date in the desired format
+      final formattedDate = DateFormat('dd-MM-yyyy').format(installmentDate);
       emiDetailsList.add(EMIDetails(
           month: i + 1,
           emi: monthlyPayment,
           principalPaid: principalPaid,
           interest: interestPaid,
-          balance: balance));
+          balance: balance,
+          date:formattedDate,
+      ));
     }
 
     setState(() {
-      _emiResult = '₹ ${emi.toStringAsFixed(2)} / month';
-      _totalAmountPayable = ' ₹ ${totalAmountPayable.toStringAsFixed(2)}';
-      _totalInterest = ' ₹ ${totalInterest.toStringAsFixed(2)}';
+      _emiResult = ' ${emi.toStringAsFixed(2)} / month';
+      _totalAmountPayable = '  ${totalAmountPayable.toStringAsFixed(2)}';
+      _totalInterest = '  ${totalInterest.toStringAsFixed(2)}';
       _emiDetailsList = emiDetailsList;
     });
     return emi;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Helper/globle style.dart';
 import '../Register/register_screen.dart';
+import '../config/choosen_lang.dart';
 
 class SignInConfirmationDialog extends StatefulWidget {
   const SignInConfirmationDialog({Key? key}) : super(key: key);
@@ -35,7 +36,8 @@ class _SignInConfirmationDialogState extends State<SignInConfirmationDialog> {
                           ),
                           Padding(
                             padding: EdgeInsets.all(8),
-                            child: Text("Do want to create account ?",style: TextStyle(
+                            child: textToTrans(
+                  input:"Do want to create account ?",style: TextStyle(
                                 color: themeColor,
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold
@@ -55,7 +57,8 @@ class _SignInConfirmationDialogState extends State<SignInConfirmationDialog> {
                                     top: 4, bottom: 4, left: 32, right: 32),
                                 child: Center(
                                     child:
-                                    Text("Yes",style: TextStyle(
+                                    textToTrans(
+                  input:"Yes",style: TextStyle(
                                         color: themeColor,
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold
@@ -72,7 +75,8 @@ class _SignInConfirmationDialogState extends State<SignInConfirmationDialog> {
                                     top: 6, bottom: 6, left: 32, right: 16),
                                 child: Center(
                                     child:
-                                    Text("No",style: TextStyle(
+                                    textToTrans(
+                  input:"No",style: TextStyle(
                                         color: themeColor,
                                         fontSize: 15,
                                         fontWeight: FontWeight.bold

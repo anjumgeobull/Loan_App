@@ -19,6 +19,7 @@ import '../Model/MyVehicleData.dart';
 import '../Register/register_screen.dart';
 import '../VehiclelList/VehicleDummyModel.dart';
 import '../VehiclelList/Vehicle_List.dart';
+import '../config/choosen_lang.dart';
 import '../widget/sign_out_dailog.dart';
 import 'Edit_profile.dart';
 import 'Pdf_viewer.dart';
@@ -33,7 +34,7 @@ class CoustmerDetailScreen extends StatefulWidget {
 class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
     with TickerProviderStateMixin {
   late TabController _tabController = TabController(length: 2, vsync: this);
-  String document="",token="";
+  String document="",token="", tab1="Personal Info",tab2="My Vehicle";
   late File filedocument;
   bool isfileuploaded=false;
   final profileDataController = Get.find<UserProfileController>();
@@ -54,6 +55,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
       myVehicleListController.myVehicleList;
       print("vehicle list====>");
       print(myVehicleListController.myVehicleList);
+      // tab1=await textTranslate(input: 'Personal Info',language: 'en');
+      // tab2=await textTranslate(input: 'My Vehicle',language: 'en');
       setState(() {
       });
     }
@@ -70,7 +73,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: themeColor,
-            title: const Text(
+            title: textToTrans(
+                  input:
               "My Profile",
               style: TextStyle(
                 color: Colors.white,
@@ -126,11 +130,12 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text('You are not logged '),
+              children: [textToTrans(
+                  input:'You are not logged '),
                 SizedBox(height: 20,),
                 InkWell(
                   onTap: () async {
-                    Get.to(LoginScreen());
+                    Get.to(()=>LoginScreen());
                   },
                   child: Container(
                     height: 40,
@@ -140,7 +145,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                       color:themeColor,
                       borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
-                    child: Text(
+                    child: textToTrans(
+                  input:
                       'Login',
                       style: TextStyle(
                         color: Colors.white,
@@ -158,9 +164,11 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Don't Have Any Account?  "),
+                      textToTrans(
+                  input:"Don't Have Any Account?  "),
                       GestureDetector(
-                        child: Text(
+                        child: textToTrans(
+                  input:
                           "Sign Up Now",
                           style: TextStyle(color: themeColor),
                         ),
@@ -197,7 +205,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                               width: MediaQuery.of(context).size.width * 0.7,
                               margin: EdgeInsets.only(top: 10),
                               alignment: Alignment.topLeft,
-                              child:  Text(
+                              child:  textToTrans(
+                                input:
                                 "${profileDataController.name}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -212,7 +221,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                             // Container(
                             //   width: MediaQuery.of(context).size.width * 0.7,
                             //   alignment: Alignment.topLeft,
-                            //   child: Text(
+                            //   child: textToTrans(
+                  //input:
                             //     "Pune, Maharashtra",
                             //     style: TextStyle(
                             //       fontWeight: FontWeight.normal,
@@ -244,11 +254,11 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                 ),
                 TabBar(
                   controller: _tabController,
-                  tabs: const [
+                  tabs: [
                     Tab(
-                      text: 'Personal Info',
+                        text:tab1,
                     ),
-                    Tab(text: 'My Vehicles'),
+                    Tab(text: tab2),
                     //Tab(text: 'Documents'),
                   ],
                   labelColor: Colors.black,
@@ -275,7 +285,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children:  [
-                                Text(
+                                textToTrans(
+                  input:
                                   "Name",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
@@ -286,7 +297,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 SizedBox(
                                   height: 5,
                                 ),
-                                Text(
+                                textToTrans(
+                  input:
                                   "${profileDataController.name}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.normal,
@@ -299,7 +311,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                   color: Colors.blueGrey,
                                 ),
                                 SizedBox(height: 10),
-                                Text(
+                                textToTrans(
+                  input:
                                   "Contact Number",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
@@ -310,7 +323,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 SizedBox(
                                   height: 5,
                                 ),
-                                Text(
+                                textToTrans(
+                  input:
                                   "${profileDataController.contact}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.normal,
@@ -323,7 +337,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 //   color: Colors.blueGrey,
                                 // ),
                                 // SizedBox(height: 10),
-                                // Text(
+                                // textToTrans(
+                  //input:
                                 //   "Email Id",
                                 //   style: TextStyle(
                                 //       fontWeight: FontWeight.w600,
@@ -334,7 +349,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 // SizedBox(
                                 //   height: 5,
                                 // ),
-                                // Text(
+                                // textToTrans(
+                  //input:
                                 //   "johnsmith@gmail.com",
                                 //   style: TextStyle(
                                 //       fontWeight: FontWeight.normal,
@@ -347,7 +363,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 //   color: Colors.blueGrey,
                                 // ),
                                 // SizedBox(height: 10),
-                                // Text(
+                                // textToTrans(
+                  //input:
                                 //   "Address",
                                 //   style: TextStyle(
                                 //       fontWeight: FontWeight.w600,
@@ -358,7 +375,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 // SizedBox(
                                 //   height: 5,
                                 // ),
-                                // Text(
+                                // textToTrans(
+                  //input:
                                 //   "Hadapsar, Pune Maharashtra",
                                 //   style: TextStyle(
                                 //       fontWeight: FontWeight.normal,
@@ -371,7 +389,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 //   color: Colors.blueGrey,
                                 // ),
                                 // SizedBox(height: 10),
-                                // Text(
+                                // textToTrans(
+                  //input:
                                 //   "Blood group",
                                 //   style: TextStyle(
                                 //       fontWeight: FontWeight.w600,
@@ -382,7 +401,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 // SizedBox(
                                 //   height: 5,
                                 // ),
-                                // Text(
+                                // textToTrans(
+                  //input:
                                 //   "O+",
                                 //   style: TextStyle(
                                 //       fontWeight: FontWeight.normal,
@@ -395,7 +415,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 //   color: Colors.blueGrey,
                                 // ),
                                 // SizedBox(height: 10),
-                                // Text(
+                                // textToTrans(
+                  //input:
                                 //   "Date of birth",
                                 //   style: TextStyle(
                                 //       fontWeight: FontWeight.w600,
@@ -406,7 +427,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 // SizedBox(
                                 //   height: 5,
                                 // ),
-                                // Text(
+                                // textToTrans(
+                  //input:
                                 //   "12-Nov-1994",
                                 //   style: TextStyle(
                                 //       fontWeight: FontWeight.normal,
@@ -419,7 +441,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 //   color: Colors.blueGrey,
                                 // ),
                                 // SizedBox(height: 10),
-                                // Text(
+                                // textToTrans(
+                  //input:
                                 //   "Job Role",
                                 //   style: TextStyle(
                                 //       fontWeight: FontWeight.w600,
@@ -430,7 +453,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 // SizedBox(
                                 //   height: 5,
                                 // ),
-                                // Text(
+                                // textToTrans(
+                  //input:
                                 //   "Developer",
                                 //   style: TextStyle(
                                 //       fontWeight: FontWeight.normal,
@@ -443,7 +467,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 //   color: Colors.blueGrey,
                                 // ),
                                 // SizedBox(height: 10),
-                                // Text(
+                                // textToTrans(
+                  //input:
                                 //   "Employement Type",
                                 //   style: TextStyle(
                                 //       fontWeight: FontWeight.w600,
@@ -454,7 +479,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                                 // SizedBox(
                                 //   height: 5,
                                 // ),
-                                // Text(
+                                // textToTrans(
+                  //input:
                                 //   "Self Employed",
                                 //   style: TextStyle(
                                 //       fontWeight: FontWeight.normal,
@@ -490,7 +516,8 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
                             },
                           ):Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children:[Text('No Vehicles')]),
+                            children:[textToTrans(
+                  input:'No Vehicles')]),
                         ),
                       ),
                       // Document screen here..
@@ -526,19 +553,23 @@ class _CoustmerDetailScreenState extends State<CoustmerDetailScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text(" Confirmation"),
-          content: const Text("Are you sure you want to upload this document?"),
+          title: textToTrans(
+                  input:" Confirmation"),
+          content: textToTrans(
+                  input:"Are you sure you want to upload this document?"),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text("Yes"),
+              child: textToTrans(
+                  input:"Yes"),
             ),
             TextButton(
               onPressed: () {
 
                 Navigator.of(context).pop();
               },
-              child: const Text("No"),
+              child: textToTrans(
+                  input:"No"),
             ),
           ],
         );

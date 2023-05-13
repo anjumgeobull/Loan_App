@@ -1,8 +1,7 @@
 
 import 'package:flutter/material.dart';
-import '../../Helper/globle style.dart';
 import '../Model/MyVehicleData.dart';
-import 'VehicleDummyModel.dart';
+import '../config/choosen_lang.dart';
 import 'my_Vehicle_view_details.dart';
 
 class my_Vehicle_List extends StatefulWidget {
@@ -53,7 +52,8 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children:   [
-                        Text(widget.data.owner,
+                        textToTrans(
+                        input:widget.data.owner,
                           style: TextStyle(
                             fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
                         ),),
@@ -62,7 +62,8 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                         ),
                         Row(
                           children:  [
-                            Text(
+                            textToTrans(
+                              input:
                              widget.data.vehicleNumber,
                               style: TextStyle(
                                 fontSize: 15,
@@ -72,7 +73,8 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                               ),
                             ),
                             SizedBox(width: 10), // Add some space between the two Text widgets
-                            // Text(
+                            // textToTrans(
+                  //input:
                             //   widget.data.ownerCount,
                             //   style: TextStyle(
                             //     fontSize: 13,
@@ -86,7 +88,8 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                         SizedBox(
                           height: 5,
                         ),
-                        Text(
+                        textToTrans(
+                          input:
                           widget.data.makerModel,
                           style: TextStyle(
                             fontSize: 15,
@@ -100,7 +103,8 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                         Padding(
                           padding: EdgeInsets.only(left: 0.0),
                           child:
-                          Text(
+                          textToTrans(
+                            input:
                             "PUC expiring Date: " + widget.data.pucExpiry,
                             style: TextStyle(
                               fontSize: 13,

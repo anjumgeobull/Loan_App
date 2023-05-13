@@ -2,16 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:loan_app/Model/VehicleDetailedModel.dart';
 import '../Dashboard/Car_details_page.dart';
 import '../Helper/String_constant.dart';
 import '../Helper/api_constant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '../Helper/loading_dialog.dart';
 import '../Helper/shared_preferances.dart';
 
 
@@ -135,12 +131,11 @@ class VehicleDetailedController extends GetxController{
         insurance_policy_no.value=vehicleData.insurancePolicyNo;
         owner_father_name.value=vehicleData.ownerFatherName;
         manufacturing_date.value=vehicleData.manufacturingDate;
-        financier_name.value=vehicleData.financierName;
+        // financier_name.value=vehicleData.financierName;
         insuerName.value=vehicleData.insurerName;
         //is_blacklisted=vehicleData.isBlacklisted;
         taxupto.value=vehicleData.taxUpto;
         rc_staus_ason.value=vehicleData.rcStatusAsOn;
-       //Navigator.of(context).push(MaterialPageRoute(builder: (context) => CarDetailScreen()));
         Get.to(() => CarDetailScreen());
 
         searchvehicle.value = List.generate(vehicleList.length, (index) => false);
@@ -198,7 +193,7 @@ class VehicleDetailedController extends GetxController{
       String rc_status_as_on,
       String body_type)async {
     //showLoadingDialog();
-    log('vehcile controller called');
+    log('vehicle controller called');
     log("vehicleNumberData");
     log(vehicleNumber);
     isApiCallProcessing.value = true;
@@ -297,7 +292,7 @@ class VehicleDetailedController extends GetxController{
       log("$status");
       if(status==1) {
         Fluttertoast.showToast(msg: 'Added Successfully: ' +response.statusCode.toString(), backgroundColor: Colors.grey,);
-        Get.off(() => CarDetailScreen());
+        //Get.off(() => CarDetailScreen());
         isApiCallProcessing.value = false;
       }
       else{

@@ -57,7 +57,7 @@ dev_dependencies:
   avatar_glow:
   animator: ^3.2.0
   provider:
-  path_provider: ^2.0.11
+  path_provider: ^2.0.12
   assets_audio_player: ^3.0.6
   flutter_beep: ^1.0.0
   flutter_typeahead: ^4.1.1
@@ -66,7 +66,6 @@ dev_dependencies:
   syncfusion_flutter_pdfviewer: ^20.4.53
   font_awesome_flutter: ^10.4.0
   google_fonts: ^2.1.0
-  animated_notch_bottom_bar: ^0.0.6
   curved_navigation_bar: ^1.0.3
   get: ^4.6.5
   firebase_core: ^2.5.0
@@ -77,6 +76,10 @@ dev_dependencies:
   cached_network_image: ^3.2.1
   permission_handler: ^8.3.0
   url_launcher: ^6.1.11
+  translator:
+  date_format: ^2.0.4
+  pdf: ^3.6.0
+  share_extend:
 
 
 

@@ -8,6 +8,7 @@ import '../Dashboard/DashboardController.dart';
 import '../Helper/commen_textField.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
+import '../config/choosen_lang.dart';
 import '../widget/common_snackbar.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -75,7 +76,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       height: SizeConfig.screenHeight * 0.01,
                     ),
-                    Text(
+                    textToTrans(
+                  input:
                       "User Registration",
                       style: KH3.copyWith(color: KWHITE_COLOR),
                     )
@@ -92,7 +94,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all( 10.0),
-                    child: Text(
+                    child: textToTrans(
+                  input:
                       "Enter Your Name",
                       style: KH6_SemiBold,
                     ),
@@ -132,7 +135,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   // Padding(
                   //   padding: const EdgeInsets.only(left: 2.0),
-                  //   child: Text(
+                  //   child: textToTrans(
+                  // input:
                   //     "Enter email id",
                   //     style: KH6_SemiBold,
                   //   ),
@@ -156,7 +160,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   Padding(
                     padding: const EdgeInsets.only(left: 2.0),
-                    child: Text(
+                    child: textToTrans(
+                  input:
                       "Enter Mobile number",
                       style: KH6_SemiBold,
                     ),
@@ -183,7 +188,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   //
                   // Padding(
                   //   padding: const EdgeInsets.only(left: 2.0),
-                  //   child: Text(
+                  //   child: textToTrans(
+                  //input:
                   //     "Enter Address",
                   //     style: KH6_SemiBold,
                   //   ),
@@ -259,7 +265,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   // Container(
                   //   margin: const EdgeInsets.only(right: 20.0,top: 5),
                   //   alignment: Alignment.centerRight,
-                  //   child: const Text("Verified",style: TextStyle(color: Colors.green,fontSize: 13,fontWeight: FontWeight.bold),),
+                  //   child: const textToTrans(
+                  //input:"Verified",style: TextStyle(color: Colors.green,fontSize: 13,fontWeight: FontWeight.bold),),
                   // ):
                   // Container(),
                   // Obx(
@@ -292,7 +299,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             color:themeColor,
                             borderRadius: BorderRadius.all(Radius.circular(30)),
                           ),
-                          child: Text(
+                          child: textToTrans(
+                  input:
                             'Registration',
                             style: TextStyle(
                               color: Colors.white,
@@ -317,7 +325,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     //         color:themeColor,
                     //         borderRadius: BorderRadius.all(Radius.circular(30)),
                     //       ),
-                    //       child: Text(
+                    //       child: textToTrans(
+                  //input:
                     //         'Register',
                     //         style: TextStyle(
                     //           color: Colors.white,
@@ -351,7 +360,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     //         color:themeColor,
                     //         borderRadius: BorderRadius.all(Radius.circular(30)),
                     //       ),
-                    //       child: Text(
+                    //       child: textToTrans(
+                  //input:
                     //         'Verify',
                     //         style: TextStyle(
                     //           color: Colors.white,
@@ -381,7 +391,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget verifyOtpUi(){
     return Column(
       children: <Widget>[
-        const Text('Please enter the otp sent to your mobile number '),
+        textToTrans(
+                  input:'Please enter the otp sent to your mobile number '),
         SizedBox(height: 10.0),
 
         OtpTextField(
@@ -416,7 +427,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           onTap: () {
             dashboardController.resendOtpApi(contact:mobile.text);
           },
-          child: const Text(
+          child: textToTrans(
+                  input:
             "Resend OTP Code",
             style: TextStyle(decoration: TextDecoration.underline,fontSize: 16, fontWeight: FontWeight.bold,color:
             Colors.blue),
@@ -435,7 +447,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Resend OTP in " , style: TextStyle(fontSize: 14),),
+        textToTrans(
+                  input:"Resend OTP in " , style: TextStyle(fontSize: 14),),
         TweenAnimationBuilder(
           onEnd: ()=>{
             if(this.mounted){
@@ -448,7 +461,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           },
           tween: Tween(begin: 30.0, end: 0.0),
           duration: const Duration(seconds: 30),
-          builder: (_, dynamic value, child) => Text(
+          builder: (_, dynamic value, child) => textToTrans(
+                  input:
             "00:${value.toInt()}",
             style: const TextStyle(color: Colors.blue,fontSize: 17,fontWeight: FontWeight.bold),
           ),

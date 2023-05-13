@@ -9,6 +9,7 @@ import 'Controller/MyVehicleDetaileController.dart';
 import 'Controller/UserProfileController.dart';
 import 'Controller/VehicleDetailedController.dart';
 import 'Dashboard/DashboardController.dart';
+import 'Helper/LanguageProvider.dart';
 import 'Helper/globle style.dart';
 import 'Splash_Screen/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -48,18 +49,21 @@ class MyApp extends  StatelessWidget {
         ChangeNotifierProvider<BotProvider>(
           create: (_) => BotProvider(),
         ),
+        ChangeNotifierProvider<LanguageProvider>(
+          create: (_) => LanguageProvider(),
+        ),
       ],
       child:
       GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          scrollBehavior: MaterialScrollBehavior().copyWith(dragDevices: {
+          scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
             PointerDeviceKind.mouse,
             PointerDeviceKind.touch,
             PointerDeviceKind.stylus,
             PointerDeviceKind.unknown
           }),
-          // locale: Locale(getLang()),
-          // translations: TranslationsUtils(),
+          locale: Locale(getLang()),
+          translations: TranslationsUtils(),
           title: 'RTO Vahan Info',
           theme: ThemeData(
               primarySwatch: Colors.blue,
@@ -68,7 +72,7 @@ class MyApp extends  StatelessWidget {
                 fillColor: MaterialStateProperty.all(kPrimaryColor),
               )),
 
-          home: SplashScreen()),
+          home: const SplashScreen()),
     );
   }
 }

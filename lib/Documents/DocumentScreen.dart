@@ -7,6 +7,7 @@ import '../Helper/String_constant.dart';
 import '../Helper/globle style.dart';
 import '../Helper/shared_preferances.dart';
 import '../Model/GetEnquiryData.dart';
+import '../config/choosen_lang.dart';
 import 'UploadDocumentScreen.dart';
 
 class DocumentScreen extends StatefulWidget {
@@ -53,7 +54,8 @@ class _DocumentScreenState extends State<DocumentScreen> {
           },
         ),
         backgroundColor: themeColor,
-        title: const Text(
+        title: textToTrans(
+                  input:
           "Enquiries",
           style: TextStyle(
             color: Colors.white,
@@ -66,7 +68,8 @@ class _DocumentScreenState extends State<DocumentScreen> {
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('No Enquiries')
+          Center(child: textToTrans(
+                  input:'No Enquiries'))
         ],
       ):
          ListView.builder(

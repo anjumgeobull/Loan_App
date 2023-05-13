@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/types/gf_loader_type.dart';
 import 'package:loan_app/Dashboard/Dashboard.dart';
@@ -9,7 +8,6 @@ import 'package:flutter_beep/flutter_beep.dart';
 import '../../../../Helper/SizedConfig.dart';
 import '../../../../Helper/globle style.dart';
 import 'package:get/get.dart';
-import 'package:file_picker/file_picker.dart';
 import '../BotProvider.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:getwidget/getwidget.dart';
@@ -18,14 +16,15 @@ import '../Controller/UserProfileController.dart';
 import '../Helper/String_constant.dart';
 import '../Helper/animation.dart';
 import '../Helper/commen_textField.dart';
-import '../Helper/navigation_helper.dart';
 import '../Helper/send_button_component.dart';
 import '../Helper/shared_preferances.dart';
-import '../Profile/Pdf_viewer.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../config/choosen_lang.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:file_picker/file_picker.dart';
 
 class CheckCriteriaWithBot extends StatefulWidget {
   const CheckCriteriaWithBot({Key? key}) : super(key: key);
@@ -42,12 +41,12 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
 
   final addenquiryController = Get.find<AddEnquiryController>();
   final profileDataController = Get.find<UserProfileController>();
-  RangeValues _loanRangeValues = RangeValues(0.0, 10.0);
   late AssetsAudioPlayer audioPlayer;
   String ActiveDeactive = 'Salaride';
 
   //Bank Statement
   bool isbIconSelected = false;
+  List<PlatformFile> _selectedDocuments = [];
   String document = "";
   late File filedocument;
   bool isfileuploaded = false;
@@ -73,6 +72,13 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
   File? aicon_img;
   late XFile apickedImageFile;
 
+  //Upload adhar card photo
+  bool isadharBackSelected = false;
+  final ImagePicker _adharbackpicker = ImagePicker();
+  late String adhar_pic_back = '';
+  File? aicon_img_back;
+  late XFile apickedImageFileSelected;
+
   //Upload RC photo
   bool isRCIconSelected = false;
   final ImagePicker _rpicker = ImagePicker();
@@ -86,8 +92,42 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
   late String insurance_pic = '';
   File? inicon_img;
   late XFile ipickedImageFile;
+
+  //Upload other documents
+  bool isOtherDocumentSelected = false;
+
+  // final ImagePicker _Otherpicker = ImagePicker();
+  // late String other_pics = '';
+  // File? inicon_img;
+  // late XFile ipickedImageFile;
+
   bool _isPermissionGranted = false;
-  String? token='';
+  String? token = '';
+  RangeValues _loanRangeValues = RangeValues(0.0, 10.0);
+
+  List<File> _imageFiles = [];
+
+  Future<void> _pickImages() async {
+    List<File> imageFiles = [];
+
+    final List<XFile> selectedImages =
+        await ImagePicker().pickMultiImage(imageQuality: 50);
+
+    if (selectedImages != null) {
+      for (XFile file in selectedImages) {
+        final File imageFile = File(file.path);
+        imageFiles.add(imageFile);
+      }
+    }
+
+    setState(() {
+      if(_imageFiles.isNotEmpty) {
+        _imageFiles.addAll(imageFiles);
+      }else
+      _imageFiles = imageFiles;
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -98,16 +138,13 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
     botProvider1 = Provider.of<BotProvider>(context, listen: false);
     _checkPermissionStatus();
   }
-  get_token()
-  async {
+
+  get_token() async {
     token = await SPManager.instance.getUser(LOGIN_KEY);
-    if(token!=null && token!="")
-    {
+    if (token != null && token != "") {
       profileDataController.getUserProfile();
     }
-    setState(() {
-
-    });
+    setState(() {});
     print("token " + token.toString());
   }
 
@@ -154,6 +191,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        botProvider1.reset_Bot();
         Get.to(Dashboard());
         return false;
       },
@@ -161,14 +199,26 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
         backgroundColor: Colors.white,
         body: Container(
           margin: EdgeInsets.symmetric(horizontal: 16),
+          height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child:
                 Consumer<BotProvider>(builder: (context, botProvider, child) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 100.0),
+                //                         value: botProvider.personalLoanChecked,
+                //                         onChanged: (newValue) {
+                //                           setState(() {
+                //                             botProvider.personalLoanChecked = newValue!;
+                //                           });
+                //                         },
+                //                       ),
+                //                       CheckboxListTile(
+                //                         title:
+                //                         textToTrans(
+                // input:'Other',
                 child: Column(
                   children: [
-                    //Top componenet
+                    //Top component
                     Container(
                       child: Column(
                         children: [
@@ -189,14 +239,16 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                   child: Obx(
                                     () => profileDataController.name.value !=
                                             "loading"
-                                        ? Text("Welcome ${profileDataController.name.value}",
+                                        ? textToTrans(
+                                            input:
+                                                "Welcome ${profileDataController.name.value}",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,
                                                 color: themeColor,
                                                 fontWeight: FontWeight.bold))
-                                        : Text(
-                                            "Welcome, John",
+                                        : textToTrans(
+                                            input: "Welcome, John",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,
@@ -211,9 +263,10 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                   delayStart: Duration(milliseconds: 1000),
                                   animationDuration:
                                       Duration(milliseconds: 700),
-                                  child: Text(
+                                  child: textToTrans(
+                                    input:
+                                        "Let's start, to check your eligible critria...",
                                     textAlign: TextAlign.center,
-                                    "Let's start, to check your eligible critria...",
                                     style: KH6.copyWith(
                                       height: 1.5,
                                     ),
@@ -244,8 +297,9 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                       Duration(milliseconds: 1200),
                                   // curve: Curves.elasticOut,
                                   // offset: -2.5,
-                                  child: Text(
-                                    "Let's add some details such as city,employment type for better results...",
+                                  child: textToTrans(
+                                    input:
+                                        "Let's add some details such as city,employment type for better results...",
                                     style: KH7_SemiBold.copyWith(height: 1.5),
                                   )),
                               Container(
@@ -256,8 +310,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     SizedBox(
                                       height: 20,
                                     ),
-                                    Text(
-                                      "Enter your city name",
+                                    textToTrans(
+                                      input: "Enter your city name",
                                       style: KH7.copyWith(height: 1.5),
                                     ),
                                     SizedBox(
@@ -334,11 +388,13 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                               //           SizedBox(
                               //             height: 20,
                               //           ),
-                              //           Text(
+                              //           textToTrans(
+                              //input:
                               //             "Great!!!...",
                               //             style: KH7_SemiBold.copyWith(height: 1.5),
                               //           ),
-                              //           Text(
+                              //           textToTrans(
+                              //input:
                               //             "Please Enter your date of birth",
                               //             style: KH7.copyWith(height: 1.5),
                               //           ),
@@ -410,13 +466,13 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         SizedBox(
                                           height: 20,
                                         ),
-                                        Text(
-                                          "okk!!!...",
+                                        textToTrans(
+                                          input: "okk!!!...",
                                           style: KH7_SemiBold.copyWith(
                                               height: 1.5),
                                         ),
-                                        Text(
-                                          "Please Enter Employement Type",
+                                        textToTrans(
+                                          input: "Please Enter Employment Type",
                                           style: KH7.copyWith(height: 1.5),
                                         ),
                                         SizedBox(
@@ -486,8 +542,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                     return DropdownMenuItem<
                                                         String>(
                                                       value: value,
-                                                      child: Text(
-                                                        value,
+                                                      child: textToTrans(
+                                                        input: value,
                                                         style: TextStyle(
                                                             fontSize: 15),
                                                       ),
@@ -544,15 +600,16 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         SizedBox(
                                           height: 20,
                                         ),
-                                        Text(
-                                          "Ok!!!...",
+                                        textToTrans(
+                                          input: "Ok!!!...",
                                           style: KH7_SemiBold.copyWith(
                                               height: 1.5),
                                         ),
                                         Row(
                                           children: [
-                                            Text(
-                                                "Please Enter Required amount"),
+                                            textToTrans(
+                                                input:
+                                                    "Please Enter Required amount"),
                                             SizedBox(width: 30),
                                             Expanded(
                                               child: SizedBox(
@@ -653,15 +710,16 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         SizedBox(
                                           height: 20,
                                         ),
-                                        Text(
-                                          "Ok!!!...",
+                                        textToTrans(
+                                          input: "Ok!!!...",
                                           style: KH7_SemiBold.copyWith(
                                               height: 1.5),
                                         ),
                                         SizedBox(
                                           height: 7,
                                         ),
-                                        Text("Please Upload Your Photo"),
+                                        textToTrans(
+                                            input: "Please Upload Your Photo"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -786,16 +844,17 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         SizedBox(
                                           height: 20,
                                         ),
-                                        Text(
-                                          "Ok!!!...",
+                                        textToTrans(
+                                          input: "Ok!!!...",
                                           style: KH7_SemiBold.copyWith(
                                               height: 1.5),
                                         ),
                                         SizedBox(
                                           height: 7,
                                         ),
-                                        Text(
-                                            "Please Upload Your Pan Card Photo"),
+                                        textToTrans(
+                                            input:
+                                                "Please Upload Your Pan Card Photo"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -920,16 +979,17 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         SizedBox(
                                           height: 20,
                                         ),
-                                        Text(
-                                          "Ok!!!...",
+                                        textToTrans(
+                                          input: "Ok!!!...",
                                           style: KH7_SemiBold.copyWith(
                                               height: 1.5),
                                         ),
                                         SizedBox(
                                           height: 7,
                                         ),
-                                        Text(
-                                            "Please Upload Your Adhar Card Photo"),
+                                        textToTrans(
+                                            input:
+                                                "Please Upload Your Adhar Card Photo"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -1053,16 +1113,17 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         SizedBox(
                                           height: 20,
                                         ),
-                                        Text(
-                                          "Ok!!!...",
+                                        textToTrans(
+                                          input: "Ok!!!...",
                                           style: KH7_SemiBold.copyWith(
                                               height: 1.5),
                                         ),
                                         SizedBox(
                                           height: 7,
                                         ),
-                                        Text(
-                                            "Please Upload Your RC Book Photo"),
+                                        textToTrans(
+                                            input:
+                                                "Please Upload Your RC Book Photo"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -1186,15 +1247,17 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         SizedBox(
                                           height: 20,
                                         ),
-                                        Text(
-                                          "Ok!!!...",
+                                        textToTrans(
+                                          input: "Ok!!!...",
                                           style: KH7_SemiBold.copyWith(
                                               height: 1.5),
                                         ),
                                         SizedBox(
                                           height: 7,
                                         ),
-                                        Text("Please Upload  Insurance Photo"),
+                                        textToTrans(
+                                            input:
+                                                "Please Upload  Insurance Photo"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -1259,10 +1322,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                   child: GestureDetector(
                                                     onTap: () {
                                                       setState(() {
-                                                        isinsuranceIconSelected =
-                                                            false;
-                                                        inicon_img =
-                                                            null; // Set picon_img back to null
+                                                        isinsuranceIconSelected = false;
+                                                        inicon_img = null; // Set picon_img back to null
                                                       });
                                                     },
                                                     child: Icon(
@@ -1320,107 +1381,121 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         SizedBox(
                                           height: 20,
                                         ),
-                                        Text(
-                                          "Ok!!!...",
+                                        textToTrans(
+                                          input: "Ok!!!...",
                                           style: KH7_SemiBold.copyWith(
                                               height: 1.5),
                                         ),
                                         SizedBox(
                                           height: 7,
                                         ),
-                                        Text("Please Upload Bank Statement"),
+                                        textToTrans(
+                                            input:
+                                                "Please Upload Bank Statement"),
                                         SizedBox(
                                           height: 7,
                                         ),
                                         Container(
                                           width: botProvider.bankIconVisible
-                                              ? SizeConfig.screenWidth * 0.9
+                                              ? SizeConfig.screenWidth * 1.5
                                               : SizeConfig.screenWidth * 0.7,
-                                          child: GestureDetector(
-                                            onTap: () async {
-                                              if (document.isNotEmpty) {
-                                                push(context,
-                                                    Pdf_viewer(document));
-                                              } else {
-                                                FilePickerResult? result =
-                                                    await FilePicker.platform
-                                                        .pickFiles(
-                                                  type: FileType.custom,
-                                                  allowedExtensions: [
-                                                    'pdf',
-                                                    'doc'
-                                                  ],
-                                                  allowMultiple: false,
-                                                );
-                                                if (result != null) {
-                                                  PlatformFile file =
-                                                      result.files.first;
-                                                  filedocument =
-                                                      File(file.path!);
-                                                  isfileuploaded = true;
-                                                  print(file.name);
-                                                  print(file.size);
-                                                  print(file.extension);
-                                                  setState(() {
-                                                    document = file.name;
-                                                    botProvider
-                                                            .bankButtonVisible =
-                                                        true;
-                                                  });
-                                                } else {
-                                                  print('No file selected');
-                                                }
-                                              }
-                                            },
-                                            child: isfileuploaded
-                                                ? Row(
-                                                    children: [
+                                          child: Column(
+                                            children:[
+                                              GestureDetector(
+                                                onTap: () async {
+                                                  // if (_selectedDocuments.isNotEmpty) {
+                                                  //   push(context,
+                                                  //       Pdf_viewer(document));
+                                                  // } else {
+                                                  FilePickerResult? result =
+                                                  await FilePicker.platform
+                                                      .pickFiles(
+                                                    type: FileType.custom,
+                                                    allowedExtensions: [
+                                                      'pdf',
+                                                      'jpg',
+                                                      'png'
+                                                    ],
+                                                    allowMultiple: true,
+                                                  );
+                                                  if (result != null) {
+                                                    PlatformFile file = result.files.first;
+                                                    filedocument = File(file.path!);
+                                                    _selectedDocuments.add(file);
+                                                    isfileuploaded = true;
+                                                    print(file.name);
+                                                    print(file.size);
+                                                    print(file.extension);
+                                                    setState(() {
+                                                      document = file.name;
+                                                      botProvider
+                                                          .bankButtonVisible =
+                                                      true;
+                                                    });
+                                                    // } else {
+                                                    //   print('No file selected');
+                                                    // }
+                                                  }
+                                                },
+                                                child: Icon(
+                                                  Icons.upload_file,
+                                                  size: 45,
+                                                  color: themeColor,),
+                                              ),
+                                              isfileuploaded
+                                                  ?
+                                              SizedBox(
+                                                height: 100,
+                                                child: ListView(
+                                                  children: _selectedDocuments.map((document) =>
                                                       GestureDetector(
                                                         onTap: () {
-                                                          setState(() {
-                                                            isfileuploaded =
-                                                                false;
-                                                            document = '';
-                                                          });
-                                                        },
-                                                        child: Icon(
-                                                          Icons.cancel,
-                                                          size: 20,
-                                                          color:
-                                                              Colors.grey[700],
-                                                        ),
-                                                      ),
-                                                      SizedBox(width: 10),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          push(
-                                                              context,
-                                                              Pdf_viewer(
-                                                                  document));
+                                                          // Navigate to PDF viewer screen here
+                                                          // push(context, Pdf_viewer(document));
                                                         },
                                                         child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 15.0),
-                                                          child: Text(
-                                                            document,
-                                                            style: TextStyle(
-                                                              fontSize: 15,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
+                                                            padding: const EdgeInsets.only(left: 5.0),
+                                                            child: Row(
+                                                                children: [
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      setState(() {
+                                                                        int index = _selectedDocuments.indexWhere((doc) => doc.path == document.path);
+                                                                        if (index != -1) {
+                                                                          _selectedDocuments.removeAt(index);
+                                                                        }
+                                                                        if (_selectedDocuments.isEmpty) {
+                                                                          isfileuploaded = false;
+                                                                        }
+                                                                      });
+                                                                    },
+                                                                    child: Icon(
+                                                                      Icons.cancel,
+                                                                      size: 20,
+                                                                      color:
+                                                                      Colors.grey[700],
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(width: 10),
+                                                                  Container(
+                                                                    width: MediaQuery.of(context).size.width/1.4,
+                                                                    child: Padding(
+                                                                      padding: const EdgeInsets.only(left: 5.0,right: 10),
+                                                                      child: Text(
+                                                                        document.name,
+                                                                        maxLines: 2,
+                                                                        style: TextStyle(fontSize: 15, color: Colors.black,overflow: TextOverflow.ellipsis),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ]
+                                                            )
                                                         ),
-                                                      ),
-                                                    ],
-                                                  )
-                                                : Icon(
-                                                    Icons.upload_file,
-                                                    size: 45,
-                                                    color: themeColor,
-                                                  ),
-                                          ),
+                                                      )).toList(),
+                                                ),
+                                              )
+                                                  : Container(),
+                                          ]),
                                         ),
                                         SizedBox(
                                           height: 25,
@@ -1438,12 +1513,136 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                             .bankButtonVisible =
                                                         false;
                                                     botProvider
-                                                            .existingloanWidgetVisible =
+                                                            .otherWidgetVisible =
                                                         true;
+
+                                                    receiveSound();
+                                                  });
+                                                },
+                                                child: SendButtonComponent())),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+
+                              SlideFadeTransition(
+                                delayStart: Duration(milliseconds: 300),
+                                animationDuration: Duration(milliseconds: 1200),
+                                // curve: Curves.elasticOut,
+                                // offset: -2.5,
+
+                                child: Visibility(
+                                  visible: botProvider.otherWidgetVisible
+                                      ? true
+                                      : false,
+                                  child: Container(
+                                    width: SizeConfig.screenWidth,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        textToTrans(
+                                          input: "Ok!!!...",
+                                          style: KH7_SemiBold.copyWith(
+                                              height: 1.5),
+                                        ),
+                                        SizedBox(
+                                          height: 7,
+                                        ),
+                                        textToTrans(
+                                            input:
+                                                "Please Upload Other documents"),
+                                        SizedBox(
+                                          height: 7,
+                                        ),
+                                        Container(
+                                          width: botProvider.otherIconVisible
+                                              ? SizeConfig.screenWidth * 0.9
+                                              : SizeConfig.screenWidth * 0.7,
+                                          child:
+                                          GestureDetector(
+                                            onTap: () async {
+                                              _pickImages();
+                                                isOtherDocumentSelected = true;
+                                                setState(() {
+                                                  botProvider.finishButtonVisible = true;
+                                                  botProvider1.finishWidgetVisible=true;
+                                                });
+                                            },
+                                            child:
+                                                Icon(
+                                                    Icons.upload_file,
+                                                    size: 45,
+                                                    color: themeColor,
+                                                  ),
+                                          ),
+                                        ),
+                                        isOtherDocumentSelected == true
+                                            ? Container(
+                                                width: botProvider
+                                                        .otherIconVisible
+                                                    ? SizeConfig.screenWidth *
+                                                        0.9
+                                                    : SizeConfig.screenWidth *
+                                                        0.7,
+                                                child:
+                                                isOtherDocumentSelected
+                                                    ?
+                                                SizedBox(
+                                                  height: 200,
+                                                  child:
+                                                  GridView.count(
+                                                    crossAxisCount: 3,
+                                                    children: List.generate(_imageFiles.length, (index) {
+                                                      return Stack(
+                                                        children: [
+                                                          Image.file(
+                                                            _imageFiles[index],
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                          Positioned(
+                                                            top: 0,
+                                                            right: 0,
+                                                            child: GestureDetector(
+                                                              onTap: () {
+                                                                setState(() {
+                                                                  _imageFiles.removeAt(index);
+                                                                });
+                                                              },
+                                                              child: Icon(
+                                                                Icons.cancel,
+                                                                color: Colors.black,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    }),
+                                                  )
+                                                )
+                                                    : Container(),
+                                              )
+                                            : Container(),
+                                        Visibility(
+                                            visible:
+                                                botProvider.otherButtonVisible
+                                                    ? true
+                                                    : false,
+                                            child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    sendSound();
+                                                    botProvider
+                                                            .otherButtonVisible =
+                                                        false;
                                                     botProvider
                                                             .finishWidgetVisible =
                                                         true;
-
+                                                    true;
                                                     // botProvider.visibleExpericeneWidget(true);
                                                     receiveSound();
                                                   });
@@ -1455,123 +1654,9 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                 ),
                               ),
 
-                              // SlideFadeTransition(
-                              //   delayStart: Duration(milliseconds: 300),
-                              //   animationDuration: Duration(milliseconds: 1200),
-                              //   // curve: Curves.elasticOut,
-                              //   // offset: -2.5,
-                              //
-                              //   child: Visibility(
-                              //     visible: botProvider.existingloanWidgetVisible ? true : false,
-                              //     child: Container(
-                              //       width: SizeConfig.screenWidth,
-                              //       child: Column(
-                              //         crossAxisAlignment: CrossAxisAlignment.start,
-                              //         children: [
-                              //           const SizedBox(
-                              //             height: 20,
-                              //           ),
-                              //           Text(
-                              //             "Great!!!...",
-                              //             style: KH7_SemiBold.copyWith(height: 1.5),
-                              //           ),
-                              //           Text(
-                              //             "Now, Enter you have any existing loan",
-                              //             style: KH7.copyWith(height: 1.5),
-                              //           ),
-                              //           const SizedBox(
-                              //             height: 7,
-                              //           ),
-                              //           Column(
-                              //             children: [
-                              //               Container(
-                              //                 width: botProvider.existingtextvisible
-                              //                     ? SizeConfig.screenWidth * 0.9
-                              //                     : SizeConfig.screenWidth * 0.7,
-                              //                 child:
-                              //                 Container(
-                              //                   padding: EdgeInsets.symmetric(horizontal: 5.0),
-                              //
-                              //                   child:
-                              //                   Column(
-                              //                     crossAxisAlignment: CrossAxisAlignment.start,
-                              //                     children: [
-                              //                       CheckboxListTile(
-                              //                         title: Text('Home Loan'),
-                              //                         value: botProvider.homeLoanChecked,
-                              //                         onChanged: (newValue) {
-                              //                           setState(() {
-                              //                             botProvider.homeLoanChecked = newValue!;
-                              //                           });
-                              //                         },
-                              //                       ),
-                              //                       CheckboxListTile(
-                              //                         title: Text('Bike Loan'),
-                              //                         value: botProvider.bikeLoanChecked,
-                              //                         onChanged: (newValue) {
-                              //                           setState(() {
-                              //                             botProvider.bikeLoanChecked = newValue!;
-                              //                           });
-                              //                         },
-                              //                       ),
-                              //                       CheckboxListTile(
-                              //                         title: Text('Car Loan'),
-                              //                         value: botProvider.carLoanChecked,
-                              //                         onChanged: (newValue) {
-                              //                           setState(() {
-                              //                             botProvider.carLoanChecked = newValue!;
-                              //                           });
-                              //                         },
-                              //                       ),
-                              //                       CheckboxListTile(
-                              //                         title: Text('Personal Loan'),
-                              //                         value: botProvider.personalLoanChecked,
-                              //                         onChanged: (newValue) {
-                              //                           setState(() {
-                              //                             botProvider.personalLoanChecked = newValue!;
-                              //                           });
-                              //                         },
-                              //                       ),
-                              //                       CheckboxListTile(
-                              //                         title: Text('Other'),
-                              //                         value: botProvider.otherLoanChecked,
-                              //                         onChanged: (newValue) {
-                              //                           setState(() {
-                              //                             botProvider.otherLoanChecked = newValue!;
-                              //                           });
-                              //                         },
-                              //                       ),
-                              //                     ],
-                              //                   )
-                              //
-                              //                 ),
-                              //
-                              //               ),
-                              //             ],
-                              //           ),
-                              //           Visibility(
-                              //               visible:
-                              //               botProvider.homeLoanChecked==true||  botProvider.carLoanChecked==true||
-                              //                   botProvider.bikeLoanChecked==true|| botProvider.personalLoanChecked==true||
-                              //                   botProvider.otherLoanChecked ? true : false,
-                              //               child: InkWell(
-                              //                   onTap: () {
-                              //                     setState(() {
-                              //                       sendSound();
-                              //                       botProvider.existingbottonvisible = false;
-                              //                       botProvider.existingtextvisible = true;
-                              //                       botProvider.finishWidgetVisible = true;
-                              //                       receiveSound();
-                              //                     });
-                              //                   },
-                              //                   child: SendButtonComponent())),
-                              //
-                              //
-                              //         ],
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
+                              SizedBox(
+                                height: 20,
+                              ),
 
                               Visibility(
                                 visible: botProvider.finishWidgetVisible == true
@@ -1579,15 +1664,16 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     : false,
                                 child: Column(
                                   children: [
-                                    Text(
-                                      "You are eligible for loan",
+                                    textToTrans(
+                                      input: "You are eligible for loan",
                                       textAlign: TextAlign.center,
                                       style: KH6.copyWith(
                                         height: 1.5,
                                       ),
                                     ),
-                                    Text(
-                                      "You can get loan according to your eligible criteria",
+                                    textToTrans(
+                                      input:
+                                          "You can get loan according to your eligible criteria",
                                       style: KH7.copyWith(
                                         height: 1.5,
                                       ),
@@ -1600,36 +1686,40 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                             onTap: () {
                                               setState(() {
                                                 sendSound();
-                                                if(token!='' && token!=null) {
+                                                if (token != '' &&
+                                                    token != null) {
                                                   if (validationData() ==
                                                       true) {
                                                     addenquiryController
                                                         .addEnquieryApi(
                                                       cityName:
-                                                      _nameController.text,
+                                                          _nameController.text,
                                                       empType: ActiveDeactive,
                                                       reuireamt:
-                                                      _principalController
-                                                          .text,
-                                                      profileImg: profile_pic,
-                                                      icon_img: icon_img,
-                                                      panCardImg: pan_pic,
-                                                      picon_img: picon_img,
-                                                      adharCardImg: adhar_pic,
-                                                      aicon_img: aicon_img,
-                                                      RCImg: rc_pic,
-                                                      ricon_img: ricon_img,
-                                                      insuImg: insurance_pic,
-                                                      iicon_img: inicon_img,
-                                                      bankStatement: document,
-                                                      filedocument: filedocument,
+                                                          _principalController
+                                                              .text,
+                                                      // profileImg: profile_pic,
+                                                      // icon_img: icon_img,
+                                                      // panCardImg: pan_pic,
+                                                      // picon_img: picon_img,
+                                                      // adharCardImg: adhar_pic,
+                                                      // aicon_img: aicon_img,
+                                                      // RCImg: rc_pic,
+                                                      // ricon_img: ricon_img,
+                                                      // insuImg: insurance_pic,
+                                                      // iicon_img: inicon_img,
+                                                      // bankStatement: document,
+                                                      // filedocument: filedocument,
                                                     );
                                                   }
-                                                }else
-                                                  {
-                                                    Fluttertoast.showToast(msg: 'Please login ' , backgroundColor: Colors.grey,);
-                                                    Get.to(LoginScreen());
-                                                  }
+                                                } else {
+                                                  Fluttertoast.showToast(
+                                                    msg: 'Please login ',
+                                                    backgroundColor:
+                                                        Colors.grey,
+                                                  );
+                                                  Get.to(LoginScreen());
+                                                }
 
                                                 receiveSound();
                                               });
@@ -1655,8 +1745,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                 // width: 50,
                                                 padding: EdgeInsets.all(12),
                                                 alignment: Alignment.center,
-                                                child: Text(
-                                                  "Submit",
+                                                child: textToTrans(
+                                                  input: "Submit",
                                                   style: KH6_SemiBold.copyWith(
                                                       color: KWHITE_COLOR),
                                                 ),
@@ -1696,8 +1786,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
             height: 110,
             child: Column(
               children: <Widget>[
-                Text(
-                  "Choose Profile Photo",
+                textToTrans(
+                  input: "Choose Profile Photo",
                   style: TextStyle(
                     fontSize: 20.0,
                   ),
@@ -1717,7 +1807,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                           color: Colors.black54,
                           size: 20,
                         ),
-                        label: Text("Camera",
+                        label: textToTrans(
+                            input: "Camera",
                             style: TextStyle(
                                 color: Colors.black54, fontSize: 20))),
                     TextButton.icon(
@@ -1729,8 +1820,9 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                           color: Colors.black54,
                           size: 20,
                         ),
-                        label: Text("Gallery",
-                            style: TextStyle(
+                        label: textToTrans(
+                            input: "Gallery",
+                            style: const TextStyle(
                                 color: Colors.black54, fontSize: 20))),
                   ],
                 )
@@ -1805,8 +1897,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
             height: 110,
             child: Column(
               children: <Widget>[
-                Text(
-                  "Choose Profile Photo",
+                textToTrans(
+                  input: "Choose Profile Photo",
                   style: TextStyle(
                     fontSize: 20.0,
                   ),
@@ -1826,7 +1918,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                           color: Colors.black54,
                           size: 20,
                         ),
-                        label: Text("Camera",
+                        label: textToTrans(
+                            input: "Camera",
                             style: TextStyle(
                                 color: Colors.black54, fontSize: 20))),
                     TextButton.icon(
@@ -1838,7 +1931,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                           color: Colors.black54,
                           size: 20,
                         ),
-                        label: Text("Gallery",
+                        label: textToTrans(
+                            input: "Gallery",
                             style: TextStyle(
                                 color: Colors.black54, fontSize: 20))),
                   ],
@@ -1969,8 +2063,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
             height: 110,
             child: Column(
               children: <Widget>[
-                Text(
-                  "Choose Profile Photo",
+                textToTrans(
+                  input: "Choose aadhar Photo",
                   style: TextStyle(
                     fontSize: 20.0,
                   ),
@@ -1990,7 +2084,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                           color: Colors.black54,
                           size: 20,
                         ),
-                        label: Text("Camera",
+                        label: textToTrans(
+                            input: "Camera",
                             style: TextStyle(
                                 color: Colors.black54, fontSize: 20))),
                     TextButton.icon(
@@ -2002,7 +2097,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                           color: Colors.black54,
                           size: 20,
                         ),
-                        label: Text("Gallery",
+                        label: textToTrans(
+                            input: "Gallery",
                             style: TextStyle(
                                 color: Colors.black54, fontSize: 20))),
                   ],
@@ -2079,8 +2175,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
             height: 110,
             child: Column(
               children: <Widget>[
-                Text(
-                  "Choose Profile Photo",
+                textToTrans(
+                  input: "Choose Profile Photo",
                   style: TextStyle(
                     fontSize: 20.0,
                   ),
@@ -2100,7 +2196,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                           color: Colors.black54,
                           size: 20,
                         ),
-                        label: Text("Camera",
+                        label: textToTrans(
+                            input: "Camera",
                             style: TextStyle(
                                 color: Colors.black54, fontSize: 20))),
                     TextButton.icon(
@@ -2112,7 +2209,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                           color: Colors.black54,
                           size: 20,
                         ),
-                        label: Text("Gallery",
+                        label: textToTrans(
+                            input: "Gallery",
                             style: TextStyle(
                                 color: Colors.black54, fontSize: 20))),
                   ],
@@ -2189,8 +2287,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
             height: 110,
             child: Column(
               children: <Widget>[
-                Text(
-                  "Choose Profile Photo",
+                textToTrans(
+                  input: "Choose Profile Photo",
                   style: TextStyle(
                     fontSize: 20.0,
                   ),
@@ -2210,7 +2308,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                           color: Colors.black54,
                           size: 20,
                         ),
-                        label: Text("Camera",
+                        label: textToTrans(
+                            input: "Camera",
                             style: TextStyle(
                                 color: Colors.black54, fontSize: 20))),
                     TextButton.icon(
@@ -2222,7 +2321,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                           color: Colors.black54,
                           size: 20,
                         ),
-                        label: Text("Gallery",
+                        label: textToTrans(
+                            input: "Gallery",
                             style: TextStyle(
                                 color: Colors.black54, fontSize: 20))),
                   ],
