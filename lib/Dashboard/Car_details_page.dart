@@ -38,7 +38,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
         appBar: AppBar(
           backgroundColor:themeColor,
           title: textToTrans(
-                  input:
+            input:
             "Car Details",
             style: const TextStyle(
               color: Colors.white,
@@ -84,48 +84,48 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                        Expanded(
-                          child: Image.asset(
-                          image,
-                          width: 120,
-                          height: 150,
-                      ),
-                        ),
+                          Expanded(
+                            child: Image.asset(
+                              image,
+                              width: 120,
+                              height: 150,
+                            ),
+                          ),
                           SizedBox(
                             width: 10,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children:   [
-                               Obx(()=>vehicleScreenController.owner.value=='loading'?textToTrans(
-                  input:'NA'):
-                                 textToTrans(
-                  input:
-                                 "${vehicleScreenController.owner.value}",
-                                   style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
+                              Obx(()=>vehicleScreenController.owner.value=='loading'?textToTrans(
+                                  input:'NA'):
+                              textToTrans(
+                                input:
+                                "${vehicleScreenController.owner.value}",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
-                               ),
+                              ),
                               SizedBox(
                                 height: 5,
                               ),
                               Row(
                                 children:  [
                                   Obx(()=>vehicleScreenController.licNo.value=='loading'?textToTrans(
-                  input:'NA'):
-                                     textToTrans(
-                  input:
-                                      "${vehicleScreenController.licNo.value}",
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                        decoration: TextDecoration.underline,
-                                      ),
+                                      input:'NA'):
+                                  textToTrans(
+                                    input:
+                                    "${vehicleScreenController.licNo.value}",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      decoration: TextDecoration.underline,
                                     ),
+                                  ),
                                   ),
                                   SizedBox(width: 10), // Add some space between the two Text widgets
                                   // textToTrans(
@@ -144,15 +144,15 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 height: 5,
                               ),
                               Obx(()=>vehicleScreenController.maker_model.value=='loading'?textToTrans(
-                  input:'NA'):                                 textToTrans(
-                  input:
-                                  "${vehicleScreenController.maker_model.value}",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                  ),
+                                  input:'NA'):                                 textToTrans(
+                                input:
+                                "${vehicleScreenController.maker_model.value}",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
                                 ),
+                              ),
                               ),
                               SizedBox(
                                 height: 5,
@@ -161,16 +161,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 padding: EdgeInsets.only(left: 15.0),
                                 child:
                                 Obx(()=>vehicleScreenController.puc_expiry.value=='loading'?textToTrans(
-                  input:'NA'):
-                                 textToTrans(
-                  input:
-                                    "${vehicleScreenController.puc_expiry.value}",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
+                                    input:'NA'):
+                                textToTrans(
+                                  input:
+                                  "${vehicleScreenController.puc_expiry.value}",
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
                                   ),
+                                ),
                                 ),
                               ),
                             ],
@@ -205,7 +205,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       ),
                       child:  Center(
                         child: textToTrans(
-                            input:
+                          input:
                           "RC Details",
                           style: TextStyle(
                             fontSize: 20,
@@ -228,7 +228,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                     children: [
                       ExpansionTile(
                         title: textToTrans(
-                  input:
+                          input:
                           "Ownership Details",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -243,18 +243,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Owner Name",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     Obx(()=>vehicleScreenController.owner.value=='loading'?textToTrans(
-                  input:'NA'):
-                                       textToTrans(
-                  input:
-                                        "${vehicleScreenController.owner.value}",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
+                                        input:'NA'):
+                                    textToTrans(
+                                      input:
+                                      "${vehicleScreenController.owner.value}",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
                                     ),
                                   ],
                                 ),
@@ -263,18 +263,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Ownwership",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       Obx(()=>vehicleScreenController.ownerCount.value=='loading'?textToTrans(
-                  input:'NA'):
-                                         textToTrans(
-                  input:
-                                          "${vehicleScreenController.ownerCount.value}",
-                                          style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                        ),
+                                          input:'NA'):
+                                      textToTrans(
+                                        input:
+                                        "${vehicleScreenController.ownerCount.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                       ),
                                     ],
                                   ),
@@ -292,19 +292,19 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Registration Date",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
 
                                     Obx(()=>vehicleScreenController.registration_date.value=='loading'?textToTrans(
-                  input:'NA'):
-                                      textToTrans(
-                  input:
-                                        "${vehicleScreenController.registration_date.value}",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
+                                        input:'NA'):
+                                    textToTrans(
+                                      input:
+                                      "${vehicleScreenController.registration_date.value}",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
                                     ),
                                   ],
                                 ),
@@ -313,18 +313,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Financer's Name",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       Obx(()=>vehicleScreenController.finaincerName.value=='loading'?textToTrans(
-                  input:'NA'):
-                                         textToTrans(
-                  input:
-                                          "${vehicleScreenController.finaincerName.value}",
-                                          style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                        ),
+                                          input:'NA'):
+                                      textToTrans(
+                                        input:
+                                        "${vehicleScreenController.finaincerName.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                       ),
                                     ],
                                   ),
@@ -341,18 +341,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               child: Column(
                                 children: [
                                   textToTrans(
-                  input:
+                                    input:
                                     "Registered RTO",
                                     style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                   SizedBox(height: 10,),
                                   Obx(()=>vehicleScreenController.registration_authority.value=='loading'?textToTrans(
-                  input:'NA'):
-                                    textToTrans(
-                  input:
-                                      "${vehicleScreenController.registration_authority.value}",
-                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                    ),
+                                      input:'NA'):
+                                  textToTrans(
+                                    input:
+                                    "${vehicleScreenController.registration_authority.value}",
+                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                  ),
                                   ),
                                 ],
                               ),
@@ -364,7 +364,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       Divider(),
                       ExpansionTile(
                         title: textToTrans(
-                  input:
+                          input:
                           "Finance Details",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -379,18 +379,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               child: Column(
                                 children: [
                                   textToTrans(
-                  input:
+                                    input:
                                     "Financer's Name",
                                     style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                   SizedBox(height: 10,),
                                   Obx(()=>vehicleScreenController.finaincerName.value=='loading'?textToTrans(
-                  input:'NA'):
-                                     textToTrans(
-                  input:
-                                      "${vehicleScreenController.finaincerName.value}",
-                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                    ),
+                                      input:'NA'):
+                                  textToTrans(
+                                    input:
+                                    "${vehicleScreenController.finaincerName.value}",
+                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                  ),
                                   ),
                                 ],
                               ),
@@ -402,7 +402,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       Divider(),
                       ExpansionTile(
                         title: textToTrans(
-                  input:
+                          input:
                           "Vehicle Details",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -417,18 +417,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   textToTrans(
-                  input:
+                                    input:
                                     "Maker Model",
                                     style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                   SizedBox(height: 10,),
                                   Obx(()=>vehicleScreenController.model.value=='loading'?textToTrans(
-                  input:'NA'):
-                                     textToTrans(
-                  input:
-                                      "${vehicleScreenController.model.value}",
-                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                    ),
+                                      input:'NA'):
+                                  textToTrans(
+                                    input:
+                                    "${vehicleScreenController.model.value}",
+                                    style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                  ),
                                   ),
                                 ],
                               ),
@@ -444,18 +444,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Vehicle Class ",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     Obx(()=>vehicleScreenController.vehicle_class.value=='loading'?textToTrans(
-                  input:'NA'):
-                                       textToTrans(
-                  input:
-                                        "${vehicleScreenController.vehicle_class.value}",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
+                                        input:'NA'):
+                                    textToTrans(
+                                      input:
+                                      "${vehicleScreenController.vehicle_class.value}",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
                                     ),
                                   ],
                                 ),
@@ -464,18 +464,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Fuel Type",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       Obx(()=>vehicleScreenController.fule_type.value=='loading'?textToTrans(
-                  input:'NA'):
-                                         textToTrans(
-                  input:
-                                          "${vehicleScreenController.fule_type.value}",
-                                          style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                        ),
+                                          input:'NA'):
+                                      textToTrans(
+                                        input:
+                                        "${vehicleScreenController.fule_type.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                       ),
                                     ],
                                   ),
@@ -493,18 +493,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Fuel Norms",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     Obx(()=>vehicleScreenController.norms_type.value=='loading'?textToTrans(
-                  input:'NA'):
-                                       textToTrans(
-                  input:
-                                        "${vehicleScreenController.norms_type.value}",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
+                                        input:'NA'):
+                                    textToTrans(
+                                      input:
+                                      "${vehicleScreenController.norms_type.value}",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
                                     ),
                                   ],
                                 ),
@@ -513,18 +513,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Engine Number",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       Obx(()=>vehicleScreenController.engine.value=='loading'?textToTrans(
-                  input:'NA'):
-                                         textToTrans(
-                  input:
-                                          "${vehicleScreenController.engine.value}",
-                                          style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                        ),
+                                          input:'NA'):
+                                      textToTrans(
+                                        input:
+                                        "${vehicleScreenController.engine.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                       ),
                                     ],
                                   ),
@@ -539,7 +539,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       Divider(),
                       ExpansionTile(
                         title: textToTrans(
-                            input:
+                          input:
                           "Important Dates",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -555,18 +555,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Registration Date",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     Obx(()=>vehicleScreenController.registration_date.value=='loading'?textToTrans(
-                  input:'NA'):
-                                      textToTrans(
-                  input:
-                                        "${vehicleScreenController.registration_date.value}",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
+                                        input:'NA'):
+                                    textToTrans(
+                                      input:
+                                      "${vehicleScreenController.registration_date.value}",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
                                     ),
                                   ],
                                 ),
@@ -575,15 +575,15 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Insurance Date",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                  Obx(()=>vehicleScreenController.insuranceDate.value=='loading'?textToTrans(
-                  input:'NA'):
+                                      Obx(()=>vehicleScreenController.insuranceDate.value=='loading'?textToTrans(
+                                          input:'NA'):
                                       textToTrans(
-                  input:
+                                        input:
                                         "${vehicleScreenController.insuranceDate.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),),
@@ -605,18 +605,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Fitness upto",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     Obx(()=>vehicleScreenController.fitnessDate.value=='loading'?textToTrans(
-                  input:'NA'):
-                                      textToTrans(
-                  input:
-                                        "${vehicleScreenController.fitnessDate.value}",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
+                                        input:'NA'):
+                                    textToTrans(
+                                      input:
+                                      "${vehicleScreenController.fitnessDate.value}",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
                                     ),
                                   ],
                                 ),
@@ -625,15 +625,15 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Pollution Upto",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       Obx(()=>vehicleScreenController.pollution.value=='loading'?textToTrans(
-                  input:'NA'):
+                                          input:'NA'):
                                       textToTrans(
-                  input:
+                                        input:
                                         "${vehicleScreenController.pollution.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),),
@@ -655,13 +655,13 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           //         child: Column(
                           //           children: [
                           //             textToTrans(
-                                            //input:
+                          //input:
                           //               "Insurance Expiry(Updated today)",
                           //               style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                           //             ),
                           //             SizedBox(height: 10,),
                           //             textToTrans(
-                  //input:
+                          //input:
                           //               "${vehicleScreenController.insu_date}",
                           //               style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                           //             ),
@@ -673,13 +673,13 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           //       //   child: Column(
                           //       //     children: [
                           //       //       textToTrans(
-                  //input:
+                          //input:
                           //       //         "Insurance Expiring in",
                           //       //         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                           //       //       ),
                           //       //       SizedBox(height: 10,),
                           //       //       textToTrans(
-                  //input:
+                          //input:
                           //       //         "1 year & 9 months",
                           //       //         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                           //       //       ),
@@ -697,7 +697,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       Divider(),
                       ExpansionTile(
                         title: textToTrans(
-                  input:
+                          input:
                           "Other Information",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -720,11 +720,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                     SizedBox(height: 10,),
                                     Obx(()=>vehicleScreenController.licNo.value=='loading'?textToTrans(
                                         input:'NA'):
-                                       textToTrans(
-                                          input:
-                                        "${vehicleScreenController.licNo.value}",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
+                                    textToTrans(
+                                      input:
+                                      "${vehicleScreenController.licNo.value}",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
                                     ),
                                   ],
                                 ),
@@ -733,18 +733,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                                          input:
+                                        input:
                                         "Vehicle Color",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       Obx(()=>vehicleScreenController.vehicle_color.value=='loading'?textToTrans(
-                                           input:'NA'):
-                                        textToTrans(
-                                                input:
-                                          "${vehicleScreenController.vehicle_color.value}",
-                                          style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                        ),
+                                          input:'NA'):
+                                      textToTrans(
+                                        input:
+                                        "${vehicleScreenController.vehicle_color.value}",
+                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                      ),
                                       ),
                                     ],
                                   ),
@@ -764,18 +764,18 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                                        input:
+                                      input:
                                       "Unloaded weight()kg",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     Obx(()=>vehicleScreenController.unladen_weight.value=='loading'?textToTrans(
-                                            input:'NA'):
-                                      textToTrans(
-                                          input:
-                                        "${vehicleScreenController.unladen_weight.value}",
-                                        style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
-                                      ),
+                                        input:'NA'):
+                                    textToTrans(
+                                      input:
+                                      "${vehicleScreenController.unladen_weight.value}",
+                                      style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
+                                    ),
                                     ),
                                   ],
                                 ),
@@ -784,15 +784,15 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                                          input:
+                                        input:
                                         "RC Status",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
-                                  Obx(()=>vehicleScreenController.rc_staus.value=='loading'?textToTrans(
+                                      Obx(()=>vehicleScreenController.rc_staus.value=='loading'?textToTrans(
                                           input:'NA'):
                                       textToTrans(
-                                            input:
+                                        input:
                                         "${vehicleScreenController.rc_staus.value}",
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),),
@@ -811,13 +811,13 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           //     child: Column(
                           //       children: [
                           //         textToTrans(
-                            //          input:
+                          //          input:
                           //           "Insurance Expiry(Updated today)",
                           //           style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                           //         ),
                           //         SizedBox(height: 10,),
                           //         textToTrans(
-                           //         input:
+                          //         input:
                           //           "27-Jan-2025",
                           //           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                           //         ),
@@ -842,7 +842,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                           //         ),
                           //         SizedBox(height: 10,),
                           //         textToTrans(
-                  //         input:
+                          //         input:
                           //           "1 year & 9 months",
                           //           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                           //         ),
@@ -916,7 +916,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                       SizedBox(
                         width: 10,
                       ),
-                      
+
                       Expanded(
                         flex: 2,
                         child: Column(
@@ -939,11 +939,11 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               ),
                             ),
                             SizedBox(width: 10), // Add some space between the two Text widgets
-                        Obx(()=>vehicleScreenController.insuerName.value=='loading'?
-                        textToTrans(
-                            input:'NA'):
+                            Obx(()=>vehicleScreenController.insuerName.value=='loading'?
                             textToTrans(
-                                  input:
+                                input:'NA'):
+                            textToTrans(
+                              input:
                               "${vehicleScreenController.insuerName.value}",
                               style: TextStyle(
                                 fontSize: 13,
@@ -957,7 +957,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               height: 5,
                             ),
                             textToTrans(
-                  input:
+                              input:
                               "Insurance Expiring on ",
                               style: TextStyle(
                                 fontSize: 15,
@@ -972,16 +972,16 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                               padding: EdgeInsets.only(left: 15.0),
                               child:
                               Obx(()=>vehicleScreenController.insuranceDate.value=='loading'?textToTrans(
-                  input:'NA'):
-                                 textToTrans(
-                  input:
-                                  "${vehicleScreenController.insuranceDate.value}",
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
+                                  input:'NA'):
+                              textToTrans(
+                                input:
+                                "${vehicleScreenController.insuranceDate.value}",
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
                                 ),
+                              ),
                               ),
                             ),
                           ],
@@ -991,7 +991,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                     ],
                   ),
                 ),
-             ):Container(),
+              ):Container(),
               SizedBox(height: 5,),
               // Padding(
               //   padding: const EdgeInsets.all(10.0),
@@ -1016,7 +1016,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
               //         ),
               //         child: const Center(
               //           child: textToTrans(
-                //  input:
+              //  input:
               //             "Specification",
               //             style: TextStyle(
               //               fontSize: 20,
@@ -1253,7 +1253,7 @@ class _CarDetailScreenState extends State<CarDetailScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   textToTrans(
-                  input:
+                    input:
                     msg,
                     style: const TextStyle(color: Colors.black54),
                   ),

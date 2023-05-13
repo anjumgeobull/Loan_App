@@ -53,10 +53,10 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children:   [
                         textToTrans(
-                        input:widget.data.owner,
+                          input:widget.data.owner,
                           style: TextStyle(
-                            fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
-                        ),),
+                              fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
+                          ),),
                         SizedBox(
                           height: 5,
                         ),
@@ -64,7 +64,7 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                           children:  [
                             textToTrans(
                               input:
-                             widget.data.vehicleNumber,
+                              widget.data.vehicleNumber,
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.normal,
@@ -74,7 +74,7 @@ class _my_Vehicle_ListState extends State<my_Vehicle_List> {
                             ),
                             SizedBox(width: 10), // Add some space between the two Text widgets
                             // textToTrans(
-                  //input:
+                            //input:
                             //   widget.data.ownerCount,
                             //   style: TextStyle(
                             //     fontSize: 13,

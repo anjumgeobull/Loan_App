@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Helper/String_constant.dart';
-import '../Helper/api_constant.dart';
+import '../Helper/api_constants.dart';
 import '../Helper/http_handler/network_http.dart';
 import '../Helper/shared_preferances.dart';
 import '../Register/register_screen.dart';
@@ -33,10 +33,10 @@ class DashboardController extends GetxController
 //     }
 
 // Listen for changes in network connectivity
-    //Connectivity().onConnectivityChanged.listen((ConnectivityResult result) async {
-      // if (result == ConnectivityResult.none) {
-      //   print("No internet connection");
-      // } else {
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) async {
+      if (result == ConnectivityResult.none) {
+        print("No internet connection");
+      } else {
         try {
           showLoadingDialog();
           Get.focusScope!.unfocus();
@@ -60,10 +60,10 @@ class DashboardController extends GetxController
           if (response["body"]['status'] == 1) {
             print(response.toString());
             registered.value=true;
-            //register_response=response["body"]['data'];
-            SPManager.instance.setUser(LOGIN_KEY, response["body"]['data']['_id']);
-            Get.off(Dashboard());
-            showSnackbar(title: "Success", message: "Registered successfully");
+            register_response=response["body"]['data'];
+            SPManager.instance.setUser(LOGIN_KEY, response["body"]['data'][0]['_id']);
+            Get.to(CarDetailScreen());
+            showSnackbar(title: "Success", message: "registered successfully");
 
           } else if (response["body"]['status'] == 0) {
             // jobSaved.value = true;
@@ -75,9 +75,8 @@ class DashboardController extends GetxController
           debugPrint("Login Error -- $e  $s");
         }
         //print("Internet connection is available");
-      // }
-   // }
-    //);
+      }
+    });
   }
 
   send_otp({String? contact,BuildContext? context}) async {

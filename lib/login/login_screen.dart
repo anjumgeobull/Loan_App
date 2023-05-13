@@ -64,19 +64,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                          width: SizeConfig.screenWidth * 0.3,
-                          height: SizeConfig.screenHeight * 0.15,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.screenWidth * 0.02,
-                            vertical: SizeConfig.screenHeight * 0.02,
-                          ),
+                        width: SizeConfig.screenWidth * 0.3,
+                        height: SizeConfig.screenHeight * 0.15,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.screenWidth * 0.02,
+                          vertical: SizeConfig.screenHeight * 0.02,
+                        ),
                         child: Image.asset('assets/images/applogo.png'),
-                          ),
+                      ),
                       SizedBox(
                         height: SizeConfig.screenHeight * 0.01,
                       ),
                       textToTrans(
-                  input:
+                        input:
                         "User Login",
                         style: KH3.copyWith(color: KWHITE_COLOR),
                       )
@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 2.0),
                         child: textToTrans(
-                  input:
+                          input:
                           "Enter Mobile Number",
                           style: KH6_SemiBold,
                         ),
@@ -126,9 +126,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             if(userName.text!="" && userName.text.length==10) {
                               dashboardController.send_otp(contact: userName.text,context: context);
                             }else
-                              {
-                                showSnackbar(title: "Validation", message: "please enter valid mobile no.");
-                              }
+                            {
+                              showSnackbar(title: "Validation", message: "please enter valid mobile no.");
+                            }
                           },
                           child: Container(
                             height: 50,
@@ -139,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.all(Radius.circular(30)),
                             ),
                             child: textToTrans(
-                  input:
+                              input:
                               'Send OTP',
                               style: TextStyle(
                                 color: Colors.white,
@@ -162,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 input:"Don't Have Any Account?  "),
                             GestureDetector(
                               child: textToTrans(
-                                   input:
+                                input:
                                 "Sign Up Now",
                                 style: TextStyle(color: themeColor),
                               ),
@@ -173,18 +173,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                       ),
-                      ],
-                    ),
+                    ],
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
-
 
 
 

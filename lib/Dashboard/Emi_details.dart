@@ -19,134 +19,134 @@ class _Emi_detailsState extends State<Emi_details> {
 
   @override
   Widget build(BuildContext context) {
-  // calculate monthly EMI
+    // calculate monthly EMI
     return Scaffold(
-  appBar: AppBar(
-    backgroundColor: themeColor,
-    title: textToTrans(
-                  input:
-      "EMI Details",
-      style: TextStyle(
-        color: Colors.white,
-      ),
-    ),
-    actions: [
-      IconButton(
-      icon: Icon(
-        Icons.picture_as_pdf,
-        size: 25.0,
-        color: Colors.white,
-      ),
-      onPressed: () {
-       createpdf();
-      },
-    ),],
-    elevation: 0,
-  ),
-  body: SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: SingleChildScrollView(
-      child: DataTable(
-        columnSpacing: 16,
-        columns: [
-          DataColumn(
-            label: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: textToTrans(
-                input: 'Month',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+        appBar: AppBar(
+          backgroundColor: themeColor,
+          title: textToTrans(
+            input:
+            "EMI Details",
+            style: TextStyle(
+              color: Colors.white,
             ),
           ),
-          DataColumn(
-            label: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: textToTrans(
-                input: 'Date',
-                style: TextStyle(fontWeight: FontWeight.bold),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.picture_as_pdf,
+                size: 25.0,
+                color: Colors.white,
               ),
-            ),
-          ),
-          DataColumn(
-            label: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: textToTrans(
-                input: 'Principal',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          DataColumn(
-            label: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: textToTrans(
-                input: 'Interest',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          DataColumn(
-            label: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              child: textToTrans(
-                input: 'Balance',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-        ],
-        rows: List.generate(
-          widget._emiDetailsList.length,
-              (index) => DataRow(
-            color: MaterialStateColor.resolveWith((states) => index.isOdd ? Colors.grey[100]! : Colors.white),
-            cells: [
-              DataCell(
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: textToTrans(input: '${index + 1}'),
-                ),
-              ),
-              DataCell(
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: textToTrans(input: widget._emiDetailsList[index].date),
-                ),
-              ),
-              DataCell(
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: textToTrans(
-                    input:
-                    '₹ ${widget._emiDetailsList[index].principalPaid.toStringAsFixed(2)}',
-                  ),
-                ),
-              ),
-              DataCell(
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: textToTrans(
-                    input:
-                    '₹ ${widget._emiDetailsList[index].interest.toStringAsFixed(2)}',
-                  ),
-                ),
-              ),
-              DataCell(
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: textToTrans(
-                    input:
-                    '₹ ${widget._emiDetailsList[index].balance.toStringAsFixed(2)}',
-                  ),
-                ),
-              ),
-            ],
-          ),
+              onPressed: () {
+                createpdf();
+              },
+            ),],
+          elevation: 0,
         ),
-      ),
-    ),
-  )
+        body: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: SingleChildScrollView(
+            child: DataTable(
+              columnSpacing: 16,
+              columns: [
+                DataColumn(
+                  label: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: textToTrans(
+                      input: 'Month',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                DataColumn(
+                  label: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: textToTrans(
+                      input: 'Date',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                DataColumn(
+                  label: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: textToTrans(
+                      input: 'Principal',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                DataColumn(
+                  label: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: textToTrans(
+                      input: 'Interest',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                DataColumn(
+                  label: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: textToTrans(
+                      input: 'Balance',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ],
+              rows: List.generate(
+                widget._emiDetailsList.length,
+                    (index) => DataRow(
+                  color: MaterialStateColor.resolveWith((states) => index.isOdd ? Colors.grey[100]! : Colors.white),
+                  cells: [
+                    DataCell(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: textToTrans(input: '${index + 1}'),
+                      ),
+                    ),
+                    DataCell(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: textToTrans(input: widget._emiDetailsList[index].date),
+                      ),
+                    ),
+                    DataCell(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: textToTrans(
+                          input:
+                          '₹ ${widget._emiDetailsList[index].principalPaid.toStringAsFixed(2)}',
+                        ),
+                      ),
+                    ),
+                    DataCell(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: textToTrans(
+                          input:
+                          '₹ ${widget._emiDetailsList[index].interest.toStringAsFixed(2)}',
+                        ),
+                      ),
+                    ),
+                    DataCell(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: textToTrans(
+                          input:
+                          '₹ ${widget._emiDetailsList[index].balance.toStringAsFixed(2)}',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
 
-);
+    );
   }
   createpdf()
   async {

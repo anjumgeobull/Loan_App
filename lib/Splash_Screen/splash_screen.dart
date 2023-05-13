@@ -31,12 +31,12 @@ class _SplashScreenState extends State<SplashScreen> {
         color: Colors.white,
         child: Center(
           child: ClipRRect(
-          borderRadius: BorderRadius.circular(10.0),
-          child: Container(width: 100,
-              height: 100,
-              child:
-              Image.asset(logo)),
-            ),
+            borderRadius: BorderRadius.circular(10.0),
+            child: Container(width: 100,
+                height: 100,
+                child:
+                Image.asset(logo)),
+          ),
         ),
       ),
     );
@@ -47,5 +47,4 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
 }
-
 

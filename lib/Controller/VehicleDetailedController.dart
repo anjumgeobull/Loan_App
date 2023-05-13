@@ -65,7 +65,7 @@ class VehicleDetailedController extends GetxController{
   RxInt status= 0.obs;
   RxList  searchvehicle= [].obs;
 
-///search vehicle details Api Call
+  ///search vehicle details Api Call
   getVehicleDetailsSearchData(String vehicleNumber) async {
     user_auto_id = (await SPManager.instance.getUser(LOGIN_KEY))!;
     //showLoadingDialog();
@@ -77,7 +77,7 @@ class VehicleDetailedController extends GetxController{
     var url = BASE_URL + search_vehicle_details;
     Uri uri = Uri.parse(url);
     debugPrint(url);
-   // /vehicle_number:MH12TY5476
+    // /vehicle_number:MH12TY5476
     final body = {
       "vehicle_number": vehicleNumber,
     };
@@ -93,7 +93,7 @@ class VehicleDetailedController extends GetxController{
       if(status==1) {
         VehicleDetailedModel getvehicleSearchlist =
         VehicleDetailedModel.fromJson(json.decode(response.body));
-       var vehicleData = getvehicleSearchlist.data ;
+        var vehicleData = getvehicleSearchlist.data ;
         licNo.value=vehicleData.license ;
         log("$licNo");
         full_chasis.value=vehicleData.fullChassis;
@@ -143,16 +143,16 @@ class VehicleDetailedController extends GetxController{
       }
       else{
         isApiCallProcessing.value=false;
-      // showSnackbar(title: "Failed!", message: 'Server error: ${response.statusCode}');
+        // showSnackbar(title: "Failed!", message: 'Server error: ${response.statusCode}');
         Fluttertoast.showToast(msg: 'Server error: ' +response.statusCode.toString(), backgroundColor: Colors.grey,);
       }
-     // hideLoadingDialog();
+      // hideLoadingDialog();
     } else {
       throw Exception('Unexpected error occured!');
     }
   }
 
-///Add my vehicle Api Call
+  ///Add my vehicle Api Call
   addVehicleDetails(
       String vehicleNumber,
       String is_my_vehicle,

@@ -111,7 +111,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
     List<File> imageFiles = [];
 
     final List<XFile> selectedImages =
-        await ImagePicker().pickMultiImage(imageQuality: 50);
+    await ImagePicker().pickMultiImage(imageQuality: 50);
 
     if (selectedImages != null) {
       for (XFile file in selectedImages) {
@@ -124,7 +124,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
       if(_imageFiles.isNotEmpty) {
         _imageFiles.addAll(imageFiles);
       }else
-      _imageFiles = imageFiles;
+        _imageFiles = imageFiles;
     });
   }
 
@@ -202,7 +202,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child:
-                Consumer<BotProvider>(builder: (context, botProvider, child) {
+            Consumer<BotProvider>(builder: (context, botProvider, child) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 100.0),
                 //                         value: botProvider.personalLoanChecked,
@@ -235,25 +235,25 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                 SlideFadeTransition(
                                   delayStart: Duration(milliseconds: 500),
                                   animationDuration:
-                                      Duration(milliseconds: 1200),
+                                  Duration(milliseconds: 1200),
                                   child: Obx(
-                                    () => profileDataController.name.value !=
-                                            "loading"
+                                        () => profileDataController.name.value !=
+                                        "loading"
                                         ? textToTrans(
-                                            input:
-                                                "Welcome ${profileDataController.name.value}",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: themeColor,
-                                                fontWeight: FontWeight.bold))
+                                        input:
+                                        "Welcome ${profileDataController.name.value}",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: themeColor,
+                                            fontWeight: FontWeight.bold))
                                         : textToTrans(
-                                            input: "Welcome, John",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                color: themeColor,
-                                                fontWeight: FontWeight.bold)),
+                                        input: "Welcome, John",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: themeColor,
+                                            fontWeight: FontWeight.bold)),
                                   ),
                                 ),
                                 SizedBox(
@@ -262,10 +262,10 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                 SlideFadeTransition(
                                   delayStart: Duration(milliseconds: 1000),
                                   animationDuration:
-                                      Duration(milliseconds: 700),
+                                  Duration(milliseconds: 700),
                                   child: textToTrans(
                                     input:
-                                        "Let's start, to check your eligible critria...",
+                                    "Let's start, to check your eligible critria...",
                                     textAlign: TextAlign.center,
                                     style: KH6.copyWith(
                                       height: 1.5,
@@ -294,12 +294,12 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                               SlideFadeTransition(
                                   delayStart: Duration(milliseconds: 200),
                                   animationDuration:
-                                      Duration(milliseconds: 1200),
+                                  Duration(milliseconds: 1200),
                                   // curve: Curves.elasticOut,
                                   // offset: -2.5,
                                   child: textToTrans(
                                     input:
-                                        "Let's add some details such as city,employment type for better results...",
+                                    "Let's add some details such as city,employment type for better results...",
                                     style: KH7_SemiBold.copyWith(height: 1.5),
                                   )),
                               Container(
@@ -319,7 +319,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     ),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
                                           width: botProvider.districtTextVisible
@@ -336,18 +336,18 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                             onChnage: (String? value) {
                                               setState(() {
                                                 botProvider
-                                                        .districtButtonVisible =
-                                                    true;
+                                                    .districtButtonVisible =
+                                                true;
                                                 botProvider
-                                                        .districtTextVisible =
-                                                    false;
+                                                    .districtTextVisible =
+                                                false;
                                               });
                                             },
                                           ),
                                         ),
                                         Visibility(
                                             visible: botProvider
-                                                    .districtButtonVisible
+                                                .districtButtonVisible
                                                 ? true
                                                 : false,
                                             child: InkWell(
@@ -355,14 +355,14 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                   setState(() {
                                                     sendSound();
                                                     botProvider
-                                                            .districtButtonVisible =
-                                                        false;
+                                                        .districtButtonVisible =
+                                                    false;
                                                     botProvider
-                                                            .districtTextVisible =
-                                                        true;
+                                                        .districtTextVisible =
+                                                    true;
                                                     botProvider
-                                                            .employementWidgetVisible =
-                                                        true;
+                                                        .employementWidgetVisible =
+                                                    true;
                                                     receiveSound();
                                                   });
                                                 },
@@ -461,7 +461,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     width: SizeConfig.screenWidth,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
                                           height: 20,
@@ -480,34 +480,34 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                           children: [
                                             Container(
                                                 width: botProvider
-                                                        .employementTextVisible
+                                                    .employementTextVisible
                                                     ? SizeConfig.screenWidth *
-                                                        0.9
+                                                    0.9
                                                     : SizeConfig.screenWidth *
-                                                        0.7,
+                                                    0.7,
                                                 child: DropdownButtonFormField(
                                                   decoration: InputDecoration(
                                                     contentPadding:
-                                                        EdgeInsets.all(8),
+                                                    EdgeInsets.all(8),
                                                     //<-- set vertical padding here
                                                     enabledBorder:
-                                                        OutlineInputBorder(
+                                                    OutlineInputBorder(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
+                                                      BorderRadius.circular(
+                                                          10),
                                                       borderSide: BorderSide(
                                                           color: Colors.grey,
                                                           width: 1),
                                                     ),
                                                     focusedBorder:
-                                                        OutlineInputBorder(
+                                                    OutlineInputBorder(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
+                                                      BorderRadius.circular(
+                                                          10),
                                                       borderSide: BorderSide(
                                                           color: Colors.grey,
                                                           width: 1),
@@ -521,38 +521,38 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                       (String? newValue) {
                                                     setState(() {
                                                       ActiveDeactive =
-                                                          newValue!;
+                                                      newValue!;
                                                       print("isActive==");
                                                       print(ActiveDeactive);
                                                       botProvider
-                                                              .employementtypeButtonVisible =
-                                                          true;
+                                                          .employementtypeButtonVisible =
+                                                      true;
                                                       botProvider
-                                                              .employementTextVisible =
-                                                          false;
+                                                          .employementTextVisible =
+                                                      false;
                                                     });
                                                   },
                                                   items: <String>[
                                                     'Salaride',
                                                     'Buisnessman'
                                                   ].map<
-                                                          DropdownMenuItem<
-                                                              String>>(
-                                                      (String value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: textToTrans(
-                                                        input: value,
-                                                        style: TextStyle(
-                                                            fontSize: 15),
-                                                      ),
-                                                    );
-                                                  }).toList(),
+                                                      DropdownMenuItem<
+                                                          String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<
+                                                            String>(
+                                                          value: value,
+                                                          child: textToTrans(
+                                                            input: value,
+                                                            style: TextStyle(
+                                                                fontSize: 15),
+                                                          ),
+                                                        );
+                                                      }).toList(),
                                                 )),
                                             Visibility(
                                                 visible: botProvider
-                                                        .employementtypeButtonVisible
+                                                    .employementtypeButtonVisible
                                                     ? true
                                                     : false,
                                                 child: InkWell(
@@ -560,19 +560,19 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                       setState(() {
                                                         sendSound();
                                                         botProvider
-                                                                .employementtypeButtonVisible =
-                                                            false;
+                                                            .employementtypeButtonVisible =
+                                                        false;
                                                         botProvider
-                                                                .employementTextVisible =
-                                                            true;
+                                                            .employementTextVisible =
+                                                        true;
                                                         botProvider
-                                                                .monthlyWidgetVisible =
-                                                            true;
+                                                            .monthlyWidgetVisible =
+                                                        true;
                                                         receiveSound();
                                                       });
                                                     },
                                                     child:
-                                                        SendButtonComponent()))
+                                                    SendButtonComponent()))
                                           ],
                                         ),
                                       ],
@@ -595,7 +595,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     width: SizeConfig.screenWidth,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
                                           height: 20,
@@ -609,25 +609,25 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                           children: [
                                             textToTrans(
                                                 input:
-                                                    "Please Enter Required amount"),
+                                                "Please Enter Required amount"),
                                             SizedBox(width: 30),
                                             Expanded(
                                               child: SizedBox(
                                                 height: 40,
                                                 child: TextField(
                                                   controller:
-                                                      _principalController,
+                                                  _principalController,
                                                   decoration: InputDecoration(
                                                     border: OutlineInputBorder(
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              10.0),
+                                                      BorderRadius.circular(
+                                                          10.0),
                                                     ),
                                                     labelText: 'Rs.',
                                                   ),
                                                   keyboardType: TextInputType
                                                       .numberWithOptions(
-                                                          decimal: true),
+                                                      decimal: true),
                                                 ),
                                               ),
                                             ),
@@ -656,19 +656,19 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                     _loanRangeValues.end
                                                         .toStringAsFixed(2);
                                                 botProvider
-                                                        .monthalybottonVisible =
-                                                    true;
+                                                    .monthalybottonVisible =
+                                                true;
                                               });
                                             },
                                             activeColor: themeColor,
                                             // Change the color to blue
                                             semanticFormatterCallback: (value) =>
-                                                '${value.round()}L', // Add this line to make the slider move from left to right
+                                            '${value.round()}L', // Add this line to make the slider move from left to right
                                           ),
                                         ),
                                         Visibility(
                                             visible: botProvider
-                                                    .monthalybottonVisible
+                                                .monthalybottonVisible
                                                 ? true
                                                 : false,
                                             child: InkWell(
@@ -676,11 +676,11 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                   setState(() {
                                                     sendSound();
                                                     botProvider
-                                                            .monthalybottonVisible =
-                                                        false;
+                                                        .monthalybottonVisible =
+                                                    false;
                                                     botProvider
-                                                            .photoWidgetVisible =
-                                                        true;
+                                                        .photoWidgetVisible =
+                                                    true;
                                                     // botProvider.visibleExpericeneWidget(true);
                                                     receiveSound();
                                                   });
@@ -705,7 +705,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     width: SizeConfig.screenWidth,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
                                           height: 20,
@@ -731,51 +731,51 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                             children: [
                                               ClipRRect(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 child: isIconSelected
                                                     ? Image.file(
-                                                        icon_img!,
-                                                        height: 100,
-                                                        width: 100,
-                                                      )
+                                                  icon_img!,
+                                                  height: 100,
+                                                  width: 100,
+                                                )
                                                     : profile_pic.isEmpty
-                                                        ? GestureDetector(
-                                                            onTap: () {
-                                                              showImageDialog();
-                                                              setState(() {
-                                                                botProvider
-                                                                        .photoButtonVisible =
-                                                                    true;
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                              height: 50,
-                                                              width: 200,
-                                                              child: Image.asset(
-                                                                  'assets/images/uploading.png'),
-                                                            ),
-                                                          )
-                                                        : CachedNetworkImage(
-                                                            height: 50,
-                                                            width: 200,
-                                                            imageUrl:
-                                                                profile_pic,
-                                                            placeholder:
-                                                                (context,
-                                                                        url) =>
-                                                                    Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors
-                                                                    .grey[400],
-                                                              ),
-                                                            ),
-                                                            errorWidget:
-                                                                (context, url,
-                                                                        error) =>
-                                                                    Icon(Icons
-                                                                        .error),
-                                                          ),
+                                                    ? GestureDetector(
+                                                  onTap: () {
+                                                    showImageDialog();
+                                                    setState(() {
+                                                      botProvider
+                                                          .photoButtonVisible =
+                                                      true;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 200,
+                                                    child: Image.asset(
+                                                        'assets/images/uploading.png'),
+                                                  ),
+                                                )
+                                                    : CachedNetworkImage(
+                                                  height: 50,
+                                                  width: 200,
+                                                  imageUrl:
+                                                  profile_pic,
+                                                  placeholder:
+                                                      (context,
+                                                      url) =>
+                                                      Container(
+                                                        decoration:
+                                                        BoxDecoration(
+                                                          color: Colors
+                                                              .grey[400],
+                                                        ),
+                                                      ),
+                                                  errorWidget:
+                                                      (context, url,
+                                                      error) =>
+                                                      Icon(Icons
+                                                          .error),
+                                                ),
                                               ),
                                               if (isIconSelected)
                                                 Positioned(
@@ -786,7 +786,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                       setState(() {
                                                         isIconSelected = false;
                                                         icon_img =
-                                                            null; // Set icon_img back to null
+                                                        null; // Set icon_img back to null
                                                       });
                                                     },
                                                     child: Icon(
@@ -801,19 +801,19 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         Visibility(
                                             visible:
-                                                botProvider.photoButtonVisible
-                                                    ? true
-                                                    : false,
+                                            botProvider.photoButtonVisible
+                                                ? true
+                                                : false,
                                             child: InkWell(
                                                 onTap: () {
                                                   setState(() {
                                                     sendSound();
                                                     botProvider
-                                                            .photoButtonVisible =
-                                                        false;
+                                                        .photoButtonVisible =
+                                                    false;
                                                     botProvider
-                                                            .panWidgetVisible =
-                                                        true;
+                                                        .panWidgetVisible =
+                                                    true;
                                                     // botProvider.visibleExpericeneWidget(true);
                                                     receiveSound();
                                                   });
@@ -839,7 +839,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     width: SizeConfig.screenWidth,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
                                           height: 20,
@@ -854,7 +854,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         textToTrans(
                                             input:
-                                                "Please Upload Your Pan Card Photo"),
+                                            "Please Upload Your Pan Card Photo"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -866,50 +866,50 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                             children: [
                                               ClipRRect(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 child: ispanIconSelected
                                                     ? Image.file(
-                                                        picon_img!,
-                                                        height: 100,
-                                                        width: 100,
-                                                      )
+                                                  picon_img!,
+                                                  height: 100,
+                                                  width: 100,
+                                                )
                                                     : pan_pic.isEmpty
-                                                        ? GestureDetector(
-                                                            onTap: () {
-                                                              pshowImageDialog();
-                                                              setState(() {
-                                                                botProvider
-                                                                        .panButtonVisible =
-                                                                    true;
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                              height: 50,
-                                                              width: 200,
-                                                              child: Image.asset(
-                                                                  'assets/images/uploading.png'),
-                                                            ),
-                                                          )
-                                                        : CachedNetworkImage(
-                                                            height: 50,
-                                                            width: 200,
-                                                            imageUrl: pan_pic,
-                                                            placeholder:
-                                                                (context,
-                                                                        url) =>
-                                                                    Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors
-                                                                    .grey[400],
-                                                              ),
-                                                            ),
-                                                            errorWidget:
-                                                                (context, url,
-                                                                        error) =>
-                                                                    Icon(Icons
-                                                                        .error),
-                                                          ),
+                                                    ? GestureDetector(
+                                                  onTap: () {
+                                                    pshowImageDialog();
+                                                    setState(() {
+                                                      botProvider
+                                                          .panButtonVisible =
+                                                      true;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 200,
+                                                    child: Image.asset(
+                                                        'assets/images/uploading.png'),
+                                                  ),
+                                                )
+                                                    : CachedNetworkImage(
+                                                  height: 50,
+                                                  width: 200,
+                                                  imageUrl: pan_pic,
+                                                  placeholder:
+                                                      (context,
+                                                      url) =>
+                                                      Container(
+                                                        decoration:
+                                                        BoxDecoration(
+                                                          color: Colors
+                                                              .grey[400],
+                                                        ),
+                                                      ),
+                                                  errorWidget:
+                                                      (context, url,
+                                                      error) =>
+                                                      Icon(Icons
+                                                          .error),
+                                                ),
                                               ),
                                               if (ispanIconSelected)
                                                 Positioned(
@@ -919,9 +919,9 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                     onTap: () {
                                                       setState(() {
                                                         ispanIconSelected =
-                                                            false;
+                                                        false;
                                                         picon_img =
-                                                            null; // Set picon_img back to null
+                                                        null; // Set picon_img back to null
                                                       });
                                                     },
                                                     child: Icon(
@@ -936,19 +936,19 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         Visibility(
                                             visible:
-                                                botProvider.panButtonVisible
-                                                    ? true
-                                                    : false,
+                                            botProvider.panButtonVisible
+                                                ? true
+                                                : false,
                                             child: InkWell(
                                                 onTap: () {
                                                   setState(() {
                                                     sendSound();
                                                     botProvider
-                                                            .panButtonVisible =
-                                                        false;
+                                                        .panButtonVisible =
+                                                    false;
                                                     botProvider
-                                                            .adharWidgetVisible =
-                                                        true;
+                                                        .adharWidgetVisible =
+                                                    true;
                                                     // botProvider.visibleExpericeneWidget(true);
                                                     receiveSound();
                                                   });
@@ -974,7 +974,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     width: SizeConfig.screenWidth,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
                                           height: 20,
@@ -989,7 +989,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         textToTrans(
                                             input:
-                                                "Please Upload Your Adhar Card Photo"),
+                                            "Please Upload Your Adhar Card Photo"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -1001,50 +1001,50 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                             children: [
                                               ClipRRect(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 child: isadharIconSelected
                                                     ? Image.file(
-                                                        aicon_img!,
-                                                        height: 100,
-                                                        width: 100,
-                                                      )
+                                                  aicon_img!,
+                                                  height: 100,
+                                                  width: 100,
+                                                )
                                                     : adhar_pic.isEmpty
-                                                        ? GestureDetector(
-                                                            onTap: () {
-                                                              ashowImageDialog();
-                                                              setState(() {
-                                                                botProvider
-                                                                        .adharButtonVisible =
-                                                                    true;
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                              height: 50,
-                                                              width: 200,
-                                                              child: Image.asset(
-                                                                  'assets/images/uploading.png'),
-                                                            ),
-                                                          )
-                                                        : CachedNetworkImage(
-                                                            height: 50,
-                                                            width: 200,
-                                                            imageUrl: adhar_pic,
-                                                            placeholder:
-                                                                (context,
-                                                                        url) =>
-                                                                    Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors
-                                                                    .grey[400],
-                                                              ),
-                                                            ),
-                                                            errorWidget:
-                                                                (context, url,
-                                                                        error) =>
-                                                                    Icon(Icons
-                                                                        .error),
-                                                          ),
+                                                    ? GestureDetector(
+                                                  onTap: () {
+                                                    ashowImageDialog();
+                                                    setState(() {
+                                                      botProvider
+                                                          .adharButtonVisible =
+                                                      true;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 200,
+                                                    child: Image.asset(
+                                                        'assets/images/uploading.png'),
+                                                  ),
+                                                )
+                                                    : CachedNetworkImage(
+                                                  height: 50,
+                                                  width: 200,
+                                                  imageUrl: adhar_pic,
+                                                  placeholder:
+                                                      (context,
+                                                      url) =>
+                                                      Container(
+                                                        decoration:
+                                                        BoxDecoration(
+                                                          color: Colors
+                                                              .grey[400],
+                                                        ),
+                                                      ),
+                                                  errorWidget:
+                                                      (context, url,
+                                                      error) =>
+                                                      Icon(Icons
+                                                          .error),
+                                                ),
                                               ),
                                               if (isadharIconSelected)
                                                 Positioned(
@@ -1054,9 +1054,9 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                     onTap: () {
                                                       setState(() {
                                                         isadharIconSelected =
-                                                            false;
+                                                        false;
                                                         aicon_img =
-                                                            null; // Set picon_img back to null
+                                                        null; // Set picon_img back to null
                                                       });
                                                     },
                                                     child: Icon(
@@ -1071,16 +1071,16 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         Visibility(
                                             visible:
-                                                botProvider.adharButtonVisible
-                                                    ? true
-                                                    : false,
+                                            botProvider.adharButtonVisible
+                                                ? true
+                                                : false,
                                             child: InkWell(
                                                 onTap: () {
                                                   setState(() {
                                                     sendSound();
                                                     botProvider
-                                                            .adharButtonVisible =
-                                                        false;
+                                                        .adharButtonVisible =
+                                                    false;
                                                     botProvider
                                                         .rcWidgetVisible = true;
                                                     // botProvider.visibleExpericeneWidget(true);
@@ -1108,7 +1108,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     width: SizeConfig.screenWidth,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
                                           height: 20,
@@ -1123,7 +1123,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         textToTrans(
                                             input:
-                                                "Please Upload Your RC Book Photo"),
+                                            "Please Upload Your RC Book Photo"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -1135,50 +1135,50 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                             children: [
                                               ClipRRect(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 child: isRCIconSelected
                                                     ? Image.file(
-                                                        ricon_img!,
-                                                        height: 100,
-                                                        width: 100,
-                                                      )
+                                                  ricon_img!,
+                                                  height: 100,
+                                                  width: 100,
+                                                )
                                                     : rc_pic.isEmpty
-                                                        ? GestureDetector(
-                                                            onTap: () {
-                                                              rshowImageDialog();
-                                                              setState(() {
-                                                                botProvider
-                                                                        .rcButtonVisible =
-                                                                    true;
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                              height: 50,
-                                                              width: 200,
-                                                              child: Image.asset(
-                                                                  'assets/images/uploading.png'),
-                                                            ),
-                                                          )
-                                                        : CachedNetworkImage(
-                                                            height: 50,
-                                                            width: 200,
-                                                            imageUrl: rc_pic,
-                                                            placeholder:
-                                                                (context,
-                                                                        url) =>
-                                                                    Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors
-                                                                    .grey[400],
-                                                              ),
-                                                            ),
-                                                            errorWidget:
-                                                                (context, url,
-                                                                        error) =>
-                                                                    Icon(Icons
-                                                                        .error),
-                                                          ),
+                                                    ? GestureDetector(
+                                                  onTap: () {
+                                                    rshowImageDialog();
+                                                    setState(() {
+                                                      botProvider
+                                                          .rcButtonVisible =
+                                                      true;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 200,
+                                                    child: Image.asset(
+                                                        'assets/images/uploading.png'),
+                                                  ),
+                                                )
+                                                    : CachedNetworkImage(
+                                                  height: 50,
+                                                  width: 200,
+                                                  imageUrl: rc_pic,
+                                                  placeholder:
+                                                      (context,
+                                                      url) =>
+                                                      Container(
+                                                        decoration:
+                                                        BoxDecoration(
+                                                          color: Colors
+                                                              .grey[400],
+                                                        ),
+                                                      ),
+                                                  errorWidget:
+                                                      (context, url,
+                                                      error) =>
+                                                      Icon(Icons
+                                                          .error),
+                                                ),
                                               ),
                                               if (isRCIconSelected)
                                                 Positioned(
@@ -1188,9 +1188,9 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                     onTap: () {
                                                       setState(() {
                                                         isRCIconSelected =
-                                                            false;
+                                                        false;
                                                         ricon_img =
-                                                            null; // Set picon_img back to null
+                                                        null; // Set picon_img back to null
                                                       });
                                                     },
                                                     child: Icon(
@@ -1212,11 +1212,11 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                   setState(() {
                                                     sendSound();
                                                     botProvider
-                                                            .rcButtonVisible =
-                                                        false;
+                                                        .rcButtonVisible =
+                                                    false;
                                                     botProvider
-                                                            .insuWidgetVisible =
-                                                        true;
+                                                        .insuWidgetVisible =
+                                                    true;
                                                     // botProvider.visibleExpericeneWidget(true);
                                                     receiveSound();
                                                   });
@@ -1242,7 +1242,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     width: SizeConfig.screenWidth,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
                                           height: 20,
@@ -1257,7 +1257,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         textToTrans(
                                             input:
-                                                "Please Upload  Insurance Photo"),
+                                            "Please Upload  Insurance Photo"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -1269,51 +1269,51 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                             children: [
                                               ClipRRect(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 child: isinsuranceIconSelected
                                                     ? Image.file(
-                                                        inicon_img!,
-                                                        height: 100,
-                                                        width: 100,
-                                                      )
+                                                  inicon_img!,
+                                                  height: 100,
+                                                  width: 100,
+                                                )
                                                     : insurance_pic.isEmpty
-                                                        ? GestureDetector(
-                                                            onTap: () {
-                                                              ishowImageDialog();
-                                                              setState(() {
-                                                                botProvider
-                                                                        .insuButtonVisible =
-                                                                    true;
-                                                              });
-                                                            },
-                                                            child: Container(
-                                                              height: 50,
-                                                              width: 200,
-                                                              child: Image.asset(
-                                                                  'assets/images/uploading.png'),
-                                                            ),
-                                                          )
-                                                        : CachedNetworkImage(
-                                                            height: 50,
-                                                            width: 200,
-                                                            imageUrl:
-                                                                insurance_pic,
-                                                            placeholder:
-                                                                (context,
-                                                                        url) =>
-                                                                    Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors
-                                                                    .grey[400],
-                                                              ),
-                                                            ),
-                                                            errorWidget:
-                                                                (context, url,
-                                                                        error) =>
-                                                                    Icon(Icons
-                                                                        .error),
-                                                          ),
+                                                    ? GestureDetector(
+                                                  onTap: () {
+                                                    ishowImageDialog();
+                                                    setState(() {
+                                                      botProvider
+                                                          .insuButtonVisible =
+                                                      true;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 200,
+                                                    child: Image.asset(
+                                                        'assets/images/uploading.png'),
+                                                  ),
+                                                )
+                                                    : CachedNetworkImage(
+                                                  height: 50,
+                                                  width: 200,
+                                                  imageUrl:
+                                                  insurance_pic,
+                                                  placeholder:
+                                                      (context,
+                                                      url) =>
+                                                      Container(
+                                                        decoration:
+                                                        BoxDecoration(
+                                                          color: Colors
+                                                              .grey[400],
+                                                        ),
+                                                      ),
+                                                  errorWidget:
+                                                      (context, url,
+                                                      error) =>
+                                                      Icon(Icons
+                                                          .error),
+                                                ),
                                               ),
                                               if (isinsuranceIconSelected)
                                                 Positioned(
@@ -1338,19 +1338,19 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         Visibility(
                                             visible:
-                                                botProvider.insuButtonVisible
-                                                    ? true
-                                                    : false,
+                                            botProvider.insuButtonVisible
+                                                ? true
+                                                : false,
                                             child: InkWell(
                                                 onTap: () {
                                                   setState(() {
                                                     sendSound();
                                                     botProvider
-                                                            .insuButtonVisible =
-                                                        false;
+                                                        .insuButtonVisible =
+                                                    false;
                                                     botProvider
-                                                            .bankWidgetVisible =
-                                                        true;
+                                                        .bankWidgetVisible =
+                                                    true;
                                                     // botProvider.visibleExpericeneWidget(true);
                                                     receiveSound();
                                                   });
@@ -1376,7 +1376,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     width: SizeConfig.screenWidth,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
                                           height: 20,
@@ -1391,7 +1391,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         textToTrans(
                                             input:
-                                                "Please Upload Bank Statement"),
+                                            "Please Upload Bank Statement"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -1400,121 +1400,121 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                               ? SizeConfig.screenWidth * 1.5
                                               : SizeConfig.screenWidth * 0.7,
                                           child: Column(
-                                            children:[
-                                              GestureDetector(
-                                                onTap: () async {
-                                                  // if (_selectedDocuments.isNotEmpty) {
-                                                  //   push(context,
-                                                  //       Pdf_viewer(document));
-                                                  // } else {
-                                                  FilePickerResult? result =
-                                                  await FilePicker.platform
-                                                      .pickFiles(
-                                                    type: FileType.custom,
-                                                    allowedExtensions: [
-                                                      'pdf',
-                                                      'jpg',
-                                                      'png'
-                                                    ],
-                                                    allowMultiple: true,
-                                                  );
-                                                  if (result != null) {
-                                                    PlatformFile file = result.files.first;
-                                                    filedocument = File(file.path!);
-                                                    _selectedDocuments.add(file);
-                                                    isfileuploaded = true;
-                                                    print(file.name);
-                                                    print(file.size);
-                                                    print(file.extension);
-                                                    setState(() {
-                                                      document = file.name;
-                                                      botProvider
-                                                          .bankButtonVisible =
-                                                      true;
-                                                    });
+                                              children:[
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    // if (_selectedDocuments.isNotEmpty) {
+                                                    //   push(context,
+                                                    //       Pdf_viewer(document));
                                                     // } else {
-                                                    //   print('No file selected');
-                                                    // }
-                                                  }
-                                                },
-                                                child: Icon(
-                                                  Icons.upload_file,
-                                                  size: 45,
-                                                  color: themeColor,),
-                                              ),
-                                              isfileuploaded
-                                                  ?
-                                              SizedBox(
-                                                height: 100,
-                                                child: ListView(
-                                                  children: _selectedDocuments.map((document) =>
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          // Navigate to PDF viewer screen here
-                                                          // push(context, Pdf_viewer(document));
-                                                        },
-                                                        child: Padding(
-                                                            padding: const EdgeInsets.only(left: 5.0),
-                                                            child: Row(
-                                                                children: [
-                                                                  GestureDetector(
-                                                                    onTap: () {
-                                                                      setState(() {
-                                                                        int index = _selectedDocuments.indexWhere((doc) => doc.path == document.path);
-                                                                        if (index != -1) {
-                                                                          _selectedDocuments.removeAt(index);
-                                                                        }
-                                                                        if (_selectedDocuments.isEmpty) {
-                                                                          isfileuploaded = false;
-                                                                        }
-                                                                      });
-                                                                    },
-                                                                    child: Icon(
-                                                                      Icons.cancel,
-                                                                      size: 20,
-                                                                      color:
-                                                                      Colors.grey[700],
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(width: 10),
-                                                                  Container(
-                                                                    width: MediaQuery.of(context).size.width/1.4,
-                                                                    child: Padding(
-                                                                      padding: const EdgeInsets.only(left: 5.0,right: 10),
-                                                                      child: Text(
-                                                                        document.name,
-                                                                        maxLines: 2,
-                                                                        style: TextStyle(fontSize: 15, color: Colors.black,overflow: TextOverflow.ellipsis),
+                                                    FilePickerResult? result =
+                                                    await FilePicker.platform
+                                                        .pickFiles(
+                                                      type: FileType.custom,
+                                                      allowedExtensions: [
+                                                        'pdf',
+                                                        'jpg',
+                                                        'png'
+                                                      ],
+                                                      allowMultiple: true,
+                                                    );
+                                                    if (result != null) {
+                                                      PlatformFile file = result.files.first;
+                                                      filedocument = File(file.path!);
+                                                      _selectedDocuments.add(file);
+                                                      isfileuploaded = true;
+                                                      print(file.name);
+                                                      print(file.size);
+                                                      print(file.extension);
+                                                      setState(() {
+                                                        document = file.name;
+                                                        botProvider
+                                                            .bankButtonVisible =
+                                                        true;
+                                                      });
+                                                      // } else {
+                                                      //   print('No file selected');
+                                                      // }
+                                                    }
+                                                  },
+                                                  child: Icon(
+                                                    Icons.upload_file,
+                                                    size: 45,
+                                                    color: themeColor,),
+                                                ),
+                                                isfileuploaded
+                                                    ?
+                                                SizedBox(
+                                                  height: 100,
+                                                  child: ListView(
+                                                    children: _selectedDocuments.map((document) =>
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            // Navigate to PDF viewer screen here
+                                                            // push(context, Pdf_viewer(document));
+                                                          },
+                                                          child: Padding(
+                                                              padding: const EdgeInsets.only(left: 5.0),
+                                                              child: Row(
+                                                                  children: [
+                                                                    GestureDetector(
+                                                                      onTap: () {
+                                                                        setState(() {
+                                                                          int index = _selectedDocuments.indexWhere((doc) => doc.path == document.path);
+                                                                          if (index != -1) {
+                                                                            _selectedDocuments.removeAt(index);
+                                                                          }
+                                                                          if (_selectedDocuments.isEmpty) {
+                                                                            isfileuploaded = false;
+                                                                          }
+                                                                        });
+                                                                      },
+                                                                      child: Icon(
+                                                                        Icons.cancel,
+                                                                        size: 20,
+                                                                        color:
+                                                                        Colors.grey[700],
                                                                       ),
                                                                     ),
-                                                                  ),
-                                                                ]
-                                                            )
-                                                        ),
-                                                      )).toList(),
-                                                ),
-                                              )
-                                                  : Container(),
-                                          ]),
+                                                                    SizedBox(width: 10),
+                                                                    Container(
+                                                                      width: MediaQuery.of(context).size.width/1.4,
+                                                                      child: Padding(
+                                                                        padding: const EdgeInsets.only(left: 5.0,right: 10),
+                                                                        child: Text(
+                                                                          document.name,
+                                                                          maxLines: 2,
+                                                                          style: TextStyle(fontSize: 15, color: Colors.black,overflow: TextOverflow.ellipsis),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ]
+                                                              )
+                                                          ),
+                                                        )).toList(),
+                                                  ),
+                                                )
+                                                    : Container(),
+                                              ]),
                                         ),
                                         SizedBox(
                                           height: 25,
                                         ),
                                         Visibility(
                                             visible:
-                                                botProvider.bankButtonVisible
-                                                    ? true
-                                                    : false,
+                                            botProvider.bankButtonVisible
+                                                ? true
+                                                : false,
                                             child: InkWell(
                                                 onTap: () {
                                                   setState(() {
                                                     sendSound();
                                                     botProvider
-                                                            .bankButtonVisible =
-                                                        false;
+                                                        .bankButtonVisible =
+                                                    false;
                                                     botProvider
-                                                            .otherWidgetVisible =
-                                                        true;
+                                                        .otherWidgetVisible =
+                                                    true;
 
                                                     receiveSound();
                                                   });
@@ -1540,7 +1540,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     width: SizeConfig.screenWidth,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
                                           height: 20,
@@ -1555,7 +1555,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         textToTrans(
                                             input:
-                                                "Please Upload Other documents"),
+                                            "Please Upload Other documents"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -1567,81 +1567,81 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                           GestureDetector(
                                             onTap: () async {
                                               _pickImages();
-                                                isOtherDocumentSelected = true;
-                                                setState(() {
-                                                  botProvider.finishButtonVisible = true;
-                                                  botProvider1.finishWidgetVisible=true;
-                                                });
+                                              isOtherDocumentSelected = true;
+                                              setState(() {
+                                                botProvider.finishButtonVisible = true;
+                                                botProvider1.finishWidgetVisible=true;
+                                              });
                                             },
                                             child:
-                                                Icon(
-                                                    Icons.upload_file,
-                                                    size: 45,
-                                                    color: themeColor,
-                                                  ),
+                                            Icon(
+                                              Icons.upload_file,
+                                              size: 45,
+                                              color: themeColor,
+                                            ),
                                           ),
                                         ),
                                         isOtherDocumentSelected == true
                                             ? Container(
-                                                width: botProvider
-                                                        .otherIconVisible
-                                                    ? SizeConfig.screenWidth *
-                                                        0.9
-                                                    : SizeConfig.screenWidth *
-                                                        0.7,
-                                                child:
-                                                isOtherDocumentSelected
-                                                    ?
-                                                SizedBox(
-                                                  height: 200,
-                                                  child:
-                                                  GridView.count(
-                                                    crossAxisCount: 3,
-                                                    children: List.generate(_imageFiles.length, (index) {
-                                                      return Stack(
-                                                        children: [
-                                                          Image.file(
-                                                            _imageFiles[index],
-                                                            fit: BoxFit.cover,
+                                          width: botProvider
+                                              .otherIconVisible
+                                              ? SizeConfig.screenWidth *
+                                              0.9
+                                              : SizeConfig.screenWidth *
+                                              0.7,
+                                          child:
+                                          isOtherDocumentSelected
+                                              ?
+                                          SizedBox(
+                                              height: 200,
+                                              child:
+                                              GridView.count(
+                                                crossAxisCount: 3,
+                                                children: List.generate(_imageFiles.length, (index) {
+                                                  return Stack(
+                                                    children: [
+                                                      Image.file(
+                                                        _imageFiles[index],
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                      Positioned(
+                                                        top: 0,
+                                                        right: 0,
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              _imageFiles.removeAt(index);
+                                                            });
+                                                          },
+                                                          child: Icon(
+                                                            Icons.cancel,
+                                                            color: Colors.black,
                                                           ),
-                                                          Positioned(
-                                                            top: 0,
-                                                            right: 0,
-                                                            child: GestureDetector(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  _imageFiles.removeAt(index);
-                                                                });
-                                                              },
-                                                              child: Icon(
-                                                                Icons.cancel,
-                                                                color: Colors.black,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    }),
-                                                  )
-                                                )
-                                                    : Container(),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }),
                                               )
+                                          )
+                                              : Container(),
+                                        )
                                             : Container(),
                                         Visibility(
                                             visible:
-                                                botProvider.otherButtonVisible
-                                                    ? true
-                                                    : false,
+                                            botProvider.otherButtonVisible
+                                                ? true
+                                                : false,
                                             child: InkWell(
                                                 onTap: () {
                                                   setState(() {
                                                     sendSound();
                                                     botProvider
-                                                            .otherButtonVisible =
-                                                        false;
+                                                        .otherButtonVisible =
+                                                    false;
                                                     botProvider
-                                                            .finishWidgetVisible =
-                                                        true;
+                                                        .finishWidgetVisible =
+                                                    true;
                                                     true;
                                                     // botProvider.visibleExpericeneWidget(true);
                                                     receiveSound();
@@ -1673,7 +1673,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     ),
                                     textToTrans(
                                       input:
-                                          "You can get loan according to your eligible criteria",
+                                      "You can get loan according to your eligible criteria",
                                       style: KH7.copyWith(
                                         height: 1.5,
                                       ),
@@ -1683,83 +1683,83 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                     ),
                                     botProvider.isApiCallProcessing == false
                                         ? InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                sendSound();
-                                                if (token != '' &&
-                                                    token != null) {
-                                                  if (validationData() ==
-                                                      true) {
-                                                    addenquiryController
-                                                        .addEnquieryApi(
-                                                      cityName:
-                                                          _nameController.text,
-                                                      empType: ActiveDeactive,
-                                                      reuireamt:
-                                                          _principalController
-                                                              .text,
-                                                      // profileImg: profile_pic,
-                                                      // icon_img: icon_img,
-                                                      // panCardImg: pan_pic,
-                                                      // picon_img: picon_img,
-                                                      // adharCardImg: adhar_pic,
-                                                      // aicon_img: aicon_img,
-                                                      // RCImg: rc_pic,
-                                                      // ricon_img: ricon_img,
-                                                      // insuImg: insurance_pic,
-                                                      // iicon_img: inicon_img,
-                                                      // bankStatement: document,
-                                                      // filedocument: filedocument,
-                                                    );
-                                                  }
-                                                } else {
-                                                  Fluttertoast.showToast(
-                                                    msg: 'Please login ',
-                                                    backgroundColor:
-                                                        Colors.grey,
-                                                  );
-                                                  Get.to(LoginScreen());
-                                                }
+                                        onTap: () {
+                                          setState(() {
+                                            sendSound();
+                                            if (token != '' &&
+                                                token != null) {
+                                              if (validationData() ==
+                                                  true) {
+                                                addenquiryController
+                                                    .addEnquieryApi(
+                                                  cityName:
+                                                  _nameController.text,
+                                                  empType: ActiveDeactive,
+                                                  reuireamt:
+                                                  _principalController
+                                                      .text,
+                                                  // profileImg: profile_pic,
+                                                  // icon_img: icon_img,
+                                                  // panCardImg: pan_pic,
+                                                  // picon_img: picon_img,
+                                                  // adharCardImg: adhar_pic,
+                                                  // aicon_img: aicon_img,
+                                                  // RCImg: rc_pic,
+                                                  // ricon_img: ricon_img,
+                                                  // insuImg: insurance_pic,
+                                                  // iicon_img: inicon_img,
+                                                  // bankStatement: document,
+                                                  // filedocument: filedocument,
+                                                );
+                                              }
+                                            } else {
+                                              Fluttertoast.showToast(
+                                                msg: 'Please login ',
+                                                backgroundColor:
+                                                Colors.grey,
+                                              );
+                                              Get.to(LoginScreen());
+                                            }
 
-                                                receiveSound();
-                                              });
-                                            },
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(10.0),
-                                              child: Container(
-                                                width: SizeConfig.screenWidth,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                    color: themeColor,
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                          color: Color.fromRGBO(
-                                                              0, 0, 0, 0.15),
-                                                          offset: Offset(1, 6),
-                                                          blurRadius: 12)
-                                                    ]),
-                                                // height: 50,
-                                                // width: 50,
-                                                padding: EdgeInsets.all(12),
-                                                alignment: Alignment.center,
-                                                child: textToTrans(
-                                                  input: "Submit",
-                                                  style: KH6_SemiBold.copyWith(
-                                                      color: KWHITE_COLOR),
-                                                ),
-                                              ),
-                                            ))
-                                        : Container(
+                                            receiveSound();
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding:
+                                          const EdgeInsets.all(10.0),
+                                          child: Container(
+                                            width: SizeConfig.screenWidth,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    5),
+                                                color: themeColor,
+                                                boxShadow: const [
+                                                  BoxShadow(
+                                                      color: Color.fromRGBO(
+                                                          0, 0, 0, 0.15),
+                                                      offset: Offset(1, 6),
+                                                      blurRadius: 12)
+                                                ]),
+                                            // height: 50,
+                                            // width: 50,
+                                            padding: EdgeInsets.all(12),
                                             alignment: Alignment.center,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            child: const GFLoader(
-                                                type: GFLoaderType.circle),
+                                            child: textToTrans(
+                                              input: "Submit",
+                                              style: KH6_SemiBold.copyWith(
+                                                  color: KWHITE_COLOR),
+                                            ),
                                           ),
+                                        ))
+                                        : Container(
+                                      alignment: Alignment.center,
+                                      width: MediaQuery.of(context)
+                                          .size
+                                          .width,
+                                      child: const GFLoader(
+                                          type: GFLoaderType.circle),
+                                    ),
                                   ],
                                 ),
                               ),

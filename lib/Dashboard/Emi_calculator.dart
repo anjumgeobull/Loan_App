@@ -44,7 +44,7 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
           },
         ),
         title: textToTrans(
-                  input:'EMI Calculator'),
+            input:'EMI Calculator'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -55,7 +55,7 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
               Row(
                 children: [
                   textToTrans(
-                  input:"Loan Amount (in rupees)"),
+                      input:"Loan Amount (in rupees)"),
                   SizedBox(width: 50),
                   Expanded(
                     child:
@@ -81,7 +81,7 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   textToTrans(
-                  input:"1L"),
+                      input:"1L"),
                   Expanded(
                       child:
                       SliderTheme(
@@ -110,14 +110,14 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                       )
                   ),
                   textToTrans(
-                  input:"40L"),
+                      input:"40L"),
                 ],
               ),
               SizedBox(height: 20),
               Row(
                 children: [
                   textToTrans(
-                  input:"Tenure (in months)"),
+                      input:"Tenure (in months)"),
                   SizedBox(width: 90),
                   Expanded(
                     child:
@@ -142,7 +142,7 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   textToTrans(
-                  input:"12"),
+                      input:"12"),
                   Expanded(
                       child:
                       SliderTheme(
@@ -171,14 +171,14 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                       )
                   ),
                   textToTrans(
-                  input:"84"),
+                      input:"84"),
                 ],
               ),
               SizedBox(height: 20),
               Row(
                 children: [
                   textToTrans(
-                  input:"Interest Rate                      "),
+                      input:"Interest Rate                      "),
                   SizedBox(width: 100),
                   Expanded(
                     child:
@@ -203,7 +203,7 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   textToTrans(
-                  input:"11"),
+                      input:"11"),
                   Expanded(
                       child:
                       SliderTheme(
@@ -232,7 +232,7 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                       )
                   ),
                   textToTrans(
-                  input:"25"),
+                      input:"25"),
                 ],
               ),
 
@@ -241,41 +241,41 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
               GestureDetector(
                 onTap:()=>{ _selectDate(context)},
                 child: Container(
-                    height: 50,
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.all(10),
-                    width: MediaQuery.of(context).size.width,
-                    // decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(10.0),
-                    //     border: Border.all(
-                    //         color:Colors.grey,
-                    //         width: 1.0
-                    //     )
-                    // ),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          textToTrans(
-                              input:"Select Emi Start Date"),
-                      SizedBox(width: 20,),
-                      Expanded(
-                        child: SizedBox(
-                          height: 40,
-                          width: 90,
-                          child: TextField(
-                             controller: _startDate,
-                             decoration: InputDecoration(
-                               border: OutlineInputBorder(
-                                 borderRadius: BorderRadius.circular(10.0),
-                               ),
-                             ),
-                             enabled: false,
-                             //keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  height: 50,
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.all(10),
+                  width: MediaQuery.of(context).size.width,
+                  // decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(10.0),
+                  //     border: Border.all(
+                  //         color:Colors.grey,
+                  //         width: 1.0
+                  //     )
+                  // ),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        textToTrans(
+                            input:"Select Emi Start Date"),
+                        SizedBox(width: 20,),
+                        Expanded(
+                          child: SizedBox(
+                            height: 40,
+                            width: 90,
+                            child: TextField(
+                              controller: _startDate,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                              enabled: false,
+                              //keyboardType: TextInputType.numberWithOptions(decimal: true),
                             ),
+                          ),
                         ),
-                      ),
-                         ]
-                    ),
+                      ]
+                  ),
                 ),
               ),
               ElevatedButton(
@@ -302,18 +302,18 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       textToTrans(
-                  input:"Your EMI is",style: TextStyle(
-                        fontSize: 13,color: Colors.white
+                        input:"Your EMI is",style: TextStyle(
+                          fontSize: 13,color: Colors.white
                       ),),
                       SizedBox(height: 5,),
                       textToTrans(
-                  input:
+                        input:
                         ' $_emiResult',
                         style:  TextStyle(
-                          fontSize: 20.0,color: Colors.white
+                            fontSize: 20.0,color: Colors.white
                         ),
                       ),
-                       Divider(
+                      Divider(
                         color: Colors.white,
                       ),
                       Row(
@@ -321,12 +321,12 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                           Icon(Icons.circle,size: 10,color: Colors.white,),
                           SizedBox(width: 10,),
                           textToTrans(
-                  input:"Total Interest",style: TextStyle(
+                            input:"Total Interest",style: TextStyle(
                               fontSize: 13,color: Colors.white
                           ),),
                           Spacer(),
                           textToTrans(
-                  input:_totalInterest,style: TextStyle(
+                            input:_totalInterest,style: TextStyle(
                               fontSize: 13,color: Colors.white
                           ),),
                         ],
@@ -337,12 +337,12 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                           SizedBox(width: 10,),
                           Expanded(
                             child: textToTrans(
-                  input:"Total Amount Payable",style: TextStyle(
+                              input:"Total Amount Payable",style: TextStyle(
                                 fontSize: 13,color: Colors.white
                             ),),
                           ),
                           textToTrans(
-                  input:_totalAmountPayable,style: TextStyle(
+                            input:_totalAmountPayable,style: TextStyle(
                               fontSize: 13,color: Colors.white
                           ),),
                         ],
@@ -350,33 +350,33 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
                       const Divider(
                         color: Colors.red,
                       ),
-                       Align(
-                        alignment: Alignment.topRight,
-                        child:
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Emi_details(_emiDetailsList)));
-                          },
-                          child: Card(
-                            elevation: 5,
-                            color: secondaryColor,
-                            child: SizedBox(
-                              width: 130,
-                              height: 35,
-                              child: Center(
-                                child: textToTrans(
-                                  input:
-                                  "View Details",
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: themeColor,
+                      Align(
+                          alignment: Alignment.topRight,
+                          child:
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Emi_details(_emiDetailsList)));
+                            },
+                            child: Card(
+                              elevation: 5,
+                              color: secondaryColor,
+                              child: SizedBox(
+                                width: 130,
+                                height: 35,
+                                child: Center(
+                                  child: textToTrans(
+                                    input:
+                                    "View Details",
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: themeColor,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
+                          )
                       ),
                     ],
                   ),
@@ -445,12 +445,12 @@ class _EMICalculatorUIState extends State<EMICalculatorUI> {
       // Format the date in the desired format
       final formattedDate = DateFormat('dd-MM-yyyy').format(installmentDate);
       emiDetailsList.add(EMIDetails(
-          month: i + 1,
-          emi: monthlyPayment,
-          principalPaid: principalPaid,
-          interest: interestPaid,
-          balance: balance,
-          date:formattedDate,
+        month: i + 1,
+        emi: monthlyPayment,
+        principalPaid: principalPaid,
+        interest: interestPaid,
+        balance: balance,
+        date:formattedDate,
       ));
     }
 

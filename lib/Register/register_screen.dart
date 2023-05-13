@@ -77,7 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       height: SizeConfig.screenHeight * 0.01,
                     ),
                     textToTrans(
-                  input:
+                      input:
                       "User Registration",
                       style: KH3.copyWith(color: KWHITE_COLOR),
                     )
@@ -95,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.all( 10.0),
                     child: textToTrans(
-                  input:
+                      input:
                       "Enter Your Name",
                       style: KH6_SemiBold,
                     ),
@@ -161,7 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 2.0),
                     child: textToTrans(
-                  input:
+                      input:
                       "Enter Mobile number",
                       style: KH6_SemiBold,
                     ),
@@ -271,107 +271,107 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   // Container(),
                   // Obx(
                   //   ()=> dashboardController.registered.value==false ?
-                    Center(
-                      child: GestureDetector(
-                        onTap: () async {
-                          //Redirect to Dashboard / Home activity.
-                          //await Future.delayed(Duration.zero);
+                  Center(
+                    child: GestureDetector(
+                      onTap: () async {
+                        //Redirect to Dashboard / Home activity.
+                        //await Future.delayed(Duration.zero);
 
-                          if(mobile.text!=0 && name.text!="" && agreeToTerms==true) {
-                            dashboardController.registration(token: "",
-                                user_name: name.text,
-                                contact: mobile.text);
-                            // if(dashboardController.registered==true)
-                            //   {
-                            //     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CarDetailScreen()));
-                            //   }
-                          }
-                          else
-                          {
-                            showSnackbar(title: "", message: "please agree to terms and conditions");
-                          }
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 250,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color:themeColor,
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                          ),
-                          child: textToTrans(
-                  input:
-                            'Registration',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
+                        if(mobile.text!=0 && name.text!="" && agreeToTerms==true) {
+                          dashboardController.registration(token: "",
+                              user_name: name.text,
+                              contact: mobile.text);
+                          // if(dashboardController.registered==true)
+                          //   {
+                          //     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CarDetailScreen()));
+                          //   }
+                        }
+                        else
+                        {
+                          showSnackbar(title: "", message: "please agree to terms and conditions");
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 250,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color:themeColor,
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        child: textToTrans(
+                          input:
+                          'Registration',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
-                    )
-                    // Center(
-                    //   child: GestureDetector(
-                    //     onTap: () async {
-                    //       //Redirect to Dashboard / Home activity.
-                    //       await Future.delayed(Duration.zero);
-                    //     },
-                    //     child: Container(
-                    //       height: 50,
-                    //       width: 250,
-                    //       alignment: Alignment.center,
-                    //       decoration: BoxDecoration(
-                    //         color:themeColor,
-                    //         borderRadius: BorderRadius.all(Radius.circular(30)),
-                    //       ),
-                    //       child: textToTrans(
+                    ),
+                  )
+                  // Center(
+                  //   child: GestureDetector(
+                  //     onTap: () async {
+                  //       //Redirect to Dashboard / Home activity.
+                  //       await Future.delayed(Duration.zero);
+                  //     },
+                  //     child: Container(
+                  //       height: 50,
+                  //       width: 250,
+                  //       alignment: Alignment.center,
+                  //       decoration: BoxDecoration(
+                  //         color:themeColor,
+                  //         borderRadius: BorderRadius.all(Radius.circular(30)),
+                  //       ),
+                  //       child: textToTrans(
                   //input:
-                    //         'Register',
-                    //         style: TextStyle(
-                    //           color: Colors.white,
-                    //           fontSize: 18,
-                    //           fontWeight: FontWeight.w500,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // )
-                    // Center(
-                    //   child: GestureDetector(
-                    //     onTap: () async {
-                    //       //Redirect to Dashboard / Home activity.
-                    //       await Future.delayed(Duration.zero);
-                    //       if(agreeToTerms==true) {
-                    //         dashboardController.registration(token: "",
-                    //             user_name: name.text,
-                    //             contact: mobile.text);
-                    //       }
-                    //       else
-                    //         {
-                    //           showSnackbar(title: "", message: "please agree to terms and conditions");
-                    //         }
-                    //     },
-                    //     child: Container(
-                    //       height: 50,
-                    //       width: 250,
-                    //       alignment: Alignment.center,
-                    //       decoration: BoxDecoration(
-                    //         color:themeColor,
-                    //         borderRadius: BorderRadius.all(Radius.circular(30)),
-                    //       ),
-                    //       child: textToTrans(
+                  //         'Register',
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontSize: 18,
+                  //           fontWeight: FontWeight.w500,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // )
+                  // Center(
+                  //   child: GestureDetector(
+                  //     onTap: () async {
+                  //       //Redirect to Dashboard / Home activity.
+                  //       await Future.delayed(Duration.zero);
+                  //       if(agreeToTerms==true) {
+                  //         dashboardController.registration(token: "",
+                  //             user_name: name.text,
+                  //             contact: mobile.text);
+                  //       }
+                  //       else
+                  //         {
+                  //           showSnackbar(title: "", message: "please agree to terms and conditions");
+                  //         }
+                  //     },
+                  //     child: Container(
+                  //       height: 50,
+                  //       width: 250,
+                  //       alignment: Alignment.center,
+                  //       decoration: BoxDecoration(
+                  //         color:themeColor,
+                  //         borderRadius: BorderRadius.all(Radius.circular(30)),
+                  //       ),
+                  //       child: textToTrans(
                   //input:
-                    //         'Verify',
-                    //         style: TextStyle(
-                    //           color: Colors.white,
-                    //           fontSize: 18,
-                    //           fontWeight: FontWeight.w500,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                  //         'Verify',
+                  //         style: TextStyle(
+                  //           color: Colors.white,
+                  //           fontSize: 18,
+                  //           fontWeight: FontWeight.w500,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   // )
                 ],
               ),
@@ -392,7 +392,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Column(
       children: <Widget>[
         textToTrans(
-                  input:'Please enter the otp sent to your mobile number '),
+            input:'Please enter the otp sent to your mobile number '),
         SizedBox(height: 10.0),
 
         OtpTextField(
@@ -428,7 +428,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             dashboardController.resendOtpApi(contact:mobile.text);
           },
           child: textToTrans(
-                  input:
+            input:
             "Resend OTP Code",
             style: TextStyle(decoration: TextDecoration.underline,fontSize: 16, fontWeight: FontWeight.bold,color:
             Colors.blue),
@@ -448,7 +448,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         textToTrans(
-                  input:"Resend OTP in " , style: TextStyle(fontSize: 14),),
+          input:"Resend OTP in " , style: TextStyle(fontSize: 14),),
         TweenAnimationBuilder(
           onEnd: ()=>{
             if(this.mounted){
@@ -462,7 +462,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           tween: Tween(begin: 30.0, end: 0.0),
           duration: const Duration(seconds: 30),
           builder: (_, dynamic value, child) => textToTrans(
-                  input:
+            input:
             "00:${value.toInt()}",
             style: const TextStyle(color: Colors.blue,fontSize: 17,fontWeight: FontWeight.bold),
           ),

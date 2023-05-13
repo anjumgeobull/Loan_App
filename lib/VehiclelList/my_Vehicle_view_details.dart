@@ -40,7 +40,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
         appBar: AppBar(
           backgroundColor:themeColor,
           title: textToTrans(
-                  input:
+            input:
             "Car Details",
             style: TextStyle(
               color: Colors.white,
@@ -101,7 +101,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children:   [
                                 textToTrans(
-                  input:
+                                  input:
                                   widget.data.owner,
                                   style: TextStyle(
                                     fontSize: 20,
@@ -115,7 +115,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 Row(
                                   children:  [
                                     textToTrans(
-                  input:
+                                      input:
                                       widget.data.vehicleNumber,
                                       style: TextStyle(
                                         fontSize: 15,
@@ -126,7 +126,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                     ),
                                     SizedBox(width: 10), // Add some space between the two Text widgets
                                     // textToTrans(
-                  // input:
+                                    // input:
                                     //   "First Owner",
                                     //   style: TextStyle(
                                     //     fontSize: 13,
@@ -141,8 +141,8 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                   height: 5,
                                 ),
                                 textToTrans(
-                  input:
-                                   "Owner Number: "+widget.data.ownerCount,
+                                  input:
+                                  "Owner Number: "+widget.data.ownerCount,
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.normal,
@@ -155,7 +155,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 Padding(
                                   padding: EdgeInsets.only(left: 15.0),
                                   child: textToTrans(
-                  input:
+                                    input:
                                     "PUC Expirey: ",
                                     style: TextStyle(
                                       fontSize: 13,
@@ -170,7 +170,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 Padding(
                                   padding: EdgeInsets.only(left: 15.0),
                                   child: textToTrans(
-                  input:
+                                    input:
                                     widget.data.pucExpiry,
                                     style: TextStyle(
                                       fontSize: 13,
@@ -213,7 +213,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                       ),
                       child: Center(
                         child: textToTrans(
-                  input:
+                          input:
                           "RC Details",
                           style: TextStyle(
                             fontSize: 20,
@@ -236,7 +236,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                     children: [
                       ExpansionTile(
                         title: textToTrans(
-                  input:
+                          input:
                           "Ownership Details",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -251,13 +251,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Owner Name",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     textToTrans(
-                  input:
+                                      input:
                                       widget.data.owner,
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
@@ -268,13 +268,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Ownwership",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       textToTrans(
-                  input:
+                                        input:
                                         widget.data.ownerCount,
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -294,13 +294,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Registration Date",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     textToTrans(
-                  input:
+                                      input:
                                       widget.data.registrationDate,
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
@@ -311,13 +311,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Registered RTO",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       textToTrans(
-                  input:
+                                        input:
                                         widget.data.registrationAuthority,
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -336,13 +336,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                           //     child: Column(
                           //       children: [
                           //         textToTrans(
-                 // input:
+                          // input:
                           //           "Registered RTO",
                           //           style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                           //         ),
                           //         SizedBox(height: 10,),
                           //         textToTrans(
-                  //input:
+                          //input:
                           //           widget.data.registrationAuthority,
                           //           style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                           //         ),
@@ -358,7 +358,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                       Divider(),
                       ExpansionTile(
                         title: textToTrans(
-                  input:
+                          input:
                           "Financer Details",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -373,13 +373,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Financer Name",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     textToTrans(
-                  input:
+                                      input:
                                       widget.data.financierName,
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
@@ -396,7 +396,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                       Divider(),
                       ExpansionTile(
                         title: textToTrans(
-                  input:
+                          input:
                           "Vehicle Details",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -411,13 +411,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   textToTrans(
-                  input:
+                                    input:
                                     "Maker Model",
                                     style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
                                   SizedBox(height: 10,),
                                   textToTrans(
-                  input:
+                                    input:
                                     widget.data.makerModel,
                                     style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                   ),
@@ -437,13 +437,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Vehicle Class ",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     textToTrans(
-                  input:
+                                      input:
                                       widget.data.vehicleClass,
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
@@ -454,13 +454,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Fule Type",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       textToTrans(
-                  input:
+                                        input:
                                         widget.data.fuelType,
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -480,13 +480,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Fule Norms",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     textToTrans(
-                  input:
+                                      input:
                                       widget.data.normsType,
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
@@ -497,13 +497,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Engine Number",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       textToTrans(
-                  input:
+                                        input:
                                         widget.data.engine,
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -523,7 +523,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                       Divider(),
                       ExpansionTile(
                         title: textToTrans(
-                  input:
+                          input:
                           "Important Dates",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -539,13 +539,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Registration Date",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     textToTrans(
-                  input:
+                                      input:
                                       widget.data.registrationDate,
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
@@ -556,13 +556,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Insurance Expiry Date",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       textToTrans(
-                  input:
+                                        input:
                                         widget.data.insuranceDate,
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -584,13 +584,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Fitness upto",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     textToTrans(
-                  input:
+                                      input:
                                       widget.data.fitUpto,
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
@@ -601,13 +601,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Pollution Upto",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       textToTrans(
-                  input:
+                                        input:
                                         widget.data.pollution,
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -624,7 +624,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                       Divider(),
                       ExpansionTile(
                         title: textToTrans(
-                  input:
+                          input:
                           "Other Information",
                           style: TextStyle(fontSize: 18.0,color: Colors.grey[700] ,fontWeight: FontWeight.bold),
                         ),
@@ -639,13 +639,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Registration Number",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     textToTrans(
-                  input:
+                                      input:
                                       widget.data.fullChassis,
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
@@ -656,13 +656,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "Vehicle Color",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       textToTrans(
-                  input:
+                                        input:
                                         widget.data.vehicleColor,
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -684,13 +684,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                 Column(
                                   children: [
                                     textToTrans(
-                  input:
+                                      input:
                                       "Unloaded weight()kg",
                                       style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
                                     SizedBox(height: 10,),
                                     textToTrans(
-                  input:
+                                      input:
                                       widget.data.vehicleWeight,
                                       style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                     ),
@@ -701,13 +701,13 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                                   child: Column(
                                     children: [
                                       textToTrans(
-                  input:
+                                        input:
                                         "RC Status",
                                         style: TextStyle(fontWeight: FontWeight.normal,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
                                       SizedBox(height: 10,),
                                       textToTrans(
-                  input:
+                                        input:
                                         widget.data.rcStatus,
                                         style: TextStyle(fontWeight: FontWeight.bold,color:Colors.grey[700] ,fontSize:15 ),
                                       ),
@@ -785,14 +785,14 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children:   [
                           textToTrans(
-                  input:"Your are insured",style: TextStyle(
+                            input:"Your are insured",style: TextStyle(
                               fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
                           ),),
                           SizedBox(
                             height: 5,
                           ),
                           textToTrans(
-                  input:
+                            input:
                             "Insurance name",
                             style: TextStyle(
                               fontSize: 15,
@@ -802,7 +802,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                           ),
                           SizedBox(width: 10), // Add some space between the two Text widgets
                           textToTrans(
-                  input:
+                            input:
                             widget.data.insurerName,
                             style: TextStyle(
                               fontSize: 13,
@@ -814,7 +814,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                             height: 5,
                           ),
                           textToTrans(
-                  input:
+                            input:
                             "Insurance Expiry Date ",
                             style: TextStyle(
                               fontSize: 15,
@@ -828,7 +828,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                           Padding(
                             padding: EdgeInsets.only(left: 15.0),
                             child: textToTrans(
-                  input:
+                              input:
                               widget.data.insuranceDate,
                               style: TextStyle(
                                 fontSize: 13,
@@ -866,7 +866,7 @@ class _my_Vehicle_DetailScreenState extends State<my_Vehicle_DetailScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   textToTrans(
-                  input:
+                    input:
                     msg,
                     style: TextStyle(color: Colors.black54),
                   ),

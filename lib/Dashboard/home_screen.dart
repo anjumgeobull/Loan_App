@@ -67,18 +67,18 @@ class _MyAppBarState extends State<MyAppBar> {
                 child: Obx(()=> profileDataController.name.value!="loading" && profileDataController.name.value!=''?
                 textToTrans(
                   input:"Welcome ${profileDataController.name.value}",
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ):
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ):
                 textToTrans(
                   input: "Welcome User",
                   style: TextStyle(
-                   fontSize: 18,
-                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
                 ),
@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
               width: 30,
             ),
             textToTrans(
-                 input:
+              input:
               "Welcome",
               style:TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
             ),
@@ -301,9 +301,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 // );
                                 AddtoMycar(context);
                               }else
-                                {
-                                  Fluttertoast.showToast(msg: 'Please enter valid car no. ' , backgroundColor: Colors.grey,);
-                                }
+                              {
+                                Fluttertoast.showToast(msg: 'Please enter valid car no. ' , backgroundColor: Colors.grey,);
+                              }
                             }
                           }else {
                             Get.to(()=>LoginScreen());
@@ -317,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               SizedBox(height: 15),
-               Padding(
+              Padding(
                 padding: EdgeInsets.only(left: 10.0),
                 child: textToTrans(
                   input:
@@ -610,13 +610,13 @@ class _HomeScreenState extends State<HomeScreen> {
   //     builder: (BuildContext context) {
   //       return AlertDialog(
   //         title: const textToTrans(
-                 // input:"Create account",style: TextStyle(
+  // input:"Create account",style: TextStyle(
   //           color: themeColor,
   //           fontSize: 20,
   //           fontWeight: FontWeight.bold
   //         ),),
   //         content: const textToTrans(
-               //   input:"Do want to create account?",style: TextStyle(
+  //   input:"Do want to create account?",style: TextStyle(
   //             color: themeColor,
   //             fontSize: 18,
   //             fontWeight: FontWeight.bold
@@ -625,7 +625,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //           TextButton(
   //             onPressed: () => Navigator.of(context).pop(),
   //             child: const textToTrans(
-    //              input:"Yes",style: TextStyle(
+  //              input:"Yes",style: TextStyle(
   //                 color: themeColor,
   //                 fontSize: 15,
   //                 fontWeight: FontWeight.bold
@@ -637,7 +637,7 @@ class _HomeScreenState extends State<HomeScreen> {
   //               Navigator.of(context).pop();
   //             },
   //             child: const textToTrans(
-              //    input:"No",style: TextStyle(
+  //    input:"No",style: TextStyle(
   //                 color: themeColor,
   //                 fontSize: 15,
   //                 fontWeight: FontWeight.bold
@@ -691,7 +691,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ,),
                 Center(
                   child: textToTrans(
-                  input:'Mark this as your car',
+                      input:'Mark this as your car',
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.black,
@@ -700,7 +700,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 15
                   ,),
 
-                 textToTrans(
+                textToTrans(
                   input:
                   'Get important remainders like insurance '
                       'and pollution expiry, upload your '
@@ -739,7 +739,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: Center(
                               child: textToTrans(
-                                  input:
+                                input:
                                 "Not My Vehicle",
                                 style: const TextStyle(
                                   fontSize: 20,
@@ -800,7 +800,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             child: Center(
                               child: textToTrans(
-                                  input:
+                                input:
                                 "My Vehicle",
                                 style: TextStyle(
                                   fontSize: 20,

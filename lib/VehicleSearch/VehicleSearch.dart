@@ -90,7 +90,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
           title: Column(
             children: [
               textToTrans(
-                  input:
+                input:
                 "Search Vehicle",
                 style:TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),
               ),
@@ -120,7 +120,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: textToTrans(
-                  input:
+                          input:
                           "Enter The Vehicle Number",
                           style:TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
                         ),
@@ -192,7 +192,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
               // Padding(
               //   padding: const EdgeInsets.all(15.0),
               //   child: textToTrans(
-               //   input:
+              //   input:
               //     "Recent Search",
               //     style:TextStyle(color: Colors.black54,fontSize: 15,fontWeight: FontWeight.bold),
               //   ),
@@ -224,7 +224,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
               //             children:   [
               //
               //               textToTrans(
-               //   input:"MH12TY5476",style: TextStyle(
+              //   input:"MH12TY5476",style: TextStyle(
               //                   fontSize: 20,fontWeight:FontWeight.bold,color: Colors.black
               //               ),),
               //               SizedBox(
@@ -233,7 +233,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
               //               Row(
               //                 children: const [
               //                   textToTrans(
-                //  input:
+              //  input:
               //                     "John Smith",
               //                     style: TextStyle(
               //                       fontSize: 15,
@@ -244,7 +244,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
               //                   ),
               //                   SizedBox(width: 10), // Add some space between the two Text widgets
               //                   textToTrans(
-               //   input:
+              //   input:
               //                     "First Owner",
               //                     style: TextStyle(
               //                       fontSize: 13,
@@ -306,7 +306,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: textToTrans(
-                                    input:
+                                        input:
                                         'Comming Soon...',
                                         style: TextStyle(color: Colors.white),
                                       ),
@@ -319,7 +319,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: textToTrans(
-                                      input:
+                                        input:
                                         'Comming Soon...',
                                         style: TextStyle(color: Colors.white),
                                       ),
@@ -332,7 +332,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: textToTrans(
-                                      input:
+                                        input:
                                         'Comming Soon...',
                                         style: TextStyle(color: Colors.white),
                                       ),
@@ -345,7 +345,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: textToTrans(
-                                       input:
+                                        input:
                                         'Comming Soon...',
                                         style: TextStyle(color: Colors.white),
                                       ),
@@ -367,7 +367,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                                 ),
                                 SizedBox(height: 6.0),
                                 textToTrans(
-                                input:
+                                  input:
                                   items[index].name,
                                   style: TextStyle(fontSize: 15.0),
                                   textAlign: TextAlign.center,
@@ -431,7 +431,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                   ,),
                 Center(
                   child:  textToTrans(
-                  input:'Mark this as your car',
+                      input:'Mark this as your car',
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.black,
@@ -440,7 +440,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                 SizedBox(height: 15
                   ,),
 
-                 textToTrans(
+                textToTrans(
                   input:
                   'Get important remainders like insurance '
                       'and pollution expiry, upload your '
@@ -479,7 +479,7 @@ class _VehicleSearchScreenState extends State<VehicleSearchScreen> {
                             ),
                             child:  Center(
                               child: textToTrans(
-                                  input:
+                                input:
                                 "Not My Vehicle",
                                 style: TextStyle(
                                   fontSize: 20,

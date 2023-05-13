@@ -182,39 +182,39 @@ class _DashboardState extends State<Dashboard> {
                       children: <Widget>[
                         Container(
                             child: ElevatedButton(
-                          onPressed: () {
-                            SystemNavigator.pop();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green[200],
-                            minimumSize: const Size(70, 30),
-                            shape: const RoundedRectangleBorder(
-                              borderRadius:
+                              onPressed: () {
+                                SystemNavigator.pop();
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green[200],
+                                minimumSize: const Size(70, 30),
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius:
                                   BorderRadius.all(Radius.circular(2.0)),
-                            ),
-                          ),
-                          child: const Text("Yes",
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 13)),
-                        )),
+                                ),
+                              ),
+                              child: const Text("Yes",
+                                  style: TextStyle(
+                                      color: Colors.black54, fontSize: 13)),
+                            )),
                         const SizedBox(
                           width: 10,
                         ),
                         Container(
                             child: ElevatedButton(
-                          onPressed: () => {Navigator.pop(context)},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue[200],
-                            minimumSize: const Size(70, 30),
-                            shape: const RoundedRectangleBorder(
-                              borderRadius:
+                              onPressed: () => {Navigator.pop(context)},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue[200],
+                                minimumSize: const Size(70, 30),
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius:
                                   BorderRadius.all(Radius.circular(2.0)),
-                            ),
-                          ),
-                          child: const Text("No",
-                              style: TextStyle(
-                                  color: Colors.black54, fontSize: 13)),
-                        )),
+                                ),
+                              ),
+                              child: const Text("No",
+                                  style: TextStyle(
+                                      color: Colors.black54, fontSize: 13)),
+                            )),
                       ],
                     )
                   ],

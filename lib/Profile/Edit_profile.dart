@@ -1,9 +1,14 @@
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 import '../../Helper/SizedConfig.dart';
 import '../../Helper/globle style.dart';
 import 'package:get/get.dart';
+import '../Dashboard/home_screen (3).dart';
+import '../Dashboard/otpScreen.dart';
 import '../Helper/commen_textField.dart';
+import '../HomePage.dart';
 import '../Controller/UserProfileController.dart';
 import '../config/choosen_lang.dart';
 
@@ -37,7 +42,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     profileDataController.getUserProfile();
     name.value.text = profileDataController.name.value;
     mobile.value.text = profileDataController.contact.value;
+
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -168,12 +175,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                       ),
                     )
+
                   ],
+
                 ),
               ),
+
+
+
             ],
           ),
         )
+
     );
   }
   void _showOtpScreen(BuildContext context) async {
