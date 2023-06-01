@@ -1,24 +1,27 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../Dashboard/home_screen (3).dart';
+import '../Dashboard/home_screen.dart';
+import '../Helper/String_constant.dart';
 import '../Helper/api_constant.dart';
 import '../Helper/http_handler/network_http.dart';
-import '../widget/common_snackbar.dart';
+import '../Helper/shared_preferances.dart';
 import '../widget/loading_dialog.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:io';
+
+
 class AddEnquiryController extends GetxController
 {
-  String user_auto_id="6458cb6be3ce3346ba00b4f2";
-
+  String user_auto_id="";
+ RxList enquireyList=[].obs;
 
   addEnquieryApi({
     String? cityName,
     String? empType,
-    String? reuireamt,
+    String? requireamt,
     // String? profileImg,
     // File? icon_img,
     // String? panCardImg,
@@ -153,7 +156,7 @@ class AddEnquiryController extends GetxController
     request.fields["user_auto_id"] = user_auto_id;
     request.fields["city"] = cityName!;
     request.fields["employment_type"] = empType!;
-    request.fields["requirement_amount"] = reuireamt!;
+    request.fields["requirement_amount"] = requireamt!;
 
     print(request.fields.toString());
 
@@ -169,12 +172,79 @@ class AddEnquiryController extends GetxController
       print(resp.toString());
 
       int status=resp['status'];
-      if(status=="1"){
+      if(status==1){
         Fluttertoast.showToast(
-          msg: "Added successfully",
+          msg: "Enquirey added successfully",
           backgroundColor: Colors.grey,
         );
-        Get.to(() => HomeScreen());
+        //Get.to(() => HomeScreen());
+      }
+      else{
+        String message=resp['msg'];
+        print(message);
+      }
+    }
+    else if(response.statusCode==500){
+      print(response.statusCode.toString());
+      Fluttertoast.showToast(msg: "Server Error", backgroundColor: Colors.grey,);
+
+    }
+    else {
+      print(response.statusCode.toString());
+      Fluttertoast.showToast(msg: response.toString(), backgroundColor: Colors.grey,);
+    }
+  }
+
+  addDocumentApi({
+    String? documentType,
+    File? icon_img,
+  })
+  async {
+
+    var url = BASE_URL + enquirey_document_upload;
+    Uri uri=Uri.parse(url);
+    var request = new http.MultipartRequest("POST", uri);
+
+    //For profile image
+    user_auto_id = (await SPManager.instance.getUser(LOGIN_KEY))!;
+    try{
+      if(icon_img!=null){
+        request.files.add(
+          http.MultipartFile(
+            'document',
+            icon_img.readAsBytes().asStream(),
+            await icon_img.length(),
+            filename: icon_img.path.split('/').last,),);
+      }
+      request.fields['document'] = '';
+    }
+    catch(exception){
+      request.fields['document'] = '';
+      print('Profile image not selected');
+    }
+
+    request.fields["user_auto_id"] = user_auto_id;
+    request.fields['type'] = documentType!;
+
+    print(request.fields.toString());
+
+    http.Response response = await http.Response.fromStream(await request.send());
+
+    print(response.toString());
+
+    if (response.statusCode == 200) {
+
+      final resp=jsonDecode(response.body);
+
+      print(resp.toString());
+
+      int status=resp['status'];
+      if(status==1){
+        // Fluttertoast.showToast(
+        //   msg: "document Added successfully",
+        //   backgroundColor: Colors.grey,
+        // );
+        //Get.to(() => HomeScreen());
       }
       else{
         String message=resp['msg'];

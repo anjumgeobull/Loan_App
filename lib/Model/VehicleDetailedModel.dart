@@ -56,7 +56,7 @@ class VehicleData {
     required this.seatingCapacity,
     required this.pucExpiry,
     required this.fitUpto,
-    this.taxUpto,
+    required this.taxUpto,
     required this.gvw,
     required this.unladenWeight,
     required this.sleeperCap,
@@ -65,7 +65,7 @@ class VehicleData {
     required this.blacklistStatus,
     required this.nocDetails,
     required this.rcStatus,
-    this.rcStatusAsOn,
+    required this.rcStatusAsOn,
     required this.permitNo,
     required this.permitIssueDate,
     required this.permitValidFrom,
@@ -83,7 +83,7 @@ class VehicleData {
   late final String vehicleClass;
   late final String makerName;
   late final String makerModel;
-  late final int ownerCount;
+  late final String ownerCount;
   late final String insuranceDate;
   late final String pollution;
   late final String fitnessDt;
@@ -105,7 +105,7 @@ class VehicleData {
   late final String seatingCapacity;
   late final String pucExpiry;
   late final String fitUpto;
-  late final Null taxUpto;
+  late final String taxUpto;
   late final String gvw;
   late final String unladenWeight;
   late final String sleeperCap;
@@ -114,7 +114,7 @@ class VehicleData {
   late final String blacklistStatus;
   late final String nocDetails;
   late final String rcStatus;
-  late final Null rcStatusAsOn;
+  late final String rcStatusAsOn;
   late final String permitNo;
   late final String permitIssueDate;
   late final String permitValidFrom;
@@ -122,56 +122,59 @@ class VehicleData {
   late final String permitType;
   late final String bodyType;
   late final String noCyl;
+//addcondition
 
   VehicleData.fromJson(Map<String, dynamic> json){
-    license = json['license'];
-    fullChassis = json['full_chassis'];
-    owner = json['owner'];
-    registrationDate = json['registration_date'];
-    fuelType = json['fuel_type'];
-    engine = json['engine'];
-    vehicleClass = json['vehicle_class'];
-    makerName = json['maker_name'];
-    makerModel = json['maker_model'];
-    ownerCount = json['owner_count'];
-    insuranceDate = json['insurance_date'];
-    pollution = json['pollution'];
-    fitnessDt = json['fitness_dt'];
-    isBlacklisted = json['is_blacklisted'];
-    model = json['model'];
-    insurerName = json['insurer_name'];
-    financierName = json['financier_name'];
-    vehicleColor = json['vehicle_color'];
+    license = json['license']==null?"":json['license'];
+    fullChassis = json['full_chassis']==null?"":json['full_chassis'];
+    owner = json['owner']==null?"":json['owner'];
+    registrationDate = json['registration_date']==null?"":json['registration_date'];
+    fuelType = json['fuel_type']==null?"":json['fuel_type'];
+    engine = json['engine']==null?"":json['engine'];
+    vehicleClass = json['vehicle_class']==null?"":json['vehicle_class'];
+    makerName = json['maker_name']==null?"":json['maker_name'];
+    makerModel = json['maker_model']==null?"":json['maker_model'];
+    ownerCount = json['owner_count']==null?"":json['owner_count'];
+    insuranceDate = json['insurance_date']==null?"":json['insurance_date'];
+    pollution = json['pollution']==null?"":json['pollution'];
+    fitnessDt = json['fitness_dt']==null?"":json['fitness_dt'];
+    isBlacklisted = json['is_blacklisted']==null?"":json['is_blacklisted'];
+    model = json['model']==null?"":json['model'];
+    insurerName = json['insurer_name']==null?"":json['insurer_name'];
+    financierName = json['financier_name']==null?"":json['financier_name'];
+    vehicleColor = json['vehicle_color']==null?"":json['vehicle_color'];
     manufacturingDate = json['manufacturing_date'];
-    normsType = json['norms_type'];
-    ownerFatherName = json['owner_father_name'];
-    registrationAuthority = json['registration_authority'];
-    insurancePolicyNo = json['insurance_policy_no'];
-    presentAddress = json['present_address'];
-    permanentAddress = json['permanent_address'];
-    vehicleCubicCapacity = json['vehicle_cubic_capacity'];
-    puccNo = json['pucc_no'];
-    vehicleWeight = json['vehicle_weight'];
-    seatingCapacity = json['seating_capacity'];
-    pucExpiry = json['puc_expiry'];
-    fitUpto = json['fit_upto'];
-    taxUpto = null;
-    gvw = json['gvw'];
-    unladenWeight = json['unladen_weight'];
-    sleeperCap = json['sleeper_cap'];
-    standCap = json['stand_cap'];
-    wheelBase = json['wheel_base'];
-    blacklistStatus = json['blacklist_status'];
-    nocDetails = json['noc_details'];
-    rcStatus = json['rc_status'];
-    rcStatusAsOn = null;
-    permitNo = json['permit_no'];
-    permitIssueDate = json['permit_issue_date'];
-    permitValidFrom = json['permit_valid_from'];
-    permitValidUpto = json['permit_valid_upto'];
-    permitType = json['permit_type'];
-    bodyType = json['body_type'];
-    noCyl = json['no_cyl'];
+    normsType = json['norms_type']==null?"":json['norms_type'];
+    ownerFatherName = json['owner_father_name']==null?"":json['owner_father_name'];
+    registrationAuthority = json['registration_authority']==null?"":json['registration_authority'];
+    insurancePolicyNo = json['insurance_policy_no']==null?"":json['insurance_policy_no'];
+    presentAddress = json['present_address']==null?"":json['present_address'];
+    permanentAddress = json['permanent_address']==null?"":json['permanent_address'];
+    vehicleCubicCapacity = json['vehicle_cubic_capacity']==null?"":json['vehicle_cubic_capacity'];
+    puccNo = json['pucc_no']==null?"":json['pucc_no'];
+    vehicleWeight = json['vehicle_weight']==null?"":json['vehicle_weight'];
+    seatingCapacity = json['seating_capacity']==null?"":json['seating_capacity'];
+    pucExpiry = json['puc_expiry']==null?"":json['puc_expiry'];
+    fitUpto = json['fit_upto']==null?"":json['fit_upto'];
+    //taxUpto = null;
+    taxUpto = json['tax_upto']==null?"":json['tax_upto'];
+    gvw = json['gvw']==null?"":json['gvw'];
+    unladenWeight = json['unladen_weight']==null?"":json['unladen_weight'];
+    sleeperCap = json['sleeper_cap']==null?"":json['sleeper_cap'];
+    standCap = json['stand_cap']==null?"":json['stand_cap'];
+    wheelBase = json['wheel_base']==null?"":json['wheel_base'];
+    blacklistStatus = json['blacklist_status']==null?"":json['blacklist_status'];
+    nocDetails = json['noc_details']==null?"":json['noc_details'];
+    rcStatus = json['rc_status']==null?"":json['rc_status'];
+   // rcStatusAsOn = null;
+    rcStatusAsOn = json['"rc_status_as_on": ']==null?"":json['rc_status_as_on'];
+    permitNo = json['permit_no']==null?"":json['permit_no'];
+    permitIssueDate = json['permit_issue_date']==null?"":json['permit_issue_date'];
+    permitValidFrom = json['permit_valid_from']==null?"":json['permit_valid_from'];
+    permitValidUpto = json['permit_valid_upto']==null?"":json['permit_valid_upto'];
+    permitType = json['permit_type']==null?"":json['permit_type'];
+    bodyType = json['body_type']==null?"":json['body_type'];
+    noCyl = json['no_cyl']==null?"":json['no_cyl'];
   }
 
   Map<String, dynamic> toJson() {

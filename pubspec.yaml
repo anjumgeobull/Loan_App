@@ -57,7 +57,7 @@ dev_dependencies:
   avatar_glow:
   animator: ^3.2.0
   provider:
-  path_provider: ^2.0.12
+  path_provider:
   assets_audio_player: ^3.0.6
   flutter_beep: ^1.0.0
   flutter_typeahead: ^4.1.1
@@ -74,7 +74,7 @@ dev_dependencies:
   image_picker: ^0.8.6+3
   image_cropper: ^3.0.1
   cached_network_image: ^3.2.1
-  permission_handler: ^8.3.0
+  permission_handler:
   url_launcher: ^6.1.11
   translator:
   date_format: ^2.0.4

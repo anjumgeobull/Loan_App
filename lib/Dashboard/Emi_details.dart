@@ -148,6 +148,7 @@ class _Emi_detailsState extends State<Emi_details> {
 
     );
   }
+
   createpdf()
   async {
     // Create a PDF document

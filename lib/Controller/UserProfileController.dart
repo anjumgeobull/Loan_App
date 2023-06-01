@@ -114,8 +114,4 @@ class UserProfileController extends GetxController{
       debugPrint("Login Error -- $e  $s");
     }
   }
-
-
-
-
 }

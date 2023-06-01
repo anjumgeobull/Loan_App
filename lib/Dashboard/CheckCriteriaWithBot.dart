@@ -26,6 +26,8 @@ import '../config/choosen_lang.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
 
+import 'home_screen.dart';
+
 class CheckCriteriaWithBot extends StatefulWidget {
   const CheckCriteriaWithBot({Key? key}) : super(key: key);
 
@@ -95,37 +97,99 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
 
   //Upload other documents
   bool isOtherDocumentSelected = false;
-
-  // final ImagePicker _Otherpicker = ImagePicker();
-  // late String other_pics = '';
-  // File? inicon_img;
-  // late XFile ipickedImageFile;
-
   bool _isPermissionGranted = false;
   String? token = '';
   RangeValues _loanRangeValues = RangeValues(0.0, 10.0);
 
   List<File> _imageFiles = [];
+  List<File> _aadharImages = [];
+  List<File> _rcImages = [];
+  List<File> _insuranceImages = [];
+  List<File> _bank_statement = [];
 
-  Future<void> _pickImages() async {
-    List<File> imageFiles = [];
+  Future<void> _pickImages(String document) async {
+    if(document=="aadharCard")
+      {
+        List<File> imageFiles = [];
 
-    final List<XFile> selectedImages =
-    await ImagePicker().pickMultiImage(imageQuality: 50);
+        final List<XFile> selectedImages =
+        await ImagePicker().pickMultiImage(imageQuality: 50);
 
-    if (selectedImages != null) {
-      for (XFile file in selectedImages) {
-        final File imageFile = File(file.path);
-        imageFiles.add(imageFile);
+        if (selectedImages != null) {
+          for (XFile file in selectedImages) {
+            final File imageFile = File(file.path);
+            imageFiles.add(imageFile);
+          }
+        }
+
+        setState(() {
+          if (_aadharImages.isNotEmpty) {
+            _aadharImages.addAll(imageFiles);
+          } else
+            _aadharImages = imageFiles;
+        });
       }
+    else if(document=="other_document") {
+      List<File> imageFiles = [];
+
+      final List<XFile> selectedImages =
+      await ImagePicker().pickMultiImage(imageQuality: 50);
+
+      if (selectedImages != null) {
+        for (XFile file in selectedImages) {
+          final File imageFile = File(file.path);
+          imageFiles.add(imageFile);
+        }
+      }
+
+      setState(() {
+        if (_imageFiles.isNotEmpty) {
+          _imageFiles.addAll(imageFiles);
+        } else
+          _imageFiles = imageFiles;
+      });
+    }
+    else if(document=="rcImage") {
+      List<File> imageFiles = [];
+
+      final List<XFile> selectedImages =
+      await ImagePicker().pickMultiImage(imageQuality: 50);
+
+      if (selectedImages != null) {
+        for (XFile file in selectedImages) {
+          final File imageFile = File(file.path);
+          imageFiles.add(imageFile);
+        }
+      }
+
+      setState(() {
+        if (_rcImages.isNotEmpty) {
+          _rcImages.addAll(imageFiles);
+        } else
+          _rcImages = imageFiles;
+      });
+    }
+    else if(document=="Insurance") {
+      List<File> imageFiles = [];
+
+      final List<XFile> selectedImages =
+      await ImagePicker().pickMultiImage(imageQuality: 50);
+
+      if (selectedImages != null) {
+        for (XFile file in selectedImages) {
+          final File imageFile = File(file.path);
+          imageFiles.add(imageFile);
+        }
+      }
+
+      setState(() {
+        if (_insuranceImages.isNotEmpty) {
+          _insuranceImages.addAll(imageFiles);
+        } else
+          _insuranceImages = imageFiles;
+      });
     }
 
-    setState(() {
-      if(_imageFiles.isNotEmpty) {
-        _imageFiles.addAll(imageFiles);
-      }else
-        _imageFiles = imageFiles;
-    });
   }
 
   @override
@@ -265,7 +329,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                   Duration(milliseconds: 700),
                                   child: textToTrans(
                                     input:
-                                    "Let's start, to check your eligible critria...",
+                                    "Let's start, to check your eligible criteria...",
                                     textAlign: TextAlign.center,
                                     style: KH6.copyWith(
                                       height: 1.5,
@@ -943,12 +1007,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                 onTap: () {
                                                   setState(() {
                                                     sendSound();
-                                                    botProvider
-                                                        .panButtonVisible =
-                                                    false;
-                                                    botProvider
-                                                        .adharWidgetVisible =
-                                                    true;
+                                                    botProvider.panButtonVisible = false;
+                                                    botProvider.adharWidgetVisible = true;
                                                     // botProvider.visibleExpericeneWidget(true);
                                                     receiveSound();
                                                   });
@@ -960,6 +1020,405 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                 ),
                               ),
 
+                              // SlideFadeTransition(
+                              //   delayStart: Duration(milliseconds: 300),
+                              //   animationDuration: Duration(milliseconds: 1200),
+                              //   // curve: Curves.elasticOut,
+                              //   // offset: -2.5,
+                              //
+                              //   child: Visibility(
+                              //     visible: botProvider.adharWidgetVisible
+                              //         ? true
+                              //         : false,
+                              //     child: Container(
+                              //       width: SizeConfig.screenWidth,
+                              //       child: Column(
+                              //         crossAxisAlignment:
+                              //         CrossAxisAlignment.start,
+                              //         children: [
+                              //           SizedBox(
+                              //             height: 20,
+                              //           ),
+                              //           textToTrans(
+                              //             input: "Ok!!!...",
+                              //             style: KH7_SemiBold.copyWith(
+                              //                 height: 1.5),
+                              //           ),
+                              //           SizedBox(
+                              //             height: 7,
+                              //           ),
+                              //           textToTrans(
+                              //               input:
+                              //               "Please Upload Your Adhar Card Photo"),
+                              //           SizedBox(
+                              //             height: 7,
+                              //           ),
+                              //           Container(
+                              //             width: botProvider.adharIconVisible
+                              //                 ? SizeConfig.screenWidth * 0.9
+                              //                 : SizeConfig.screenWidth * 0.7,
+                              //             child: Stack(
+                              //               children: [
+                              //                 ClipRRect(
+                              //                   borderRadius:
+                              //                   BorderRadius.circular(10.0),
+                              //                   child: isadharIconSelected
+                              //                       ? Image.file(
+                              //                     aicon_img!,
+                              //                     height: 100,
+                              //                     width: 100,
+                              //                   )
+                              //                       : adhar_pic.isEmpty
+                              //                       ? GestureDetector(
+                              //                     onTap: () {
+                              //                       ashowImageDialog();
+                              //                       setState(() {
+                              //                         botProvider.adharButtonVisible = true;
+                              //                       });
+                              //                     },
+                              //                     child: Container(
+                              //                       height: 50,
+                              //                       width: 200,
+                              //                       child: Image.asset(
+                              //                           'assets/images/uploading.png'),
+                              //                     ),
+                              //                   )
+                              //                       : CachedNetworkImage(
+                              //                     height: 50,
+                              //                     width: 200,
+                              //                     imageUrl: adhar_pic,
+                              //                     placeholder:
+                              //                         (context,
+                              //                         url) =>
+                              //                         Container(
+                              //                           decoration:
+                              //                           BoxDecoration(
+                              //                             color: Colors
+                              //                                 .grey[400],
+                              //                           ),
+                              //                         ),
+                              //                     errorWidget:
+                              //                         (context, url,
+                              //                         error) =>
+                              //                         Icon(Icons
+                              //                             .error),
+                              //                   ),
+                              //                 ),
+                              //                 if (isadharIconSelected)
+                              //                   Positioned(
+                              //                     top: 5,
+                              //                     right: 5,
+                              //                     child: GestureDetector(
+                              //                       onTap: () {
+                              //                         setState(() {
+                              //                           isadharIconSelected =
+                              //                           false;
+                              //                           aicon_img =
+                              //                           null; // Set picon_img back to null
+                              //                         });
+                              //                       },
+                              //                       child: Icon(
+                              //                         Icons.cancel,
+                              //                         size: 20,
+                              //                         color: Colors.grey[700],
+                              //                       ),
+                              //                     ),
+                              //                   ),
+                              //               ],
+                              //             ),
+                              //           ),
+                              //           Visibility(
+                              //               visible:
+                              //               botProvider.adharButtonVisible
+                              //                   ? true
+                              //                   : false,
+                              //               child: InkWell(
+                              //                   onTap: () {
+                              //                     setState(() {
+                              //                       sendSound();
+                              //                       botProvider
+                              //                           .adharButtonVisible =
+                              //                       false;
+                              //                       botProvider
+                              //                           .rcWidgetVisible = true;
+                              //                       // botProvider.visibleExpericeneWidget(true);
+                              //                       receiveSound();
+                              //                     });
+                              //                   },
+                              //                   child: SendButtonComponent())),
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+
+                              // SlideFadeTransition(
+                              //   delayStart: Duration(milliseconds: 300),
+                              //   animationDuration: Duration(milliseconds: 1200),
+                              //   // curve: Curves.elasticOut,
+                              //   // offset: -2.5,
+                              //
+                              //   child: Visibility(
+                              //     visible: botProvider.rcWidgetVisible
+                              //         ? true
+                              //         : false,
+                              //     child: Container(
+                              //       width: SizeConfig.screenWidth,
+                              //       child: Column(
+                              //         crossAxisAlignment:
+                              //         CrossAxisAlignment.start,
+                              //         children: [
+                              //           SizedBox(
+                              //             height: 20,
+                              //           ),
+                              //           textToTrans(
+                              //             input: "Ok!!!...",
+                              //             style: KH7_SemiBold.copyWith(
+                              //                 height: 1.5),
+                              //           ),
+                              //           SizedBox(
+                              //             height: 7,
+                              //           ),
+                              //           textToTrans(
+                              //               input:
+                              //               "Please Upload Your RC Book Photo"),
+                              //           SizedBox(
+                              //             height: 7,
+                              //           ),
+                              //           Container(
+                              //             width: botProvider.rcIconVisible
+                              //                 ? SizeConfig.screenWidth * 0.9
+                              //                 : SizeConfig.screenWidth * 0.7,
+                              //             child: Stack(
+                              //               children: [
+                              //                 ClipRRect(
+                              //                   borderRadius:
+                              //                   BorderRadius.circular(10.0),
+                              //                   child: isRCIconSelected
+                              //                       ? Image.file(
+                              //                     ricon_img!,
+                              //                     height: 100,
+                              //                     width: 100,
+                              //                   )
+                              //                       : rc_pic.isEmpty
+                              //                       ? GestureDetector(
+                              //                     onTap: () {
+                              //                       rshowImageDialog();
+                              //                       setState(() {
+                              //                         botProvider
+                              //                             .rcButtonVisible =
+                              //                         true;
+                              //                       });
+                              //                     },
+                              //                     child: Container(
+                              //                       height: 50,
+                              //                       width: 200,
+                              //                       child: Image.asset(
+                              //                           'assets/images/uploading.png'),
+                              //                     ),
+                              //                   )
+                              //                       : CachedNetworkImage(
+                              //                     height: 50,
+                              //                     width: 200,
+                              //                     imageUrl: rc_pic,
+                              //                     placeholder:
+                              //                         (context,
+                              //                         url) =>
+                              //                         Container(
+                              //                           decoration:
+                              //                           BoxDecoration(
+                              //                             color: Colors
+                              //                                 .grey[400],
+                              //                           ),
+                              //                         ),
+                              //                     errorWidget:
+                              //                         (context, url,
+                              //                         error) =>
+                              //                         Icon(Icons
+                              //                             .error),
+                              //                   ),
+                              //                 ),
+                              //                 if (isRCIconSelected)
+                              //                   Positioned(
+                              //                     top: 5,
+                              //                     right: 5,
+                              //                     child: GestureDetector(
+                              //                       onTap: () {
+                              //                         setState(() {
+                              //                           isRCIconSelected =
+                              //                           false;
+                              //                           ricon_img =
+                              //                           null; // Set picon_img back to null
+                              //                         });
+                              //                       },
+                              //                       child: Icon(
+                              //                         Icons.cancel,
+                              //                         size: 20,
+                              //                         color: Colors.grey[700],
+                              //                       ),
+                              //                     ),
+                              //                   ),
+                              //               ],
+                              //             ),
+                              //           ),
+                              //           Visibility(
+                              //               visible: botProvider.rcButtonVisible
+                              //                   ? true
+                              //                   : false,
+                              //               child: InkWell(
+                              //                   onTap: () {
+                              //                     setState(() {
+                              //                       sendSound();
+                              //                       botProvider
+                              //                           .rcButtonVisible =
+                              //                       false;
+                              //                       botProvider
+                              //                           .insuWidgetVisible =
+                              //                       true;
+                              //                       // botProvider.visibleExpericeneWidget(true);
+                              //                       receiveSound();
+                              //                     });
+                              //                   },
+                              //                   child: SendButtonComponent())),
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                              //
+                              // SlideFadeTransition(
+                              //   delayStart: Duration(milliseconds: 300),
+                              //   animationDuration: Duration(milliseconds: 1200),
+                              //   // curve: Curves.elasticOut,
+                              //   // offset: -2.5,
+                              //
+                              //   child: Visibility(
+                              //     visible: botProvider.insuWidgetVisible
+                              //         ? true
+                              //         : false,
+                              //     child: Container(
+                              //       width: SizeConfig.screenWidth,
+                              //       child: Column(
+                              //         crossAxisAlignment:
+                              //         CrossAxisAlignment.start,
+                              //         children: [
+                              //           SizedBox(
+                              //             height: 20,
+                              //           ),
+                              //           textToTrans(
+                              //             input: "Ok!!!...",
+                              //             style: KH7_SemiBold.copyWith(
+                              //                 height: 1.5),
+                              //           ),
+                              //           SizedBox(
+                              //             height: 7,
+                              //           ),
+                              //           textToTrans(
+                              //               input:
+                              //               "Please Upload  Insurance Photo"),
+                              //           SizedBox(
+                              //             height: 7,
+                              //           ),
+                              //           Container(
+                              //             width: botProvider.insuIconVisible
+                              //                 ? SizeConfig.screenWidth * 0.9
+                              //                 : SizeConfig.screenWidth * 0.7,
+                              //             child: Stack(
+                              //               children: [
+                              //                 ClipRRect(
+                              //                   borderRadius:
+                              //                   BorderRadius.circular(10.0),
+                              //                   child: isinsuranceIconSelected
+                              //                       ? Image.file(
+                              //                     inicon_img!,
+                              //                     height: 100,
+                              //                     width: 100,
+                              //                   )
+                              //                       : insurance_pic.isEmpty
+                              //                       ? GestureDetector(
+                              //                     onTap: () {
+                              //                       ishowImageDialog();
+                              //                       setState(() {
+                              //                         botProvider
+                              //                             .insuButtonVisible =
+                              //                         true;
+                              //                       });
+                              //                     },
+                              //                     child: Container(
+                              //                       height: 50,
+                              //                       width: 200,
+                              //                       child: Image.asset(
+                              //                           'assets/images/uploading.png'),
+                              //                     ),
+                              //                   )
+                              //                       : CachedNetworkImage(
+                              //                     height: 50,
+                              //                     width: 200,
+                              //                     imageUrl:
+                              //                     insurance_pic,
+                              //                     placeholder:
+                              //                         (context,
+                              //                         url) =>
+                              //                         Container(
+                              //                           decoration:
+                              //                           BoxDecoration(
+                              //                             color: Colors
+                              //                                 .grey[400],
+                              //                           ),
+                              //                         ),
+                              //                     errorWidget:
+                              //                         (context, url,
+                              //                         error) =>
+                              //                         Icon(Icons
+                              //                             .error),
+                              //                   ),
+                              //                 ),
+                              //                 if (isinsuranceIconSelected)
+                              //                   Positioned(
+                              //                     top: 5,
+                              //                     right: 5,
+                              //                     child: GestureDetector(
+                              //                       onTap: () {
+                              //                         setState(() {
+                              //                           isinsuranceIconSelected = false;
+                              //                           inicon_img = null; // Set picon_img back to null
+                              //                         });
+                              //                       },
+                              //                       child: Icon(
+                              //                         Icons.cancel,
+                              //                         size: 20,
+                              //                         color: Colors.grey[700],
+                              //                       ),
+                              //                     ),
+                              //                   ),
+                              //               ],
+                              //             ),
+                              //           ),
+                              //           Visibility(
+                              //               visible:
+                              //               botProvider.insuButtonVisible
+                              //                   ? true
+                              //                   : false,
+                              //               child: InkWell(
+                              //                   onTap: () {
+                              //                     setState(() {
+                              //                       sendSound();
+                              //                       botProvider
+                              //                           .insuButtonVisible =
+                              //                       false;
+                              //                       botProvider
+                              //                           .bankWidgetVisible =
+                              //                       true;
+                              //                       // botProvider.visibleExpericeneWidget(true);
+                              //                       receiveSound();
+                              //                     });
+                              //                   },
+                              //                   child: SendButtonComponent())),
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                               SlideFadeTransition(
                                 delayStart: Duration(milliseconds: 300),
                                 animationDuration: Duration(milliseconds: 1200),
@@ -997,78 +1456,69 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                           width: botProvider.adharIconVisible
                                               ? SizeConfig.screenWidth * 0.9
                                               : SizeConfig.screenWidth * 0.7,
-                                          child: Stack(
-                                            children: [
-                                              ClipRRect(
-                                                borderRadius:
-                                                BorderRadius.circular(10.0),
-                                                child: isadharIconSelected
-                                                    ? Image.file(
-                                                  aicon_img!,
-                                                  height: 100,
-                                                  width: 100,
-                                                )
-                                                    : adhar_pic.isEmpty
-                                                    ? GestureDetector(
-                                                  onTap: () {
-                                                    ashowImageDialog();
-                                                    setState(() {
-                                                      botProvider
-                                                          .adharButtonVisible =
-                                                      true;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    height: 50,
-                                                    width: 200,
-                                                    child: Image.asset(
-                                                        'assets/images/uploading.png'),
-                                                  ),
-                                                )
-                                                    : CachedNetworkImage(
-                                                  height: 50,
-                                                  width: 200,
-                                                  imageUrl: adhar_pic,
-                                                  placeholder:
-                                                      (context,
-                                                      url) =>
-                                                      Container(
-                                                        decoration:
-                                                        BoxDecoration(
-                                                          color: Colors
-                                                              .grey[400],
-                                                        ),
-                                                      ),
-                                                  errorWidget:
-                                                      (context, url,
-                                                      error) =>
-                                                      Icon(Icons
-                                                          .error),
-                                                ),
-                                              ),
-                                              if (isadharIconSelected)
-                                                Positioned(
-                                                  top: 5,
-                                                  right: 5,
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        isadharIconSelected =
-                                                        false;
-                                                        aicon_img =
-                                                        null; // Set picon_img back to null
-                                                      });
-                                                    },
-                                                    child: Icon(
-                                                      Icons.cancel,
-                                                      size: 20,
-                                                      color: Colors.grey[700],
-                                                    ),
-                                                  ),
-                                                ),
-                                            ],
+                                          child:
+                                          GestureDetector(
+                                            onTap: () async {
+                                              _pickImages("aadharCard");
+                                              isadharIconSelected = true;
+                                              setState(() {
+                                                botProvider.adharButtonVisible = true;
+                                              });
+                                            },
+                                            child:
+                                            Icon(
+                                              Icons.upload_file,
+                                              size: 45,
+                                              color: themeColor,
+                                            ),
                                           ),
                                         ),
+                                        isadharIconSelected == true
+                                            ? Container(
+                                          width: botProvider
+                                              .adharIconVisible
+                                              ? SizeConfig.screenWidth *
+                                              0.9
+                                              : SizeConfig.screenWidth *
+                                              0.7,
+                                          child:
+                                          isadharIconSelected
+                                              ?
+                                          SizedBox(
+                                              height: 150,
+                                              child:
+                                              GridView.count(
+                                                crossAxisCount: 3,
+                                                children: List.generate(_aadharImages.length, (index) {
+                                                  return Stack(
+                                                    children: [
+                                                      Image.file(
+                                                        _aadharImages[index],
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                      Positioned(
+                                                        top: 0,
+                                                        right: 0,
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              _aadharImages.removeAt(index);
+                                                            });
+                                                          },
+                                                          child: Icon(
+                                                            Icons.cancel,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }),
+                                              )
+                                          )
+                                              : Container(),
+                                        )
+                                            : Container(),
                                         Visibility(
                                             visible:
                                             botProvider.adharButtonVisible
@@ -1081,9 +1531,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                     botProvider
                                                         .adharButtonVisible =
                                                     false;
-                                                    botProvider
-                                                        .rcWidgetVisible = true;
-                                                    // botProvider.visibleExpericeneWidget(true);
+                                                    botProvider.rcWidgetVisible = true;
+                                                    true;
                                                     receiveSound();
                                                   });
                                                 },
@@ -1123,7 +1572,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         textToTrans(
                                             input:
-                                            "Please Upload Your RC Book Photo"),
+                                            "Please Upload RC documents"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -1131,93 +1580,82 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                           width: botProvider.rcIconVisible
                                               ? SizeConfig.screenWidth * 0.9
                                               : SizeConfig.screenWidth * 0.7,
-                                          child: Stack(
-                                            children: [
-                                              ClipRRect(
-                                                borderRadius:
-                                                BorderRadius.circular(10.0),
-                                                child: isRCIconSelected
-                                                    ? Image.file(
-                                                  ricon_img!,
-                                                  height: 100,
-                                                  width: 100,
-                                                )
-                                                    : rc_pic.isEmpty
-                                                    ? GestureDetector(
-                                                  onTap: () {
-                                                    rshowImageDialog();
-                                                    setState(() {
-                                                      botProvider
-                                                          .rcButtonVisible =
-                                                      true;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    height: 50,
-                                                    width: 200,
-                                                    child: Image.asset(
-                                                        'assets/images/uploading.png'),
-                                                  ),
-                                                )
-                                                    : CachedNetworkImage(
-                                                  height: 50,
-                                                  width: 200,
-                                                  imageUrl: rc_pic,
-                                                  placeholder:
-                                                      (context,
-                                                      url) =>
-                                                      Container(
-                                                        decoration:
-                                                        BoxDecoration(
-                                                          color: Colors
-                                                              .grey[400],
-                                                        ),
-                                                      ),
-                                                  errorWidget:
-                                                      (context, url,
-                                                      error) =>
-                                                      Icon(Icons
-                                                          .error),
-                                                ),
-                                              ),
-                                              if (isRCIconSelected)
-                                                Positioned(
-                                                  top: 5,
-                                                  right: 5,
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        isRCIconSelected =
-                                                        false;
-                                                        ricon_img =
-                                                        null; // Set picon_img back to null
-                                                      });
-                                                    },
-                                                    child: Icon(
-                                                      Icons.cancel,
-                                                      size: 20,
-                                                      color: Colors.grey[700],
-                                                    ),
-                                                  ),
-                                                ),
-                                            ],
+                                          child:
+                                          GestureDetector(
+                                            onTap: () async {
+                                              _pickImages("rcImage");
+                                              isRCIconSelected = true;
+                                              setState(() {
+                                                botProvider.insuButtonVisible = true;
+                                                botProvider1.insuWidgetVisible=true;
+                                              });
+                                            },
+                                            child:
+                                            Icon(
+                                              Icons.upload_file,
+                                              size: 45,
+                                              color: themeColor,
+                                            ),
                                           ),
                                         ),
+                                        isRCIconSelected == true
+                                            ? Container(
+                                          width: botProvider
+                                              .rcIconVisible
+                                              ? SizeConfig.screenWidth *
+                                              0.9
+                                              : SizeConfig.screenWidth *
+                                              0.7,
+                                          child:
+                                          isRCIconSelected
+                                              ?
+                                          SizedBox(
+                                              height: 200,
+                                              child:
+                                              GridView.count(
+                                                crossAxisCount: 3,
+                                                children: List.generate(_rcImages.length, (index) {
+                                                  return Stack(
+                                                    children: [
+                                                      Image.file(
+                                                        _rcImages[index],
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                      Positioned(
+                                                        top: 0,
+                                                        right: 0,
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              _rcImages.removeAt(index);
+                                                            });
+                                                          },
+                                                          child: Icon(
+                                                            Icons.cancel,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }),
+                                              )
+                                          )
+                                              : Container(),
+                                        )
+                                            : Container(),
                                         Visibility(
-                                            visible: botProvider.rcButtonVisible
+                                            visible:
+                                            botProvider.rcButtonVisible
                                                 ? true
                                                 : false,
                                             child: InkWell(
                                                 onTap: () {
                                                   setState(() {
                                                     sendSound();
-                                                    botProvider
-                                                        .rcButtonVisible =
-                                                    false;
-                                                    botProvider
-                                                        .insuWidgetVisible =
+                                                    botProvider.rcButtonVisible = false;
+                                                    botProvider.insuWidgetVisible = true;
                                                     true;
-                                                    // botProvider.visibleExpericeneWidget(true);
                                                     receiveSound();
                                                   });
                                                 },
@@ -1257,7 +1695,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                         ),
                                         textToTrans(
                                             input:
-                                            "Please Upload  Insurance Photo"),
+                                            "Please Upload Insurance documents"),
                                         SizedBox(
                                           height: 7,
                                         ),
@@ -1265,77 +1703,70 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                           width: botProvider.insuIconVisible
                                               ? SizeConfig.screenWidth * 0.9
                                               : SizeConfig.screenWidth * 0.7,
-                                          child: Stack(
-                                            children: [
-                                              ClipRRect(
-                                                borderRadius:
-                                                BorderRadius.circular(10.0),
-                                                child: isinsuranceIconSelected
-                                                    ? Image.file(
-                                                  inicon_img!,
-                                                  height: 100,
-                                                  width: 100,
-                                                )
-                                                    : insurance_pic.isEmpty
-                                                    ? GestureDetector(
-                                                  onTap: () {
-                                                    ishowImageDialog();
-                                                    setState(() {
-                                                      botProvider
-                                                          .insuButtonVisible =
-                                                      true;
-                                                    });
-                                                  },
-                                                  child: Container(
-                                                    height: 50,
-                                                    width: 200,
-                                                    child: Image.asset(
-                                                        'assets/images/uploading.png'),
-                                                  ),
-                                                )
-                                                    : CachedNetworkImage(
-                                                  height: 50,
-                                                  width: 200,
-                                                  imageUrl:
-                                                  insurance_pic,
-                                                  placeholder:
-                                                      (context,
-                                                      url) =>
-                                                      Container(
-                                                        decoration:
-                                                        BoxDecoration(
-                                                          color: Colors
-                                                              .grey[400],
-                                                        ),
-                                                      ),
-                                                  errorWidget:
-                                                      (context, url,
-                                                      error) =>
-                                                      Icon(Icons
-                                                          .error),
-                                                ),
-                                              ),
-                                              if (isinsuranceIconSelected)
-                                                Positioned(
-                                                  top: 5,
-                                                  right: 5,
-                                                  child: GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        isinsuranceIconSelected = false;
-                                                        inicon_img = null; // Set picon_img back to null
-                                                      });
-                                                    },
-                                                    child: Icon(
-                                                      Icons.cancel,
-                                                      size: 20,
-                                                      color: Colors.grey[700],
-                                                    ),
-                                                  ),
-                                                ),
-                                            ],
+                                          child:
+                                          GestureDetector(
+                                            onTap: () async {
+                                              _pickImages("Insurance");
+                                              isinsuranceIconSelected = true;
+                                              setState(() {
+                                                botProvider.bankButtonVisible = true;
+                                                botProvider1.bankWidgetVisible=true;
+                                              });
+                                            },
+                                            child:
+                                            Icon(
+                                              Icons.upload_file,
+                                              size: 45,
+                                              color: themeColor,
+                                            ),
                                           ),
                                         ),
+                                        isinsuranceIconSelected == true
+                                            ? Container(
+                                          width: botProvider
+                                              .insuIconVisible
+                                              ? SizeConfig.screenWidth *
+                                              0.9
+                                              : SizeConfig.screenWidth *
+                                              0.7,
+                                          child:
+                                          isinsuranceIconSelected
+                                              ?
+                                          SizedBox(
+                                              height: 200,
+                                              child:
+                                              GridView.count(
+                                                crossAxisCount: 3,
+                                                children: List.generate(_insuranceImages.length, (index) {
+                                                  return Stack(
+                                                    children: [
+                                                      Image.file(
+                                                        _insuranceImages[index],
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                      Positioned(
+                                                        top: 0,
+                                                        right: 0,
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              _insuranceImages.removeAt(index);
+                                                            });
+                                                          },
+                                                          child: Icon(
+                                                            Icons.cancel,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }),
+                                              )
+                                          )
+                                              : Container(),
+                                        )
+                                            : Container(),
                                         Visibility(
                                             visible:
                                             botProvider.insuButtonVisible
@@ -1351,7 +1782,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                     botProvider
                                                         .bankWidgetVisible =
                                                     true;
-                                                    // botProvider.visibleExpericeneWidget(true);
+                                                    true;
                                                     receiveSound();
                                                   });
                                                 },
@@ -1419,22 +1850,24 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                       allowMultiple: true,
                                                     );
                                                     if (result != null) {
-                                                      PlatformFile file = result.files.first;
-                                                      filedocument = File(file.path!);
-                                                      _selectedDocuments.add(file);
-                                                      isfileuploaded = true;
-                                                      print(file.name);
-                                                      print(file.size);
-                                                      print(file.extension);
+                                                      List<PlatformFile> files = result.files;
+
+                                                      for (PlatformFile file in files) {
+                                                        _selectedDocuments.add(file);
+                                                          File documentFile = File(file.path!);
+                                                        _bank_statement.add(documentFile);
+                                                        print(file.name);
+                                                        print(file.size);
+                                                        print(file.extension);
+                                                      }
+
                                                       setState(() {
-                                                        document = file.name;
-                                                        botProvider
-                                                            .bankButtonVisible =
-                                                        true;
+                                                        document = files.first.name;
+                                                        isfileuploaded = true;
+                                                        botProvider.bankButtonVisible = true;
                                                       });
-                                                      // } else {
-                                                      //   print('No file selected');
-                                                      // }
+                                                    } else {
+                                                      print('No files selected');
                                                     }
                                                   },
                                                   child: Icon(
@@ -1566,7 +1999,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                           child:
                                           GestureDetector(
                                             onTap: () async {
-                                              _pickImages();
+                                              _pickImages("other_document");
                                               isOtherDocumentSelected = true;
                                               setState(() {
                                                 botProvider.finishButtonVisible = true;
@@ -1695,9 +2128,7 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                   cityName:
                                                   _nameController.text,
                                                   empType: ActiveDeactive,
-                                                  reuireamt:
-                                                  _principalController
-                                                      .text,
+                                                  requireamt: _principalController.text,
                                                   // profileImg: profile_pic,
                                                   // icon_img: icon_img,
                                                   // panCardImg: pan_pic,
@@ -1711,6 +2142,8 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
                                                   // bankStatement: document,
                                                   // filedocument: filedocument,
                                                 );
+                                                adddocument();
+
                                               }
                                             } else {
                                               Fluttertoast.showToast(
@@ -1775,7 +2208,73 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
       ),
     );
   }
-
+  adddocument()
+  {
+    if(icon_img!=null) {
+      addenquiryController.addDocumentApi(
+        documentType: "profile_pic",
+        icon_img: icon_img,
+      );
+    }
+    if(picon_img!=null)
+      {
+        addenquiryController.addDocumentApi(
+          documentType: "pan_card",
+          icon_img: picon_img,
+        );
+      }
+    if(_aadharImages.isNotEmpty)
+      {
+        for(int i=0;i<_aadharImages.length;i++)
+          {
+            addenquiryController.addDocumentApi(
+              documentType: "aadhar_card",
+              icon_img: _aadharImages[i],
+            );
+          }
+      }
+    if(_rcImages.isNotEmpty)
+    {
+      for(int i=0;i<_rcImages.length;i++)
+      {
+        addenquiryController.addDocumentApi(
+          documentType: "rc_doc",
+          icon_img: _rcImages[i],
+        );
+      }
+    }
+    if(_insuranceImages.isNotEmpty)
+    {
+      for(int i=0;i<_insuranceImages.length;i++)
+      {
+        addenquiryController.addDocumentApi(
+          documentType: "insurance",
+          icon_img: _insuranceImages[i],
+        );
+      }
+    }
+    if(_imageFiles.isNotEmpty)
+    {
+      for(int i=0;i<_imageFiles.length;i++)
+      {
+        addenquiryController.addDocumentApi(
+          documentType: "other_documents",
+          icon_img: _imageFiles[i],
+        );
+      }
+    }
+    if(_bank_statement.isNotEmpty)
+    {
+      for(int i=0;i<_bank_statement.length;i++)
+      {
+        addenquiryController.addDocumentApi(
+          documentType: "bank_statement",
+          icon_img: _bank_statement[i],
+        );
+      }
+    }
+    Get.to(() => HomeScreen());
+  }
 //profile pic
   showImageDialog() async {
     return showDialog(
@@ -2340,9 +2839,9 @@ class _CheckCriteriaWithBotState extends State<CheckCriteriaWithBot> {
         backgroundColor: Colors.grey,
       );
       return false;
-    } else if (_nameController.text.isEmpty) {
+    } else if (_principalController.text.isEmpty) {
       Fluttertoast.showToast(
-        msg: "Please enter valid otp",
+        msg: "Please enter valid loan amount",
         backgroundColor: Colors.grey,
       );
       return false;
